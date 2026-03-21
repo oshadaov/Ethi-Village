@@ -1,16 +1,16 @@
 :root {
   /* Backgrounds */
-  --bg: #f4f8fb;
+  --bg: #ffffff;
   --surface: #ffffff;
   --surface-soft: #eef5fa;
 
   /* Text */
-  --text: #1f3442;
-  --muted: #6f8492;
+  --text: #000000ec;
+  --muted: #000000;
 
   /* Main brand */
-  --primary: #3f88c5;
-  --primary-2: #2f6f9f;
+  --primary: #0b0c0cb5;
+  --primary-2: #86939d;
 
   /* Highlight accent */
   --accent: #7cc0e6;
@@ -41,7 +41,7 @@ html {
 
 body {
   margin: 0;
-  font-family: Inter, Arial, sans-serif;
+  font-family: "Convergence", sans-serif;;
   background: var(--bg);
   color: var(--text);
   /* background-image: url("../assets/bg.png");
@@ -427,43 +427,68 @@ p {
 }
 .destination-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+  max-width: 800px;   /* controls overall size */
+  margin: 0 auto;     /* center it */
 }
 
 .destination-card {
   position: relative;
   overflow: hidden;
-  min-height: 145px;
-  border-radius: 16px;
-  box-shadow: 0 14px 30px rgba(0,0,0,0.1);
+
+  min-height: 130px;   /* reduced height */
+  border-radius: 14px;
+
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
 }
 
 .destination-card.tall {
   grid-row: span 2;
-  min-height: 310px;
+  min-height: 570px;
+  min-width: 400px;   /* reduced tall height */
 }
 
 .destination-card.wide {
   grid-column: span 2;
-  min-height: 150px;
+  min-height: 140px;
 }
 
 .destination-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.destination-card:hover img {
+  transform: scale(1.05);
 }
 
 .destination-overlay {
   position: absolute;
   inset: auto 0 0 0;
-  padding: 14px;
+
+  padding: 10px;
+
   background: linear-gradient(
     180deg,
-    rgba(18,36,50,0) 0%,
-    rgba(18,36,50,0.78) 100%
+    rgba(18, 36, 50, 0) 0%,
+    rgba(18, 36, 50, 0.85) 100%
   );
+}
+
+.destination-overlay h3 {
+  margin: 0 0 2px;
+  color: #fff;
+  font-size: 0.85rem;   /* smaller text */
+}
+
+.destination-overlay p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.65rem;
 }
 .section-actions {
   margin-top: 28px;
@@ -1475,5 +1500,62 @@ p {
 
   .lightbox-backdrop {
     padding: 12px;
+  }
+}
+
+
+
+.floating-whatsapp {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1200;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 16px;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #25d366, #1fb857);
+  color: #ffffff;
+
+  box-shadow: 0 14px 30px rgba(37, 211, 102, 0.28);
+  text-decoration: none;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(37, 211, 102, 0.34);
+}
+
+.floating-whatsapp-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  flex-shrink: 0;
+}
+
+.floating-whatsapp-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .floating-whatsapp {
+    right: 14px;
+    bottom: 14px;
+    padding: 12px;
+  }
+
+  .floating-whatsapp-text {
+    display: none;
   }
 }

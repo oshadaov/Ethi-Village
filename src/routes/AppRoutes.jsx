@@ -9,8 +9,7 @@ import Gallery from "../pages/Gallery";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
-
-export default function AppRoutes() {
+import FloatingWhatsApp from "../components/common/FloatingWhatsApp";export default function AppRoutes() {
   return (
     <>
       <Navbar />
@@ -24,6 +23,7 @@ export default function AppRoutes() {
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <FloatingWhatsApp />
       <Footer />
     </>
   );
