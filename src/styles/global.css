@@ -1,15 +1,17 @@
 :root {
   /* Backgrounds */
-  --bg: #ffffff;
+  --bg: #dee5ea;
+  /* --bg: #eef5fa; */
   --surface: #ffffff;
   --surface-soft: #eef5fa;
+  /* --surface-soft: #dee5ea; */
 
   /* Text */
   --text: #000000ec;
   --muted: #000000;
 
   /* Main brand */
-  --primary: #0b0c0cb5;
+  --primary: #2456caca;
   --primary-2: #86939d;
 
   /* Highlight accent */
@@ -41,7 +43,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "Convergence", sans-serif;;
+  font-family: "Convergence", sans-serif;
   background: var(--bg);
   color: var(--text);
   /* background-image: url("../assets/bg.png");
@@ -124,7 +126,7 @@ p {
   justify-content: center;
   padding: 14px 24px;
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 100;
   transition: 0.25s ease;
   border: 1px solid transparent;
 }
@@ -167,7 +169,6 @@ p {
 }
 
 .navbar-scrolled {
-  background: rgba(244, 248, 251, 0.94);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -178,6 +179,7 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  
 }
 
 .logo {
@@ -214,8 +216,9 @@ p {
 
 .nav-link {
   color: var(--text);
-  font-weight: 600;
+  font-weight: 200;
   position: relative;
+  font-size:large;
 }
 
 .nav-link.active {
@@ -256,7 +259,8 @@ p {
   min-height: 92vh;
   display: flex;
   align-items: center;
-  background-image: url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1800&q=80");
+ background-image: url("https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=1800&q=80");
+
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -265,10 +269,11 @@ p {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(36, 76, 110, 0.82),
-    rgba(87, 154, 201, 0.68)
+ background: linear-gradient(
+    90deg,
+    rgba(23, 46, 64, 0.84) 0%,
+    rgba(23, 46, 64, 0.56) 50%,
+    rgba(23, 46, 64, 0.32) 100%
   );
 }
 
@@ -430,15 +435,15 @@ p {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 
-  max-width: 800px;   /* controls overall size */
-  margin: 0 auto;     /* center it */
+  max-width: 800px; /* controls overall size */
+  margin: 0 auto; /* center it */
 }
 
 .destination-card {
   position: relative;
   overflow: hidden;
 
-  min-height: 130px;   /* reduced height */
+  min-height: 130px; /* reduced height */
   border-radius: 14px;
 
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
@@ -447,7 +452,7 @@ p {
 .destination-card.tall {
   grid-row: span 2;
   min-height: 570px;
-  min-width: 400px;   /* reduced tall height */
+  min-width: 400px; /* reduced tall height */
 }
 
 .destination-card.wide {
@@ -482,7 +487,7 @@ p {
 .destination-overlay h3 {
   margin: 0 0 2px;
   color: #fff;
-  font-size: 0.85rem;   /* smaller text */
+  font-size: 0.85rem; /* smaller text */
 }
 
 .destination-overlay p {
@@ -1296,6 +1301,7 @@ p {
   cursor: pointer;
   box-shadow: var(--shadow);
   background: var(--surface);
+  font-weight: 100;
 }
 
 .gallery-page-image img {
@@ -1503,8 +1509,6 @@ p {
   }
 }
 
-
-
 .floating-whatsapp {
   position: fixed;
   right: 20px;
@@ -1524,7 +1528,10 @@ p {
   box-shadow: 0 14px 30px rgba(37, 211, 102, 0.28);
   text-decoration: none;
 
-  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .floating-whatsapp:hover {

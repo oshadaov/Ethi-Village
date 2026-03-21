@@ -42,7 +42,7 @@ export default function Gallery() {
     <main>
       <section className="page-hero page-hero-gallery">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Gallery</p>
+          {/* <p className="section-eyebrow">Gallery</p> */}
           <h1>See the Spirit of Etili Through Real Moments</h1>
           <p>
             Explore village life, traditional food, nature, local guides, and

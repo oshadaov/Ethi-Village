@@ -8,7 +8,7 @@ export default function Guides() {
     <main>
       <section className="page-hero page-hero-guides">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Local Guides</p>
+          {/* <p className="section-eyebrow">Local Guides</p> */}
           <h1>Meet the People Who Bring Etili to Life</h1>
           <p>
             Our guides are not just tour leaders. They are local storytellers,

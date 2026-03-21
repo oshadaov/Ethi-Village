@@ -51,7 +51,7 @@ export default function Experiences() {
     <main>
       <section className="page-hero page-hero-experiences">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Experiences</p>
+          {/* <p className="section-eyebrow">Experiences</p> */}
           <h1>Choose the Village Experience That Fits Your Journey</h1>
           <p>
             Discover culture, food, nature, and slower travel through carefully

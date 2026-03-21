@@ -39,7 +39,7 @@ export default function Contact() {
     <main>
       <section className="page-hero page-hero-contact">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Contact & Booking</p>
+          {/* <p className="section-eyebrow">Contact & Booking</p> */}
           <h1>Plan Your Village Escape with Confidence</h1>
           <p>
             Share your preferred date, group size, and interests. We’ll help

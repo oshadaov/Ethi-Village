@@ -9,7 +9,6 @@ export default function Accommodation() {
     <main>
       <section className="page-hero page-hero-accommodation">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Accommodation</p>
           <h1>Stay Close to Nature, Comfort, and Village Life</h1>
           <p>
             Complete your Etili journey with a peaceful countryside stay that
