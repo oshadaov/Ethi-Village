@@ -75,25 +75,7 @@ export default function Gallery() {
 
           <GalleryGrid items={filteredItems} onOpen={handleOpenLightbox} />
 
-          <div className="gallery-bottom-cta">
-            <div className="gallery-bottom-box">
-              <div>
-                <p className="section-eyebrow">Ready to Experience It?</p>
-                <h2>Turn These Moments Into Your Own Journey</h2>
-                <p>
-                  Explore our experiences or send an inquiry to plan your visit.
-                </p>
-              </div>
-
-              <div className="cta-actions">
-                <Button to="/experiences">Explore Experiences</Button>
-                <Button to="/contact" variant="secondary">
-                  Contact Us
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Container>
+             </Container>
       </section>
 
       <LightboxModal

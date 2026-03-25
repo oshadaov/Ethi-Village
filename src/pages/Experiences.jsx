@@ -68,7 +68,8 @@ export default function Experiences() {
             description="Filter by experience type, duration, or difficulty to find the right match for your trip."
           />
 
-          <div className="experience-filter-bar">
+          <div className="
+          experience-filter-bar">
             <div className="filter-field search-field">
               <label htmlFor="experience-search">Search</label>
               <input

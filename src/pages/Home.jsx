@@ -21,9 +21,10 @@ export default function Home() {
       <GuidesSection />
       <GalleryPreviewSection />
       <TestimonialsSection />
+      
       <BookingStepsSection />
       <FAQSection />
-      <CTASection />
+      {/* <CTASection /> */}
     </>
   );
 }

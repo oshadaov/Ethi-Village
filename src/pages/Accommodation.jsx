@@ -117,15 +117,7 @@ export default function Accommodation() {
             </p>
           </div>
 
-          <div className="cta-actions">
-            <Button to="/contact">Send Inquiry</Button>
-            <Button
-              href="https://wa.me/94771234567"
-              variant="secondary"
-            >
-              WhatsApp Us
-            </Button>
-          </div>
+         
         </Container>
       </section>
     </main>

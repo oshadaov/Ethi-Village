@@ -121,25 +121,7 @@ export default function About() {
         </Container>
       </section>
 
-      <section className="cta-section">
-        <Container className="cta-box">
-          <div>
-            <p className="section-eyebrow">Visit Etili</p>
-            <h2>Come for the Experience. Leave with a Story.</h2>
-            <p>
-              Explore village life, local food, and peaceful landscapes through
-              a journey that feels personal and memorable.
-            </p>
-          </div>
-
-          <div className="cta-actions">
-            <Button to="/experiences">Explore Experiences</Button>
-            <Button to="/contact" variant="secondary">
-              Contact Us
-            </Button>
-          </div>
-        </Container>
-      </section>
+      
     </main>
   );
 }
