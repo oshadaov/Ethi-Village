@@ -51,7 +51,7 @@ export default function Experiences() {
     <main>
       <section className="page-hero page-hero-experiences">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Experiences</p>
+          {/* <p className="section-eyebrow">Experiences</p> */}
           <h1>Choose the Village Experience That Fits Your Journey</h1>
           <p>
             Discover culture, food, nature, and slower travel through carefully
@@ -68,7 +68,8 @@ export default function Experiences() {
             description="Filter by experience type, duration, or difficulty to find the right match for your trip."
           />
 
-          <div className="experience-filter-bar">
+          <div className="
+          experience-filter-bar">
             <div className="filter-field search-field">
               <label htmlFor="experience-search">Search</label>
               <input

@@ -12,17 +12,17 @@ export default function GuidesSection() {
           description="Our guides bring village stories, food culture, and local knowledge to life."
         />
 
-        <div className="card-grid two">
-          {guides.map((guide) => (
-            <article key={guide.id} className="guide-card">
-              <img src={guide.image} alt={guide.name} />
-              <div className="card-body">
-                <h3>{guide.name}</h3>
-                <p className="guide-role">{guide.role}</p>
-                <p className="guide-languages">{guide.languages}</p>
-                <p>{guide.bio}</p>
+        <div className="team-grid">
+          {guides.map((member, index) => (
+            <div key={index} className="team-card">
+              <div className="image-wrapper">
+                <img src={member.img} alt={member.name} />
               </div>
-            </article>
+
+              <h4>{member.name}</h4>
+              <p className="role">{member.role}</p>
+              <p className="desc">{member.desc}</p>
+            </div>
           ))}
         </div>
       </Container>

@@ -42,7 +42,7 @@ export default function Gallery() {
     <main>
       <section className="page-hero page-hero-gallery">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Gallery</p>
+          {/* <p className="section-eyebrow">Gallery</p> */}
           <h1>See the Spirit of Etili Through Real Moments</h1>
           <p>
             Explore village life, traditional food, nature, local guides, and
@@ -75,25 +75,7 @@ export default function Gallery() {
 
           <GalleryGrid items={filteredItems} onOpen={handleOpenLightbox} />
 
-          <div className="gallery-bottom-cta">
-            <div className="gallery-bottom-box">
-              <div>
-                <p className="section-eyebrow">Ready to Experience It?</p>
-                <h2>Turn These Moments Into Your Own Journey</h2>
-                <p>
-                  Explore our experiences or send an inquiry to plan your visit.
-                </p>
-              </div>
-
-              <div className="cta-actions">
-                <Button to="/experiences">Explore Experiences</Button>
-                <Button to="/contact" variant="secondary">
-                  Contact Us
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Container>
+             </Container>
       </section>
 
       <LightboxModal

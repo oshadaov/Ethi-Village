@@ -21,7 +21,7 @@ export default function GalleryGrid({ items, onOpen }) {
           </div>
 
           <div className="gallery-page-overlay">
-            <span className="gallery-page-category">{item.category}</span>
+            {/* <span className="gallery-page-category">{item.category}</span> */}
             <h3>{item.title}</h3>
             <p>{item.description}</p>
           </div>

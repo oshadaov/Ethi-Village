@@ -7,7 +7,7 @@ export default function GalleryPreviewSection() {
   const previewImages = galleryItems.slice(0, 4);
 
   return (
-    <section className="section">
+    <section className="section gallery-section">
       <Container>
         <SectionHeader
           eyebrow="Gallery"
@@ -15,19 +15,19 @@ export default function GalleryPreviewSection() {
           description="A glimpse into the people, food, landscapes, and peaceful atmosphere of the village."
         />
 
-        <div className="destination-grid">
+        <div className="gallery-grid">
           {previewImages.map((item, index) => {
-            let cardClass = "destination-card";
+            let sizeClass = "";
 
-            if (index === 0) cardClass += " tall";
-            if (index === 3) cardClass += " wide";
+            if (index === 0) sizeClass = "large";
+            else if (index === 3) sizeClass = "wide";
 
             return (
-              <div key={item.id} className={cardClass}>
+              <div key={item.id} className={`gallery-card ${sizeClass}`}>
                 <img src={item.image} alt={item.alt} />
 
-                <div className="destination-overlay">
-                  <div>
+                <div className="gallery-overlay">
+                  <div className="overlay-content">
                     <h3>{item.title}</h3>
                     <p>{item.category}</p>
                   </div>

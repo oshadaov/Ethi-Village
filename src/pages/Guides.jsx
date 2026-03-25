@@ -8,7 +8,7 @@ export default function Guides() {
     <main>
       <section className="page-hero page-hero-guides">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Local Guides</p>
+          {/* <p className="section-eyebrow">Local Guides</p> */}
           <h1>Meet the People Who Bring Etili to Life</h1>
           <p>
             Our guides are not just tour leaders. They are local storytellers,
@@ -30,7 +30,7 @@ export default function Guides() {
             {guides.map((guide) => (
               <article key={guide.id} className="guide-profile-card">
                 <div className="guide-profile-image">
-                  <img src={guide.image} alt={guide.name} />
+                  <img src={guide.img} alt={guide.name} />
                 </div>
 
                 <div className="guide-profile-content">
@@ -39,7 +39,7 @@ export default function Guides() {
                   <p className="guide-languages">
                     <strong>Languages:</strong> {guide.languages}
                   </p>
-                  <p>{guide.bio}</p>
+                  <p>{guide.desc}</p>
 
                   <div className="guide-specialties">
                     <span className="guide-specialty-pill">Village Life</span>

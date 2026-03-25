@@ -9,7 +9,6 @@ export default function Accommodation() {
     <main>
       <section className="page-hero page-hero-accommodation">
         <Container className="page-hero-content">
-          <p className="section-eyebrow">Accommodation</p>
           <h1>Stay Close to Nature, Comfort, and Village Life</h1>
           <p>
             Complete your Etili journey with a peaceful countryside stay that
@@ -118,15 +117,7 @@ export default function Accommodation() {
             </p>
           </div>
 
-          <div className="cta-actions">
-            <Button to="/contact">Send Inquiry</Button>
-            <Button
-              href="https://wa.me/94771234567"
-              variant="secondary"
-            >
-              WhatsApp Us
-            </Button>
-          </div>
+         
         </Container>
       </section>
     </main>
