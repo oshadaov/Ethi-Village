@@ -181,34 +181,45 @@ p {
   gap: 16px;
   
 }
-
 .logo {
   display: flex;
-  gap: 12px;
   align-items: center;
+  gap: 0px;
+  text-decoration: none;
 }
 
-.logo-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--primary);
-  color: #fff;
-  font-weight: 800;
+.logo-img {
+  width: 100px;
+  height: 90px;
+  object-fit: contain;
 }
 
-.logo strong,
-.logo span {
+.logo-text strong {
   display: block;
+  font-size: 0.95rem;
+  color: var(--text);
 }
 
-.logo span {
+.logo-text span {
+  font-size: 0.7rem;
   color: var(--muted);
-  font-size: 0.9rem;
+}
+.footer-img {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
 }
 
+.footer-text strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.footer-text span {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
 .desktop-nav {
   display: flex;
   gap: 22px;
@@ -271,7 +282,7 @@ p {
   inset: 0;
  background: linear-gradient(
     90deg,
-    rgba(23, 46, 64, 0.84) 0%,
+    rgba(88, 170, 232, 0.052) 0%,
     rgba(23, 46, 64, 0.56) 50%,
     rgba(23, 46, 64, 0.32) 100%
   );

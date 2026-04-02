@@ -1,16 +1,13 @@
 import { Link } from "react-router-dom";
 import Container from "../common/Container";
-
+import { images } from "../../assets/images";
 export default function Footer() {
   return (
     <footer className="footer">
       <Container className="footer-grid">
         <div>
-          <h3>Etili Village Experience</h3>
-          <p>
-            Authentic village life, local food, nature, and meaningful travel
-            near Ella.
-          </p>
+          <img src={images.logo} alt="Etili Village Experience" className="footer-img" />
+        
         </div>
 
         <div>
