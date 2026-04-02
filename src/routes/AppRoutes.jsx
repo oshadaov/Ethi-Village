@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Home from "../pages/Home";
@@ -9,7 +9,10 @@ import Gallery from "../pages/Gallery";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
-import FloatingWhatsApp from "../components/common/FloatingWhatsApp";export default function AppRoutes() {
+import AdminImages from "../pages/AdminImage";
+import FloatingWhatsApp from "../components/common/FloatingWhatsApp";
+
+export default function AppRoutes() {
   return (
     <>
       <Navbar />
@@ -21,6 +24,15 @@ import FloatingWhatsApp from "../components/common/FloatingWhatsApp";export defa
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/admin"
+          element={<Navigate to="/admin/images" replace />}
+        />
+        <Route
+          path="/admin/imges"
+          element={<Navigate to="/admin/images" replace />}
+        />
+        <Route path="/admin/images" element={<AdminImages />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <FloatingWhatsApp />

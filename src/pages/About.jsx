@@ -1,11 +1,28 @@
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
+import { useSiteImages } from "../hooks/useSiteImages";
+import { images as defaultImages } from "../assets/images";
 
 export default function About() {
+  const { images, loading } = useSiteImages();
+  const remoteHero = images?.about_hero;
+  const heroBackground =
+    !loading && remoteHero
+      ? remoteHero
+      : "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=1800&q=80";
+  const remoteStory = images?.about_story;
+  const storyImage =
+    !loading && remoteStory
+      ? remoteStory
+      : "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80";
+
   return (
     <main>
-      <section className="page-hero page-hero-about">
+      <section
+        className="page-hero page-hero-about"
+        style={{ backgroundImage: `url('${heroBackground}')` }}
+      >
         <Container className="page-hero-content">
           <p className="section-eyebrow">About Etili</p>
           <h1>Rooted in People, Place, and Meaningful Travel</h1>
@@ -38,10 +55,7 @@ export default function About() {
           </div>
 
           <div className="split-image">
-            <img
-              src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80"
-              alt="Village life in Sri Lanka"
-            />
+            <img src={storyImage} alt="Village life in Sri Lanka" />
           </div>
         </Container>
       </section>
@@ -59,28 +73,32 @@ export default function About() {
             <div className="value-card">
               <h3>Authenticity</h3>
               <p>
-                We focus on real experiences shaped by local life, not artificial performances.
+                We focus on real experiences shaped by local life, not
+                artificial performances.
               </p>
             </div>
 
             <div className="value-card">
               <h3>Community Connection</h3>
               <p>
-                Local guides, hosts, and families are central to the experience and its meaning.
+                Local guides, hosts, and families are central to the experience
+                and its meaning.
               </p>
             </div>
 
             <div className="value-card">
               <h3>Cultural Respect</h3>
               <p>
-                We welcome guests in a way that honors traditions, values, and everyday village rhythms.
+                We welcome guests in a way that honors traditions, values, and
+                everyday village rhythms.
               </p>
             </div>
 
             <div className="value-card">
               <h3>Slow Travel</h3>
               <p>
-                We believe the best travel memories come from taking time to connect, learn, and appreciate.
+                We believe the best travel memories come from taking time to
+                connect, learn, and appreciate.
               </p>
             </div>
           </div>
@@ -107,21 +125,27 @@ export default function About() {
           <div className="impact-side">
             <div className="impact-card">
               <h3>Local Hosts</h3>
-              <p>Experiences are shaped by people who live the culture every day.</p>
+              <p>
+                Experiences are shaped by people who live the culture every day.
+              </p>
             </div>
             <div className="impact-card">
               <h3>Traditional Food</h3>
-              <p>Meals and cooking experiences keep local flavors and stories alive.</p>
+              <p>
+                Meals and cooking experiences keep local flavors and stories
+                alive.
+              </p>
             </div>
             <div className="impact-card">
               <h3>Shared Understanding</h3>
-              <p>Guests leave with a deeper appreciation for village life in Sri Lanka.</p>
+              <p>
+                Guests leave with a deeper appreciation for village life in Sri
+                Lanka.
+              </p>
             </div>
           </div>
         </Container>
       </section>
-
-      
     </main>
   );
 }

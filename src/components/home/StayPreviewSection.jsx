@@ -1,8 +1,16 @@
 import Container from "../common/Container";
 import SectionHeader from "../common/SectionHeader";
 import Button from "../common/Button";
+import { useSiteImages } from "../../hooks/useSiteImages";
 
 export default function StayPreviewSection() {
+  const { images, loading } = useSiteImages();
+  const remoteImage = images?.stay_preview;
+  const previewImage =
+    !loading && remoteImage
+      ? remoteImage
+      : "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80";
+
   return (
     <section className="section">
       <Container>
@@ -14,10 +22,7 @@ export default function StayPreviewSection() {
 
         <div className="stay-preview">
           <div className="stay-preview-image">
-            <img
-              src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
-              alt="Accommodation preview"
-            />
+            <img src={previewImage} alt="Accommodation preview" />
           </div>
 
           <div className="stay-preview-content">

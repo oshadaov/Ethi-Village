@@ -10,14 +10,21 @@ import {
 import ContactInfoPanel from "../components/contact/ContactInfoPanel";
 import BookingInquiryForm from "../components/contact/BookingInquiryForm";
 import { buildWhatsAppMessage } from "../utils/contactUtils";
+import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Contact() {
+  const { images, loading } = useSiteImages();
+  const remoteHero = images?.contact_hero;
+  const heroBackground =
+    !loading && remoteHero
+      ? remoteHero
+      : "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=1800&q=80";
   const [formData, setFormData] = useState(initialContactForm);
   const [submitted, setSubmitted] = useState(false);
 
   const whatsappMessage = useMemo(
     () => buildWhatsAppMessage(formData),
-    [formData]
+    [formData],
   );
 
   const handleChange = (e) => {
@@ -37,13 +44,16 @@ export default function Contact() {
 
   return (
     <main>
-      <section className="page-hero page-hero-contact">
+      <section
+        className="page-hero page-hero-contact"
+        style={{ backgroundImage: `url('${heroBackground}')` }}
+      >
         <Container className="page-hero-content">
           {/* <p className="section-eyebrow">Contact & Booking</p> */}
           <h1>Plan Your Village Escape with Confidence</h1>
           <p>
-            Share your preferred date, group size, and interests. We’ll help
-            you choose the right experience and stay option.
+            Share your preferred date, group size, and interests. We’ll help you
+            choose the right experience and stay option.
           </p>
         </Container>
       </section>

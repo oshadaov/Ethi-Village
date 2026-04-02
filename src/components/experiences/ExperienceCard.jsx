@@ -1,10 +1,12 @@
 import Button from "../common/Button";
 
 export default function ExperienceCard({ experience }) {
+  const resolvedImage = experience.image;
+
   return (
     <article className="experience-detail-card">
       <div className="experience-detail-image">
-        <img src={experience.image} alt={experience.title} />
+        <img src={resolvedImage} alt={experience.title} />
       </div>
 
       <div className="experience-detail-content">
@@ -17,9 +19,15 @@ export default function ExperienceCard({ experience }) {
         <p>{experience.shortDescription}</p>
 
         <div className="experience-meta">
-          <span><strong>Duration:</strong> {experience.duration}</span>
-          <span><strong>Group:</strong> {experience.groupType}</span>
-          <span><strong>Difficulty:</strong> {experience.difficulty}</span>
+          <span>
+            <strong>Duration:</strong> {experience.duration}
+          </span>
+          <span>
+            <strong>Group:</strong> {experience.groupType}
+          </span>
+          <span>
+            <strong>Difficulty:</strong> {experience.difficulty}
+          </span>
         </div>
 
         <div className="experience-columns">
@@ -54,7 +62,7 @@ export default function ExperienceCard({ experience }) {
           <Button to="/contact">Book This Experience</Button>
           <Button
             href={`https://wa.me/94771234567?text=${encodeURIComponent(
-              `Hello, I’m interested in the ${experience.title}. Please share more details.`
+              `Hello, I’m interested in the ${experience.title}. Please share more details.`,
             )}`}
             variant="secondary"
           >

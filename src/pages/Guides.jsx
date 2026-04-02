@@ -2,11 +2,22 @@ import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import { guides } from "../data/guides";
+import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Guides() {
+  const { images, loading } = useSiteImages();
+  const remoteHero = images?.guides_hero;
+  const heroBackground =
+    !loading && remoteHero
+      ? remoteHero
+      : "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1800&q=80";
+
   return (
     <main>
-      <section className="page-hero page-hero-guides">
+      <section
+        className="page-hero page-hero-guides"
+        style={{ backgroundImage: `url('${heroBackground}')` }}
+      >
         <Container className="page-hero-content">
           {/* <p className="section-eyebrow">Local Guides</p> */}
           <h1>Meet the People Who Bring Etili to Life</h1>
@@ -50,7 +61,7 @@ export default function Guides() {
                   <div className="guide-profile-actions">
                     <Button
                       href={`https://wa.me/94771234567?text=${encodeURIComponent(
-                        `Hello, I would like to know more about experiences guided by ${guide.name}.`
+                        `Hello, I would like to know more about experiences guided by ${guide.name}.`,
                       )}`}
                     >
                       Ask About This Guide
@@ -76,21 +87,24 @@ export default function Guides() {
               <div className="feature-card">
                 <h3>Local Storytelling</h3>
                 <p>
-                  Guides help guests understand the meaning behind food, places, customs, and village routines.
+                  Guides help guests understand the meaning behind food, places,
+                  customs, and village routines.
                 </p>
               </div>
 
               <div className="feature-card">
                 <h3>Comfort and Personal Care</h3>
                 <p>
-                  Visitors feel more relaxed and welcomed when guided by people who know the place deeply.
+                  Visitors feel more relaxed and welcomed when guided by people
+                  who know the place deeply.
                 </p>
               </div>
 
               <div className="feature-card">
                 <h3>Authentic Insight</h3>
                 <p>
-                  Guests experience Etili through real local perspectives, not scripted tourism.
+                  Guests experience Etili through real local perspectives, not
+                  scripted tourism.
                 </p>
               </div>
             </div>
@@ -118,19 +132,31 @@ export default function Guides() {
             <div className="guide-values-grid">
               <div className="benefit-card">
                 <h3>Warm Welcome</h3>
-                <p>Friendly hosting that makes guests feel comfortable from the beginning.</p>
+                <p>
+                  Friendly hosting that makes guests feel comfortable from the
+                  beginning.
+                </p>
               </div>
               <div className="benefit-card">
                 <h3>Clear Guidance</h3>
-                <p>Simple support throughout the journey, from activities to local customs.</p>
+                <p>
+                  Simple support throughout the journey, from activities to
+                  local customs.
+                </p>
               </div>
               <div className="benefit-card">
                 <h3>Cultural Respect</h3>
-                <p>A respectful and thoughtful way of sharing local traditions and community life.</p>
+                <p>
+                  A respectful and thoughtful way of sharing local traditions
+                  and community life.
+                </p>
               </div>
               <div className="benefit-card">
                 <h3>Personal Connection</h3>
-                <p>Conversations, stories, and human moments that make the visit memorable.</p>
+                <p>
+                  Conversations, stories, and human moments that make the visit
+                  memorable.
+                </p>
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Button from "../common/Button";
 import Container from "../common/Container";
+import { images } from "../../assets/images";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -27,13 +28,14 @@ export default function Navbar() {
   return (
     <header className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
       <Container className="navbar-inner">
-        <Link to="/" className="logo">
-          <span className="logo-mark">E</span>
-          <div>
-            <strong>Etili Village</strong>
-            <span>Experience</span>
-          </div>
-        </Link>
+       <Link to="/" className="logo">
+  <img src={images.logo} alt="Etili Village Experience" className="logo-img" />
+
+  {/* <div className="logo-text">
+    <strong>Etili Village</strong>
+    <span>Experience</span>
+  </div> */}
+</Link>
 
         <nav className="desktop-nav">
           {navLinks.map((link) => (

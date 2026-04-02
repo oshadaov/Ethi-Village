@@ -13,9 +13,10 @@ import lunch from "../assets/images/gallery/food/lunch.jpg"
 import cooking from "../assets/images/gallery/food/cooking.jpg"
 import  planting from "../assets/images/gallery/experience/planting.jpg"
 import  discover from "../assets/images/gallery/village/discover.jpg"
-
+import logo from "../assets/images/gallery/logo.png/"
+import hero from "../assets/images/gallery/village/heroImage.webp"
 
 
 export const images = {
-    village01,village02,food01,food02,nature01,nature02,guide01,guide02,stay01,stay02,lunch,cooking,planting,discover
+    village01,village02,food01,food02,nature01,nature02,guide01,guide02,stay01,stay02,lunch,cooking,planting,discover,logo,hero
 }

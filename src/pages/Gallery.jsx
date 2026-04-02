@@ -6,8 +6,15 @@ import GalleryFilter from "../components/gallery/GalleryFilter";
 import GalleryGrid from "../components/gallery/GalleryGrid";
 import LightboxModal from "../components/gallery/LightboxModal";
 import { galleryCategories, galleryItems } from "../data/gallery";
+import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Gallery() {
+  const { images, loading } = useSiteImages();
+  const remoteHero = images?.gallery_hero;
+  const heroBackground =
+    !loading && remoteHero
+      ? remoteHero
+      : "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80";
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -28,19 +35,22 @@ export default function Gallery() {
 
   const handlePrev = () => {
     setSelectedIndex((prev) =>
-      prev === 0 ? filteredItems.length - 1 : prev - 1
+      prev === 0 ? filteredItems.length - 1 : prev - 1,
     );
   };
 
   const handleNext = () => {
     setSelectedIndex((prev) =>
-      prev === filteredItems.length - 1 ? 0 : prev + 1
+      prev === filteredItems.length - 1 ? 0 : prev + 1,
     );
   };
 
   return (
     <main>
-      <section className="page-hero page-hero-gallery">
+      <section
+        className="page-hero page-hero-gallery"
+        style={{ backgroundImage: `url('${heroBackground}')` }}
+      >
         <Container className="page-hero-content">
           {/* <p className="section-eyebrow">Gallery</p> */}
           <h1>See the Spirit of Etili Through Real Moments</h1>
@@ -74,8 +84,7 @@ export default function Gallery() {
           </div>
 
           <GalleryGrid items={filteredItems} onOpen={handleOpenLightbox} />
-
-             </Container>
+        </Container>
       </section>
 
       <LightboxModal

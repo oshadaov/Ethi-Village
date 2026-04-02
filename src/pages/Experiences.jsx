@@ -4,8 +4,16 @@ import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import ExperienceCard from "../components/experiences/ExperienceCard";
 import { experiences } from "../data/experiences";
+import { useSiteImages } from "../hooks/useSiteImages";
 
-const categoryOptions = ["All", "Culture", "Food", "Nature", "Adventure", "Stay"];
+const categoryOptions = [
+  "All",
+  "Culture",
+  "Food",
+  "Nature",
+  "Adventure",
+  "Stay",
+];
 const durationOptions = ["All", "Half Day", "2 - 3 Hours", "1 Night / 2 Days"];
 const difficultyOptions = ["All", "Easy", "Moderate"];
 
@@ -15,8 +23,10 @@ export default function Experiences() {
   const [selectedDuration, setSelectedDuration] = useState("All");
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
 
+  const { images, loading } = useSiteImages();
+
   const filteredExperiences = useMemo(() => {
-    return experiences.filter((item) => {
+    const matches = experiences.filter((item) => {
       const matchesSearch =
         item.title.toLowerCase().includes(search.toLowerCase()) ||
         item.shortDescription.toLowerCase().includes(search.toLowerCase()) ||
@@ -32,13 +42,27 @@ export default function Experiences() {
         selectedDifficulty === "All" || item.difficulty === selectedDifficulty;
 
       return (
-        matchesSearch &&
-        matchesCategory &&
-        matchesDuration &&
-        matchesDifficulty
+        matchesSearch && matchesCategory && matchesDuration && matchesDifficulty
       );
     });
-  }, [search, selectedCategory, selectedDuration, selectedDifficulty]);
+
+    return matches.map((item) => {
+      const key = item.imageKey || `experience_${item.slug}`;
+      const remoteImage = images[key];
+
+      return {
+        ...item,
+        image: !loading && remoteImage ? remoteImage : item.image,
+      };
+    });
+  }, [
+    search,
+    selectedCategory,
+    selectedDuration,
+    selectedDifficulty,
+    images,
+    loading,
+  ]);
 
   const clearFilters = () => {
     setSearch("");
@@ -68,8 +92,10 @@ export default function Experiences() {
             description="Filter by experience type, duration, or difficulty to find the right match for your trip."
           />
 
-          <div className="
-          experience-filter-bar">
+          <div
+            className="
+          experience-filter-bar"
+          >
             <div className="filter-field search-field">
               <label htmlFor="experience-search">Search</label>
               <input
@@ -143,7 +169,10 @@ export default function Experiences() {
           ) : (
             <div className="empty-state-card">
               <h3>No experiences matched your filters</h3>
-              <p>Try changing the search or clearing the filters to see all options.</p>
+              <p>
+                Try changing the search or clearing the filters to see all
+                options.
+              </p>
               <Button onClick={clearFilters}>Reset Filters</Button>
             </div>
           )}
