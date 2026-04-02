@@ -148,7 +148,6 @@ export default function AdminImages() {
               Password
               <input
                 type="password"
-                value={adminPassword}
                 onChange={(e) => setAdminPassword(e.target.value)}
                 required
               />
