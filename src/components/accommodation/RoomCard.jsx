@@ -1,10 +1,15 @@
 import Button from "../common/Button";
+import { useSiteImages } from "../../hooks/useSiteImages";
 
 export default function RoomCard({ room }) {
+  const { images, loading } = useSiteImages();
+  const imageSrc =
+    !loading && images[room.imageKey] ? images[room.imageKey] : room.image;
+
   return (
     <article className="room-card">
       <div className="room-card-image">
-        <img src={room.image} alt={room.name} />
+        <img src={imageSrc} alt={room.name} />
       </div>
 
       <div className="room-card-content">
@@ -17,7 +22,9 @@ export default function RoomCard({ room }) {
         <p>{room.description}</p>
 
         <div className="room-meta">
-          <span><strong>Capacity:</strong> {room.guests}</span>
+          <span>
+            <strong>Capacity:</strong> {room.guests}
+          </span>
         </div>
 
         <div className="room-columns">
@@ -44,7 +51,7 @@ export default function RoomCard({ room }) {
           <Button to="/contact">Book This Stay</Button>
           <Button
             href={`https://wa.me/94771234567?text=${encodeURIComponent(
-              `Hello, I’m interested in the ${room.name}. Please share availability and details.`
+              `Hello, I’m interested in the ${room.name}. Please share availability and details.`,
             )}`}
             variant="secondary"
           >

@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
 import Container from "../common/Container";
 import Button from "../common/Button";
+import { useSiteImages } from "../../hooks/useSiteImages";
+import { images as defaultImages } from "../../assets/images";
 
 export default function HeroSection() {
+  const { images, loading } = useSiteImages();
+  const remoteHero = images?.hero_main;
+  const heroBackground = !loading && remoteHero ? remoteHero : defaultImages.hero;
   return (
-    <section className="hero-section">
+    <section className="hero-section" style={{ backgroundImage: `url('${heroBackground}')` }}>
       <div className="hero-overlay" />
       <Container className="hero-content">
         <motion.div

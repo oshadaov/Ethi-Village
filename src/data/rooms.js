@@ -13,13 +13,14 @@ export const rooms = [
       "Garden view",
       "Private bathroom",
       "Breakfast available",
-      "Village experience add-ons"
+      "Village experience add-ons",
     ],
     highlights: [
       "Quiet natural setting",
       "Comfortable interior",
-      "Ideal for couples"
-    ]
+      "Ideal for couples",
+    ],
+    imageKey: "room_garden_view",
   },
   {
     id: 2,
@@ -35,13 +36,14 @@ export const rooms = [
       "Family-sized room",
       "Private bathroom",
       "Meal options available",
-      "Local activity access"
+      "Local activity access",
     ],
     highlights: [
       "More space for families",
       "Easy access to activities",
-      "Comfortable and flexible"
-    ]
+      "Comfortable and flexible",
+    ],
+    imageKey: "room_family_village",
   },
   {
     id: 3,
@@ -57,12 +59,13 @@ export const rooms = [
       "Scenic countryside view",
       "Private outdoor seating",
       "Breakfast included",
-      "Custom experience packages"
+      "Custom experience packages",
     ],
     highlights: [
       "Premium atmosphere",
       "Beautiful landscape views",
-      "Ideal for slow travel"
-    ]
-  }
+      "Ideal for slow travel",
+    ],
+    imageKey: "room_eco_countryside",
+  },
 ];

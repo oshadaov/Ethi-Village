@@ -4,6 +4,7 @@ export const experiences = [
   {
     id: 1,
     slug: "village-discovery-tour",
+    imageKey: "experience_village-discovery-tour",
     title: "Village Discovery Tour",
     category: "Culture",
     duration: "Half Day",
@@ -30,6 +31,7 @@ export const experiences = [
   {
     id: 2,
     slug: "traditional-cooking-experience",
+    imageKey: "experience_traditional-cooking-experience",
     title: "Traditional Cooking Experience",
     category: "Food",
     duration: "2 - 3 Hours",
@@ -56,6 +58,7 @@ export const experiences = [
   {
     id: 3,
     slug: "lake-and-nature-experience",
+    imageKey: "experience_lake-and-nature-experience",
     title: "Lake and Nature Experience",
     category: "Nature",
     duration: "Half Day",
@@ -82,6 +85,7 @@ export const experiences = [
   {
     id: 4,
     slug: "village-lunch-and-host-family-experience",
+    imageKey: "experience_village-lunch-and-host-family-experience",
     title: "Village Lunch and Host Family Experience",
     category: "Food",
     duration: "Half Day",
@@ -109,6 +113,7 @@ export const experiences = [
   {
     id: 5,
     slug: "farming-and-rural-life-experience",
+    imageKey: "experience_farming-and-rural-life-experience",
     title: "Farming and Rural Life Experience",
     category: "Adventure",
     duration: "Half Day",
@@ -136,6 +141,7 @@ export const experiences = [
   {
     id: 6,
     slug: "overnight-village-escape",
+    imageKey: "experience_overnight-village-escape",
     title: "Overnight Village Escape",
     category: "Stay",
     duration: "1 Night / 2 Days",

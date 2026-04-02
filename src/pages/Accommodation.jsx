@@ -3,11 +3,22 @@ import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import RoomCard from "../components/accommodation/RoomCard";
 import { rooms } from "../data/rooms";
+import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Accommodation() {
+  const { images, loading } = useSiteImages();
+  const remoteHero = images?.accommodation_hero;
+  const heroBackground =
+    !loading && remoteHero
+      ? remoteHero
+      : "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80";
+
   return (
     <main>
-      <section className="page-hero page-hero-accommodation">
+      <section
+        className="page-hero page-hero-accommodation"
+        style={{ backgroundImage: `url('${heroBackground}')` }}
+      >
         <Container className="page-hero-content">
           <h1>Stay Close to Nature, Comfort, and Village Life</h1>
           <p>
@@ -47,21 +58,24 @@ export default function Accommodation() {
               <div className="feature-card">
                 <h3>Peaceful Setting</h3>
                 <p>
-                  Wake up to greenery, open skies, and a quieter pace away from crowded tourist zones.
+                  Wake up to greenery, open skies, and a quieter pace away from
+                  crowded tourist zones.
                 </p>
               </div>
 
               <div className="feature-card">
                 <h3>Flexible Experience Add-ons</h3>
                 <p>
-                  Pair your stay with cooking, village activities, nature moments, or custom local experiences.
+                  Pair your stay with cooking, village activities, nature
+                  moments, or custom local experiences.
                 </p>
               </div>
 
               <div className="feature-card">
                 <h3>Warm Local Hospitality</h3>
                 <p>
-                  Enjoy a welcoming environment shaped by personal care and genuine Sri Lankan hosting.
+                  Enjoy a welcoming environment shaped by personal care and
+                  genuine Sri Lankan hosting.
                 </p>
               </div>
             </div>
@@ -87,19 +101,31 @@ export default function Accommodation() {
             <div className="stay-benefits-grid">
               <div className="benefit-card">
                 <h3>Comfortable Rooms</h3>
-                <p>Clean, calm, and thoughtfully prepared spaces for restful stays.</p>
+                <p>
+                  Clean, calm, and thoughtfully prepared spaces for restful
+                  stays.
+                </p>
               </div>
               <div className="benefit-card">
                 <h3>Meal Options</h3>
-                <p>Traditional food and breakfast options based on your stay package.</p>
+                <p>
+                  Traditional food and breakfast options based on your stay
+                  package.
+                </p>
               </div>
               <div className="benefit-card">
                 <h3>Easy Booking Support</h3>
-                <p>Personal guidance for room selection, activities, and transport questions.</p>
+                <p>
+                  Personal guidance for room selection, activities, and
+                  transport questions.
+                </p>
               </div>
               <div className="benefit-card">
                 <h3>Custom Packages</h3>
-                <p>Combine accommodation with village experiences for a complete itinerary.</p>
+                <p>
+                  Combine accommodation with village experiences for a complete
+                  itinerary.
+                </p>
               </div>
             </div>
           </div>
@@ -116,8 +142,6 @@ export default function Accommodation() {
               and we’ll help you choose the best stay option.
             </p>
           </div>
-
-         
         </Container>
       </section>
     </main>

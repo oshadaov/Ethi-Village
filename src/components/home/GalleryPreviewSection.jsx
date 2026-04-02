@@ -2,8 +2,10 @@ import Container from "../common/Container";
 import SectionHeader from "../common/SectionHeader";
 import Button from "../common/Button";
 import { galleryItems } from "../../data/gallery";
+import { useSiteImages } from "../../hooks/useSiteImages";
 
 export default function GalleryPreviewSection() {
+  const { images, loading } = useSiteImages();
   const previewImages = galleryItems.slice(0, 4);
 
   return (
@@ -17,6 +19,10 @@ export default function GalleryPreviewSection() {
 
         <div className="gallery-grid">
           {previewImages.map((item, index) => {
+            const imageSrc =
+              !loading && images[item.imageKey]
+                ? images[item.imageKey]
+                : item.image;
             let sizeClass = "";
 
             if (index === 0) sizeClass = "large";
@@ -24,7 +30,7 @@ export default function GalleryPreviewSection() {
 
             return (
               <div key={item.id} className={`gallery-card ${sizeClass}`}>
-                <img src={item.image} alt={item.alt} />
+                <img src={imageSrc} alt={item.alt} />
 
                 <div className="gallery-overlay">
                   <div className="overlay-content">

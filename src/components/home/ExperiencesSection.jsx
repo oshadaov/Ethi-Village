@@ -1,10 +1,23 @@
-import { motion } from "framer-motion";
 import Container from "../common/Container";
 import SectionHeader from "../common/SectionHeader";
 import Button from "../common/Button";
 import { experiences } from "../../data/experiences";
+import { useSiteImages } from "../../hooks/useSiteImages";
+import { motion } from "framer-motion";
 
 export default function ExperiencesSection() {
+  const { images, loading } = useSiteImages();
+
+  const mappedExperiences = experiences.map((item) => {
+    const key = item.imageKey || `experience_${item.slug}`;
+    const remoteImage = images[key];
+
+    return {
+      ...item,
+      image: !loading && remoteImage ? remoteImage : item.image,
+    };
+  });
+
   return (
     <section className="section">
       <Container>
@@ -15,7 +28,7 @@ export default function ExperiencesSection() {
         />
 
         <div className="card-grid three">
-          {experiences.map((item, index) => (
+          {mappedExperiences.map((item, index) => (
             <motion.article
               key={item.id}
               className="experience-card"
@@ -25,10 +38,12 @@ export default function ExperiencesSection() {
               transition={{ duration: 0.45, delay: index * 0.1 }}
             >
               <img src={item.image} alt={item.title} />
+
               <div className="card-body">
                 <span className="card-tag">{item.duration}</span>
                 <h3>{item.title}</h3>
-                <p>{item.description}</p>
+                <p>{item.shortDescription}</p>
+
                 <Button to="/experiences" variant="secondary">
                   View More
                 </Button>
