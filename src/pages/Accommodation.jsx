@@ -26,6 +26,13 @@ export default function Accommodation() {
     !loading && remoteHero
       ? remoteHero
       : "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80";
+      
+const remoteImage = images?.accomondation_split;
+ const accomondation_split =
+    !loading && remoteImage
+      ? remoteImage
+      : "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1200&q=80";
+
 
   return (
     <main>
@@ -101,7 +108,7 @@ export default function Accommodation() {
 
           <div className="split-image">
             <img
-              src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
+              src={accomondation_split}
               alt="Countryside accommodation"
             />
           </div>
