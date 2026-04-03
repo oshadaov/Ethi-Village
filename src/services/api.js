@@ -58,6 +58,43 @@ export const getTestimonials = async () => {
   return fetchData("/testimonials");
 };
 
+// Site images API
+export const getSiteImages = async () => {
+  return fetchData("/site-images");
+};
+
+export const uploadSiteImage = async (imageKey, file) => {
+  const formData = new FormData();
+  formData.append("imageKey", imageKey);
+  formData.append("image", file);
+
+  const response = await fetch(`${API_BASE_URL}/site-images`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error(`API Error: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
+export const deleteSiteImage = async (imageKey) => {
+  const response = await fetch(
+    `${API_BASE_URL}/site-images/${encodeURIComponent(imageKey)}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`API Error: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
 export default {
   getExperiences,
   getRooms,
@@ -66,4 +103,7 @@ export default {
   getGalleryCategories,
   getFAQ,
   getTestimonials,
+  getSiteImages,
+  uploadSiteImage,
+  deleteSiteImage,
 };

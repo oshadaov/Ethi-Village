@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../services/firebase";
+import { getSiteImages } from "../services/api";
 
 export function useSiteImages() {
   const [images, setImages] = useState({});
@@ -13,21 +12,20 @@ export function useSiteImages() {
   const fetchImages = async () => {
     try {
       setLoading(true);
-
-      const querySnapshot = await getDocs(collection(db, "site_images"));
+      const data = await getSiteImages();
       const mapped = {};
 
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const remoteImage = data.imageDataUrl || data.imageUrl || data.image;
-        if (data.imageKey) {
-          mapped[data.imageKey] = remoteImage;
+      (data || []).forEach((item) => {
+        const remoteImage = item.imageDataUrl || item.imageUrl || item.image;
+        if (item.imageKey) {
+          mapped[item.imageKey] = remoteImage;
         }
       });
 
       setImages(mapped);
     } catch (error) {
       console.error("Failed to fetch site images:", error);
+      setImages({});
     } finally {
       setLoading(false);
     }

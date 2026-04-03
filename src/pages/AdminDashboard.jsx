@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import axios from "axios";
 import { ImagePlus, Pencil, Trash2, Plus, X } from "lucide-react";
+import { siteImageKeys } from "../data/siteImageKey";
+import {
+  getSiteImages,
+  uploadSiteImage,
+  deleteSiteImage,
+} from "../services/api";
 
 const API_BASE =
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8085/api/admin";
@@ -10,6 +16,7 @@ const tabs = [
   { key: "gallery", label: "Gallery" },
   { key: "guides", label: "Guides" },
   { key: "rooms", label: "Rooms" },
+  { key: "images", label: "Images" },
 ];
 
 const emptyExperience = {
@@ -152,6 +159,7 @@ function getEndpoint(tab) {
   if (tab === "experiences") return `${API_BASE}/experiences`;
   if (tab === "gallery") return `${API_BASE}/gallery`;
   if (tab === "guides") return `${API_BASE}/guides`;
+  if (tab === "images") return `${API_BASE}/site-images`;
   return `${API_BASE}/rooms`;
 }
 
@@ -320,6 +328,11 @@ export default function AdminDashboard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (activeTab === "images") {
+      return;
+    }
+
     setSaving(true);
 
     try {
@@ -358,6 +371,38 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error(error);
       alert("Delete failed.");
+    }
+  };
+
+  const handleImageUpload = async (imageKey, file) => {
+    if (!file) return;
+
+    setSaving(true);
+    try {
+      await uploadSiteImage(imageKey, file);
+      await loadItems("images");
+      alert("Image uploaded successfully.");
+    } catch (error) {
+      console.error(error);
+      alert("Image upload failed.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleImageDelete = async (imageKey) => {
+    if (!window.confirm("Delete this site image?")) return;
+
+    setSaving(true);
+    try {
+      await deleteSiteImage(imageKey);
+      await loadItems("images");
+      alert("Image deleted successfully.");
+    } catch (error) {
+      console.error(error);
+      alert("Image delete failed.");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -682,50 +727,93 @@ export default function AdminDashboard() {
                 </>
               )}
 
-              <div className="admin-upload-zone">
-                <div className="admin-upload-label">
-                  <ImagePlus size={20} />
-                  <span>Upload image</span>
-                </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) =>
-                    handleImageChange(e.target.files?.[0] || null)
-                  }
-                  className="admin-upload-input"
-                  id={`image-upload-${activeTab}`}
-                />
-                <label htmlFor={`image-upload-${activeTab}`}>
-                  Choose image or drag here
-                </label>
-                {previewUrl && (
-                  <div className="admin-preview">
-                    <img src={previewUrl} alt="Preview" />
+              {activeTab !== "images" ? (
+                <>
+                  <div className="admin-upload-zone">
+                    <div className="admin-upload-label">
+                      <ImagePlus size={20} />
+                      <span>Upload image</span>
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        handleImageChange(e.target.files?.[0] || null)
+                      }
+                      className="admin-upload-input"
+                      id={`image-upload-${activeTab}`}
+                    />
+                    <label htmlFor={`image-upload-${activeTab}`}>
+                      Choose image or drag here
+                    </label>
+                    {previewUrl && (
+                      <div className="admin-preview">
+                        <img src={previewUrl} alt="Preview" />
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
-              <div className="admin-form-actions">
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="admin-submit-btn"
-                >
-                  {saving
-                    ? "Saving..."
-                    : editingId
-                      ? "Update Item"
-                      : "Create Item"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => resetEditor(activeTab)}
-                  className="admin-clear-btn"
-                >
-                  Clear
-                </button>
-              </div>
+                  <div className="admin-form-actions">
+                    <button
+                      type="submit"
+                      disabled={saving}
+                      className="admin-submit-btn"
+                    >
+                      {saving
+                        ? "Saving..."
+                        : editingId
+                          ? "Update Item"
+                          : "Create Item"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => resetEditor(activeTab)}
+                      className="admin-clear-btn"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="admin-images-grid">
+                  {siteImageKeys.map((entry) => {
+                    const current =
+                      items.find((i) => i.imageKey === entry.key) || {};
+                    const imageUrl =
+                      current.imageDataUrl || current.imageUrl || current.image;
+                    return (
+                      <div key={entry.key} className="admin-image-card">
+                        <h4>{entry.label}</h4>
+                        <div className="admin-image-preview">
+                          {imageUrl ? (
+                            <img src={imageUrl} alt={entry.label} />
+                          ) : (
+                            <div className="admin-card-image-placeholder">
+                              No image
+                            </div>
+                          )}
+                        </div>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) =>
+                            handleImageUpload(entry.key, e.target.files?.[0])
+                          }
+                        />
+                        {imageUrl && (
+                          <button
+                            type="button"
+                            className="admin-delete-btn"
+                            onClick={() => handleImageDelete(entry.key)}
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </form>
           </div>
         </aside>
