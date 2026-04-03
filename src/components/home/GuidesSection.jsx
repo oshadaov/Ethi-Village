@@ -38,7 +38,7 @@ export default function GuidesSection() {
 
                 <h4>{member.name}</h4>
                 <p className="role">{member.role}</p>
-                <p className="desc">{member.desc}</p>
+                <p className="desc">{member.descp}</p>
               </div>
             ))
           )}

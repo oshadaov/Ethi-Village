@@ -26,6 +26,12 @@ export default function Guides() {
       ? remoteHero
       : "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1800&q=80";
 
+  const remoteSplitImage = images?.guides_split;
+  const splitImage =
+    !loading && remoteSplitImage
+      ? remoteSplitImage
+      : "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80";
+
   return (
     <main>
       <section
@@ -146,10 +152,7 @@ export default function Guides() {
           </div>
 
           <div className="split-image">
-            <img
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80"
-              alt="Local guide"
-            />
+            <img src={splitImage} alt="Local guide" />
           </div>
         </Container>
       </section>

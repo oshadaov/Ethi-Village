@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Home from "../pages/Home";
@@ -9,11 +9,14 @@ import Gallery from "../pages/Gallery";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
-import AdminImages from "../pages/AdminImage";
 import AdminDashboard from "../pages/AdminDashboard";
+import AdminGuard from "./AdminGuard";
 import FloatingWhatsApp from "../components/common/FloatingWhatsApp";
 
 export default function AppRoutes() {
+  const location = useLocation();
+  const isAdminPath = location.pathname.startsWith("/admin");
+
   return (
     <>
       <Navbar />
@@ -25,7 +28,14 @@ export default function AppRoutes() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />  
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminGuard>
+              <AdminDashboard />
+            </AdminGuard>
+          }
+        />
         <Route
           path="/admin"
           element={<Navigate to="/admin/images" replace />}
@@ -34,10 +44,17 @@ export default function AppRoutes() {
           path="/admin/imges"
           element={<Navigate to="/admin/images" replace />}
         />
-        <Route path="/admin/images" element={<AdminDashboard />} />
+        <Route
+          path="/admin/images"
+          element={
+            <AdminGuard>
+              <AdminDashboard />
+            </AdminGuard>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <FloatingWhatsApp />
+      {!isAdminPath && <FloatingWhatsApp />}
       <Footer />
     </>
   );

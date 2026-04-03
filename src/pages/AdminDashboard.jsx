@@ -21,6 +21,15 @@ const tabs = [
   { key: "images", label: "Images" },
 ];
 
+const experienceCategories = [
+  "All",
+  "Culture",
+  "Food",
+  "Nature",
+  "Adventure",
+  "Stay",
+];
+
 const emptyExperience = {
   slug: "",
   imageKey: "",
@@ -484,13 +493,21 @@ export default function AdminDashboard() {
                   </Field>
                   <div className="admin-form-grid-2">
                     <Field label="Category">
-                      <TextInput
+                      <select
                         value={form.category}
                         onChange={(e) =>
                           handleTextChange("category", e.target.value)
                         }
-                        placeholder="Stay"
-                      />
+                      >
+                        <option value="">Select category</option>
+                        {experienceCategories
+                          .filter((cat) => cat !== "All")
+                          .map((cat) => (
+                            <option key={cat} value={cat}>
+                              {cat}
+                            </option>
+                          ))}
+                      </select>
                     </Field>
                     <Field label="Duration">
                       <TextInput
