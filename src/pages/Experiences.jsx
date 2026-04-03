@@ -14,6 +14,7 @@ const categoryOptions = [
   "Adventure",
   "Stay",
 ];
+
 const durationOptions = ["All", "Half Day", "2 - 3 Hours", "1 Night / 2 Days"];
 const difficultyOptions = ["All", "Easy", "Moderate"];
 
