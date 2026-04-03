@@ -5,7 +5,10 @@ import Button from "../components/common/Button";
 import GalleryFilter from "../components/gallery/GalleryFilter";
 import GalleryGrid from "../components/gallery/GalleryGrid";
 import LightboxModal from "../components/gallery/LightboxModal";
-import { getGalleryCategories, getGalleryItems } from "../data/gallery";
+import {
+  galleryCategories as staticGalleryCategories,
+  getGalleryItems,
+} from "../data/gallery";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Gallery() {
@@ -16,7 +19,9 @@ export default function Gallery() {
       ? remoteHero
       : "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80";
 
-  const [galleryCategories, setGalleryCategories] = useState(["All"]);
+  const [galleryCategories, setGalleryCategories] = useState(
+    staticGalleryCategories,
+  );
   const [galleryItems, setGalleryItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -26,11 +31,7 @@ export default function Gallery() {
   useEffect(() => {
     const loadGallery = async () => {
       setLoadingData(true);
-      const [cats, items] = await Promise.all([
-        getGalleryCategories(),
-        getGalleryItems(),
-      ]);
-      setGalleryCategories(cats && cats.length ? cats : ["All"]);
+      const items = await getGalleryItems();
       setGalleryItems(items);
       setLoadingData(false);
     };

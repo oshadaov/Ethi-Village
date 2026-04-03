@@ -2,12 +2,12 @@ import { useEffect, useMemo, useState, useCallback } from "react";
 import axios from "axios";
 import { ImagePlus, Pencil, Trash2, Plus, X } from "lucide-react";
 import { siteImageKeys } from "../data/siteImageKey";
+import { galleryCategories } from "../data/gallery";
 import {
   getSiteImages,
   uploadSiteImage,
   deleteSiteImage,
 } from "../services/api";
-
 
 import "../styles/admin.css";
 const API_BASE =
@@ -572,13 +572,20 @@ export default function AdminDashboard() {
                   </Field>
                   <div className="admin-form-grid-2">
                     <Field label="Category">
-                      <TextInput
+                      <select
                         value={form.category}
                         onChange={(e) =>
                           handleTextChange("category", e.target.value)
                         }
-                        placeholder="Village Life"
-                      />
+                      >
+                        {galleryCategories
+                          .filter((cat) => cat !== "All")
+                          .map((cat) => (
+                            <option key={cat} value={cat}>
+                              {cat}
+                            </option>
+                          ))}
+                      </select>
                     </Field>
                     <Field label="Image Key">
                       <TextInput
