@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import ExperienceCard from "../components/experiences/ExperienceCard";
-import { experiences } from "../data/experiences";
+import { getExperiences } from "../data/experiences";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 const categoryOptions = [
@@ -24,9 +24,21 @@ export default function Experiences() {
   const [selectedDifficulty, setSelectedDifficulty] = useState("All");
 
   const { images, loading } = useSiteImages();
+  const [experiencesData, setExperiencesData] = useState([]);
+  const [loadingData, setLoadingData] = useState(true);
+
+  useEffect(() => {
+    const loadExperiences = async () => {
+      setLoadingData(true);
+      const data = await getExperiences();
+      setExperiencesData(data);
+      setLoadingData(false);
+    };
+    loadExperiences();
+  }, []);
 
   const filteredExperiences = useMemo(() => {
-    const matches = experiences.filter((item) => {
+    const matches = experiencesData.filter((item) => {
       const matchesSearch =
         item.title.toLowerCase().includes(search.toLowerCase()) ||
         item.shortDescription.toLowerCase().includes(search.toLowerCase()) ||
@@ -49,10 +61,15 @@ export default function Experiences() {
     return matches.map((item) => {
       const key = item.imageKey || `experience_${item.slug}`;
       const remoteImage = images[key];
+      const apiImage = item.imageUrl;
 
       return {
         ...item,
-        image: !loading && remoteImage ? remoteImage : item.image,
+        image:
+          apiImage ||
+          (!loading && remoteImage
+            ? remoteImage
+            : "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=600&q=80"),
       };
     });
   }, [

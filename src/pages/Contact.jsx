@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Container from "../components/common/Container";
-import { experiences } from "../data/experiences";
+import { getExperiences } from "../data/experiences";
 import {
   contactInfo,
   guestOptions,
@@ -21,6 +21,18 @@ export default function Contact() {
       : "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=1800&q=80";
   const [formData, setFormData] = useState(initialContactForm);
   const [submitted, setSubmitted] = useState(false);
+  const [experiencesData, setExperiencesData] = useState([]);
+  const [loadingExperiences, setLoadingExperiences] = useState(true);
+
+  useEffect(() => {
+    const loadExperiences = async () => {
+      setLoadingExperiences(true);
+      const data = await getExperiences();
+      setExperiencesData(data);
+      setLoadingExperiences(false);
+    };
+    loadExperiences();
+  }, []);
 
   const whatsappMessage = useMemo(
     () => buildWhatsAppMessage(formData),
@@ -68,7 +80,7 @@ export default function Contact() {
           <BookingInquiryForm
             formData={formData}
             submitted={submitted}
-            experiences={experiences}
+            experiences={loadingExperiences ? [] : experiencesData}
             guestOptions={guestOptions}
             yesNoMaybeOptions={yesNoMaybeOptions}
             whatsappNumber={contactInfo.whatsappNumber}

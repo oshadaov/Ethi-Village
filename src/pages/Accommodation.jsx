@@ -1,12 +1,26 @@
+import { useState, useEffect } from "react";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import RoomCard from "../components/accommodation/RoomCard";
-import { rooms } from "../data/rooms";
+import { getRooms } from "../data/rooms";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Accommodation() {
   const { images, loading } = useSiteImages();
+  const [roomsData, setRoomsData] = useState([]);
+  const [loadingData, setLoadingData] = useState(true);
+
+  useEffect(() => {
+    const loadRooms = async () => {
+      setLoadingData(true);
+      const data = await getRooms();
+      setRoomsData(data);
+      setLoadingData(false);
+    };
+    loadRooms();
+  }, []);
+
   const remoteHero = images?.accommodation_hero;
   const heroBackground =
     !loading && remoteHero
@@ -38,9 +52,13 @@ export default function Accommodation() {
           />
 
           <div className="room-list">
-            {rooms.map((room) => (
-              <RoomCard key={room.id} room={room} />
-            ))}
+            {loadingData ? (
+              <p>Loading rooms...</p>
+            ) : (
+              roomsData.map((room) => (
+                <RoomCard key={room.id} room={room} />
+              ))
+            )}
           </div>
         </Container>
       </section>

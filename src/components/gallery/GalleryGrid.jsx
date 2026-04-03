@@ -9,9 +9,10 @@ export default function GalleryGrid({ items, onOpen }) {
     <div className="gallery-page-grid">
       {items.map((item, index) => {
         const imageSrc =
-          !loading && images[item.imageKey]
+          item.imageUrl ||
+          (!loading && images[item.imageKey]
             ? images[item.imageKey]
-            : item.image;
+            : "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80");
         return (
           <article
             key={item.id}

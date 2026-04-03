@@ -1,10 +1,13 @@
 import Button from "../common/Button";
 import { useSiteImages } from "../../hooks/useSiteImages";
+import { images as defaultImages } from "../../assets/images";
 
 export default function RoomCard({ room }) {
   const { images, loading } = useSiteImages();
   const imageSrc =
-    !loading && images[room.imageKey] ? images[room.imageKey] : room.image;
+    !loading && images[room.imageKey]
+      ? images[room.imageKey]
+      : room.image || defaultImages.stay01;
 
   return (
     <article className="room-card">
@@ -31,8 +34,8 @@ export default function RoomCard({ room }) {
           <div>
             <h4>Amenities</h4>
             <ul>
-              {room.amenities.map((item) => (
-                <li key={item}>{item}</li>
+              {room.amenities.map((item, index) => (
+                <li key={`${item}-${index}`}>{item}</li>
               ))}
             </ul>
           </div>
@@ -40,8 +43,8 @@ export default function RoomCard({ room }) {
           <div>
             <h4>Best Highlights</h4>
             <ul>
-              {room.highlights.map((item) => (
-                <li key={item}>{item}</li>
+              {room.highlights.map((item, index) => (
+                <li key={`${item}-${index}`}>{item}</li>
               ))}
             </ul>
           </div>

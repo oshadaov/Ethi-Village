@@ -10,6 +10,7 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
 import AdminImages from "../pages/AdminImage";
+import AdminDashboard from "../pages/AdminDashboard";
 import FloatingWhatsApp from "../components/common/FloatingWhatsApp";
 
 export default function AppRoutes() {
@@ -24,6 +25,7 @@ export default function AppRoutes() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />  
         <Route
           path="/admin"
           element={<Navigate to="/admin/images" replace />}
@@ -32,7 +34,7 @@ export default function AppRoutes() {
           path="/admin/imges"
           element={<Navigate to="/admin/images" replace />}
         />
-        <Route path="/admin/images" element={<AdminImages />} />
+        <Route path="/admin/images" element={<AdminDashboard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <FloatingWhatsApp />

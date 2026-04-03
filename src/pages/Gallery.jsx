@@ -1,11 +1,11 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import GalleryFilter from "../components/gallery/GalleryFilter";
 import GalleryGrid from "../components/gallery/GalleryGrid";
 import LightboxModal from "../components/gallery/LightboxModal";
-import { galleryCategories, galleryItems } from "../data/gallery";
+import { getGalleryCategories, getGalleryItems } from "../data/gallery";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Gallery() {
@@ -15,14 +15,33 @@ export default function Gallery() {
     !loading && remoteHero
       ? remoteHero
       : "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80";
+
+  const [galleryCategories, setGalleryCategories] = useState(["All"]);
+  const [galleryItems, setGalleryItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [loadingData, setLoadingData] = useState(true);
+
+  useEffect(() => {
+    const loadGallery = async () => {
+      setLoadingData(true);
+      const [cats, items] = await Promise.all([
+        getGalleryCategories(),
+        getGalleryItems(),
+      ]);
+      setGalleryCategories(cats && cats.length ? cats : ["All"]);
+      setGalleryItems(items);
+      setLoadingData(false);
+    };
+
+    loadGallery();
+  }, []);
 
   const filteredItems = useMemo(() => {
     if (activeCategory === "All") return galleryItems;
     return galleryItems.filter((item) => item.category === activeCategory);
-  }, [activeCategory]);
+  }, [activeCategory, galleryItems]);
 
   const handleOpenLightbox = (index) => {
     setSelectedIndex(index);
@@ -83,7 +102,11 @@ export default function Gallery() {
             </p>
           </div>
 
-          <GalleryGrid items={filteredItems} onOpen={handleOpenLightbox} />
+          {loadingData ? (
+            <p>Loading gallery...</p>
+          ) : (
+            <GalleryGrid items={filteredItems} onOpen={handleOpenLightbox} />
+          )}
         </Container>
       </section>
 

@@ -1,11 +1,25 @@
+import { useState, useEffect } from "react";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
-import { guides } from "../data/guides";
+import { getGuides } from "../data/guides";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Guides() {
   const { images, loading } = useSiteImages();
+  const [guidesData, setGuidesData] = useState([]);
+  const [loadingData, setLoadingData] = useState(true);
+
+  useEffect(() => {
+    const loadGuides = async () => {
+      setLoadingData(true);
+      const data = await getGuides();
+      setGuidesData(data);
+      setLoadingData(false);
+    };
+    loadGuides();
+  }, []);
+
   const remoteHero = images?.guides_hero;
   const heroBackground =
     !loading && remoteHero
@@ -38,38 +52,59 @@ export default function Guides() {
           />
 
           <div className="guides-page-grid">
-            {guides.map((guide) => (
-              <article key={guide.id} className="guide-profile-card">
-                <div className="guide-profile-image">
-                  <img src={guide.img} alt={guide.name} />
-                </div>
+            {loadingData ? (
+              <p>Loading guides...</p>
+            ) : (
+              guidesData.map((guide) => {
+                const key =
+                  guide.imageKey ||
+                  `guide_${guide.name.toLowerCase().replace(/\s+/g, "_")}`;
+                const remoteImage = images[key];
+                const resolvedImage =
+                  guide.imageUrl ||
+                  (!loading && remoteImage
+                    ? remoteImage
+                    : guide.img ||
+                      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80");
 
-                <div className="guide-profile-content">
-                  <h3>{guide.name}</h3>
-                  <p className="guide-role">{guide.role}</p>
-                  <p className="guide-languages">
-                    <strong>Languages:</strong> {guide.languages}
-                  </p>
-                  <p>{guide.desc}</p>
+                return (
+                  <article key={guide.id} className="guide-profile-card">
+                    <div className="guide-profile-image">
+                      <img src={resolvedImage} alt={guide.name} />
+                    </div>
 
-                  <div className="guide-specialties">
-                    <span className="guide-specialty-pill">Village Life</span>
-                    <span className="guide-specialty-pill">Local Culture</span>
-                    <span className="guide-specialty-pill">Guest Care</span>
-                  </div>
+                    <div className="guide-profile-content">
+                      <h3>{guide.name}</h3>
+                      <p className="guide-role">{guide.role}</p>
+                      <p className="guide-languages">
+                        <strong>Languages:</strong> {guide.languages}
+                      </p>
+                      <p>{guide.desc}</p>
 
-                  <div className="guide-profile-actions">
-                    <Button
-                      href={`https://wa.me/94771234567?text=${encodeURIComponent(
-                        `Hello, I would like to know more about experiences guided by ${guide.name}.`,
-                      )}`}
-                    >
-                      Ask About This Guide
-                    </Button>
-                  </div>
-                </div>
-              </article>
-            ))}
+                      <div className="guide-specialties">
+                        <span className="guide-specialty-pill">
+                          Village Life
+                        </span>
+                        <span className="guide-specialty-pill">
+                          Local Culture
+                        </span>
+                        <span className="guide-specialty-pill">Guest Care</span>
+                      </div>
+
+                      <div className="guide-profile-actions">
+                        <Button
+                          href={`https://wa.me/94771234567?text=${encodeURIComponent(
+                            `Hello, I would like to know more about experiences guided by ${guide.name}.`,
+                          )}`}
+                        >
+                          Ask About This Guide
+                        </Button>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })
+            )}
           </div>
         </Container>
       </section>
