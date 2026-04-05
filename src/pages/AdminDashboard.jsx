@@ -650,15 +650,7 @@ export default function AdminDashboard() {
                       placeholder="Master Gardener"
                     />
                   </Field>
-                  <Field label="Languages">
-                    <TextInput
-                      value={form.languages}
-                      onChange={(e) =>
-                        handleTextChange("languages", e.target.value)
-                      }
-                      placeholder="English, Sinhala"
-                    />
-                  </Field>
+                  
                   <Field label="Image Key">
                     <TextInput
                       value={form.imageKey}
