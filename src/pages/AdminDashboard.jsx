@@ -58,7 +58,7 @@ const emptyGuide = {
   role: "",
   descp: "",
   imageKey: "",
-  languages: "",
+  
 };
 
 const emptyRoom = {
@@ -136,6 +136,8 @@ function parseFormFromItem(tab, item) {
     return {
       name: item.name || "",
       role: item.role || "",
+      imageKey: item.imageKey || "",
+
       descp: item.descp || "",
     };
   }
