@@ -82,9 +82,7 @@ export default function Guides() {
                     <div className="guide-profile-content">
                       <h3>{guide.name}</h3>
                       <p className="guide-role">{guide.role}</p>
-                      <p className="guide-languages">
-                        <strong>Languages:</strong> {guide.languages}
-                      </p>
+                     
                       <p>{guide.desc}</p>
 
                       <div className="guide-specialties">
