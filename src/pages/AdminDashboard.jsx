@@ -652,7 +652,7 @@ export default function AdminDashboard() {
                       placeholder="Master Gardener"
                     />
                   </Field>
-                  
+{/*                   
                   <Field label="Image Key">
                     <TextInput
                       value={form.imageKey}
@@ -661,7 +661,7 @@ export default function AdminDashboard() {
                       }
                       placeholder="guide_bandara"
                     />
-                  </Field>
+                  </Field> */}
                   <Field label="Description">
                     <TextArea
                       rows={4}
