@@ -1,8 +1,9 @@
 export const contactInfo = {
-   whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || "",
-  whatsappDisplay: import.meta.env.VITE_WHATSAPP_DISPLAY || "",
-  email: "hello@etilivillage.com",
-  location: "Near Ella, Sri Lanka",
+  whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || "94771111111",
+  whatsappDisplay: import.meta.env.VITE_WHATSAPP_DISPLAY || "+94 77 1111111",
+  email: import.meta.env.VITE_CONTACT_EMAIL || "info@etilivillage.com",
+  phone: import.meta.env.VITE_CONTACT_PHONE || "+94-11111111",
+  location: "Between Tissamaharama and Ella. 15 minutes drive from Wellawaya town.",
   locationNote: "Peaceful village surroundings with guided local access.",
 };
 

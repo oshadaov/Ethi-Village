@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
 import { Menu, X } from "lucide-react";
 import Button from "../common/Button";
 import Container from "../common/Container";
@@ -7,11 +8,26 @@ import { images } from "../../assets/images";
 
 const navLinks = [
   { label: "Home", path: "/" },
-  { label: "Experiences", path: "/experiences" },
-  { label: "Accommodation", path: "/accommodation" },
-  { label: "Guides", path: "/guides" },
+  { 
+    label: "Stay", 
+    path: "/stay",
+    dropdown: [
+      { label: "Accommodation", path: "/stay#accommodation" },
+      { label: "Food and drinks", path: "/stay#food" },
+      { label: "Activities", path: "/stay#activities" }
+    ]
+  },
+  { 
+    label: "Impact", 
+    path: "/impact",
+    dropdown: [
+      { label: "Community development", path: "/impact#community" },
+      { label: "Environmental restoration", path: "/impact#environment" }
+    ]
+  },
   { label: "Gallery", path: "/gallery" },
-  { label: "About", path: "/about" },
+  { label: "Comments", path: "/comments" },
+  { label: "Blog", path: "/blog" },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -39,13 +55,23 @@ export default function Navbar() {
 
         <nav className="desktop-nav">
           {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
-            >
-              {link.label}
-            </NavLink>
+            <div key={link.path} className={`nav-item ${link.dropdown ? "has-dropdown" : ""}`}>
+              <NavLink
+                to={link.path}
+                className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+              >
+                {link.label}
+              </NavLink>
+              {link.dropdown && (
+                <div className="dropdown-menu">
+                  {link.dropdown.map(drop => (
+                    <HashLink smooth key={drop.path} to={drop.path} className="dropdown-link">
+                      {drop.label}
+                    </HashLink>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </nav>
 
@@ -65,14 +91,30 @@ export default function Navbar() {
         <div className="mobile-menu">
           <Container className="mobile-menu-inner">
             {navLinks.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                className="mobile-nav-link"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </NavLink>
+              <div key={link.path} className="mobile-nav-item">
+                <NavLink
+                  to={link.path}
+                  className="mobile-nav-link"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </NavLink>
+                {link.dropdown && (
+                  <div className="mobile-dropdown">
+                    {link.dropdown.map(drop => (
+                      <HashLink 
+                        smooth
+                        key={drop.path} 
+                        to={drop.path} 
+                        className="mobile-dropdown-link"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {drop.label}
+                      </HashLink>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
             <Button to="/contact" className="mobile-book-btn">
               Book Now

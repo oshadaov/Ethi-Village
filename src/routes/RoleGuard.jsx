@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_EMAIL || "admin";
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "admin123";
 
-function AdminLogin({ onLogin }) {
+export function AdminLogin({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -51,7 +51,7 @@ function AdminLogin({ onLogin }) {
   );
 }
 
-export default function AdminGuard({ children }) {
+export default function RoleGuard({ children, requiredRole }) {
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {

@@ -95,6 +95,31 @@ export const deleteSiteImage = async (imageKey) => {
   return response.json();
 };
 
+export const submitContactInquiry = async (data) => {
+  const response = await fetch(`${API_BASE_URL}/contact-inquiries`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error(`API Error: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+};
+
+// Blogs API
+export const getBlogs = async () => {
+  return fetchData("/blogs");
+};
+
+export const getBlogBySlug = async (slug) => {
+  return fetchData(`/blogs/slug/${slug}`);
+};
+
 export default {
   getExperiences,
   getRooms,
@@ -106,4 +131,7 @@ export default {
   getSiteImages,
   uploadSiteImage,
   deleteSiteImage,
+  submitContactInquiry,
+  getBlogs,
+  getBlogBySlug,
 };

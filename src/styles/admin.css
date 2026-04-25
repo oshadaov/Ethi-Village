@@ -162,7 +162,7 @@ body {
 .admin-sidebar {
   position: sticky;
   top: 20px;
-  padding: 22px;
+  padding: 30px;
 }
 
 .admin-main {
@@ -269,9 +269,9 @@ body {
 .admin-array-item input,
 .admin-image-card input[type="file"] {
   width: 100%;
-  border: 1px solid #dbe4ee;
+  border: 1.5px solid #cbd5e1;
   background: #ffffff;
-  color: var(--admin-text);
+  color: #111827;
   border-radius: 14px;
   padding: 14px 15px;
   font-size: 14px;
@@ -724,6 +724,23 @@ body {
 .admin-images-grid {
   display: grid;
   gap: 16px;
+}
+
+.admin-images-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.admin-image-category-title {
+  font-family: "Outfit", sans-serif;
+  color: var(--admin-primary);
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 8px;
+  text-transform: capitalize;
 }
 
 /* Empty states */

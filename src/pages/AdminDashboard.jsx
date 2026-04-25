@@ -14,10 +14,11 @@ const API_BASE =
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8085/api/admin";
 
 const tabs = [
-  { key: "experiences", label: "Experiences" },
+  { key: "experiences", label: "Activities" },
   { key: "gallery", label: "Gallery" },
   { key: "guides", label: "Guides" },
-  { key: "rooms", label: "Rooms" },
+  { key: "rooms", label: "Accommodation" },
+  { key: "blogs", label: "Blogs" },
   { key: "images", label: "Images" },
 ];
 
@@ -70,6 +71,15 @@ const emptyRoom = {
   description: "",
   amenities: [""],
   highlights: [""],
+};
+
+const emptyBlog = {
+  title: "",
+  slug: "",
+  author: "",
+  content: "",
+  shortDescription: "",
+  imageKey: "",
 };
 
 function arrayClean(values) {
@@ -142,6 +152,17 @@ function parseFormFromItem(tab, item) {
     };
   }
 
+  if (tab === "blogs") {
+    return {
+      title: item.title || "",
+      slug: item.slug || "",
+      author: item.author || "",
+      content: item.content || "",
+      shortDescription: item.shortDescription || "",
+      imageKey: item.imageKey || "",
+    };
+  }
+
   return {
     name: item.name || "",
     type: item.type || "",
@@ -158,6 +179,7 @@ function getDefaultForm(tab) {
   if (tab === "experiences") return emptyExperience;
   if (tab === "gallery") return emptyGallery;
   if (tab === "guides") return emptyGuide;
+  if (tab === "blogs") return emptyBlog;
   return emptyRoom;
 }
 
@@ -172,6 +194,7 @@ function getEndpoint(tab) {
   if (tab === "experiences") return `${API_BASE}/experiences`;
   if (tab === "gallery") return `${API_BASE}/gallery`;
   if (tab === "guides") return `${API_BASE}/guides`;
+  if (tab === "blogs") return `${API_BASE}/blogs`;
   if (tab === "images") return `${API_BASE}/site-images`;
   return `${API_BASE}/rooms`;
 }
@@ -747,6 +770,57 @@ export default function AdminDashboard() {
                 </>
               )}
 
+              {activeTab === "blogs" && (
+                <>
+                  <Field label="Title">
+                    <TextInput
+                      value={form.title}
+                      onChange={(e) => handleTextChange("title", e.target.value)}
+                      placeholder="My Awesome Blog Post"
+                    />
+                  </Field>
+                  <div className="admin-form-grid-2">
+                    <Field label="Slug (URL)">
+                      <TextInput
+                        value={form.slug}
+                        onChange={(e) => handleTextChange("slug", e.target.value)}
+                        placeholder="my-awesome-blog-post"
+                      />
+                    </Field>
+                    <Field label="Author">
+                      <TextInput
+                        value={form.author}
+                        onChange={(e) => handleTextChange("author", e.target.value)}
+                        placeholder="Jane Doe"
+                      />
+                    </Field>
+                  </div>
+                  <Field label="Image Key (Optional)">
+                    <TextInput
+                      value={form.imageKey}
+                      onChange={(e) => handleTextChange("imageKey", e.target.value)}
+                      placeholder="blog_my_post"
+                    />
+                  </Field>
+                  <Field label="Short Description">
+                    <TextArea
+                      rows={2}
+                      value={form.shortDescription}
+                      onChange={(e) => handleTextChange("shortDescription", e.target.value)}
+                      placeholder="A short summary of the post for the card"
+                    />
+                  </Field>
+                  <Field label="Content">
+                    <TextArea
+                      rows={10}
+                      value={form.content}
+                      onChange={(e) => handleTextChange("content", e.target.value)}
+                      placeholder="Full markdown/html content of the blog post..."
+                    />
+                  </Field>
+                </>
+              )}
+
               {activeTab !== "images" ? (
                 <>
                   <div className="admin-upload-zone">
@@ -795,43 +869,57 @@ export default function AdminDashboard() {
                   </div>
                 </>
               ) : (
-                <div className="admin-images-grid">
-                  {siteImageKeys.map((entry) => {
-                    const current =
-                      items.find((i) => i.imageKey === entry.key) || {};
-                    const imageUrl =
-                      current.imageDataUrl || current.imageUrl || current.image;
-                    return (
-                      <div key={entry.key} className="admin-image-card">
-                        <h4>{entry.label}</h4>
-                        <div className="admin-image-preview">
-                          {imageUrl ? (
-                            <img src={imageUrl} alt={entry.label} />
-                          ) : (
-                            <div className="admin-card-image-placeholder">
-                              No image
+                <div className="admin-images-wrapper">
+                  {Object.entries(
+                    siteImageKeys.reduce((acc, entry) => {
+                      const page = entry.label.split(":")[0];
+                      if (!acc[page]) acc[page] = [];
+                      acc[page].push(entry);
+                      return acc;
+                    }, {})
+                  ).map(([page, keys]) => (
+                    <div key={page} className="admin-image-category">
+                      <h3 className="admin-image-category-title">{page}</h3>
+                      <div className="admin-images-grid">
+                        {keys.map((entry) => {
+                          const current =
+                            items.find((i) => i.imageKey === entry.key) || {};
+                          const imageUrl =
+                            current.imageDataUrl || current.imageUrl || current.image;
+                          return (
+                            <div key={entry.key} className="admin-image-card">
+                              <h4>{entry.label.split(":")[1] || entry.label}</h4>
+                              <div className="admin-image-preview">
+                                {imageUrl ? (
+                                  <img src={imageUrl} alt={entry.label} />
+                                ) : (
+                                  <div className="admin-card-image-placeholder">
+                                    No image
+                                  </div>
+                                )}
+                              </div>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) =>
+                                  handleImageUpload(entry.key, e.target.files?.[0])
+                                }
+                              />
+                              {imageUrl && (
+                                <button
+                                  type="button"
+                                  className="admin-delete-btn"
+                                  onClick={() => handleImageDelete(entry.key)}
+                                >
+                                  Delete
+                                </button>
+                              )}
                             </div>
-                          )}
-                        </div>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) =>
-                            handleImageUpload(entry.key, e.target.files?.[0])
-                          }
-                        />
-                        {imageUrl && (
-                          <button
-                            type="button"
-                            className="admin-delete-btn"
-                            onClick={() => handleImageDelete(entry.key)}
-                          >
-                            Delete
-                          </button>
-                        )}
+                          );
+                        })}
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
               )}
             </form>
