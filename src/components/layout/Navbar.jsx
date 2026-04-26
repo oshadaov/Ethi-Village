@@ -14,7 +14,7 @@ const navLinks = [
     dropdown: [
       { label: "Accommodation", path: "/stay#accommodation" },
       { label: "Food and drinks", path: "/stay#food" },
-      { label: "Activities", path: "/stay#activities" }
+      { label: "Activities", path: "/activities" }
     ]
   },
   { 
@@ -64,11 +64,18 @@ export default function Navbar() {
               </NavLink>
               {link.dropdown && (
                 <div className="dropdown-menu">
-                  {link.dropdown.map(drop => (
-                    <HashLink smooth key={drop.path} to={drop.path} className="dropdown-link">
-                      {drop.label}
-                    </HashLink>
-                  ))}
+                  {link.dropdown.map(drop => {
+                    const isHashLink = drop.path.includes("#");
+                    return isHashLink ? (
+                      <HashLink smooth key={drop.path} to={drop.path} className="dropdown-link">
+                        {drop.label}
+                      </HashLink>
+                    ) : (
+                      <Link key={drop.path} to={drop.path} className="dropdown-link">
+                        {drop.label}
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -101,17 +108,29 @@ export default function Navbar() {
                 </NavLink>
                 {link.dropdown && (
                   <div className="mobile-dropdown">
-                    {link.dropdown.map(drop => (
-                      <HashLink 
-                        smooth
-                        key={drop.path} 
-                        to={drop.path} 
-                        className="mobile-dropdown-link"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {drop.label}
-                      </HashLink>
-                    ))}
+                    {link.dropdown.map(drop => {
+                      const isHashLink = drop.path.includes("#");
+                      return isHashLink ? (
+                        <HashLink 
+                          smooth
+                          key={drop.path} 
+                          to={drop.path} 
+                          className="mobile-dropdown-link"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {drop.label}
+                        </HashLink>
+                      ) : (
+                        <Link 
+                          key={drop.path} 
+                          to={drop.path} 
+                          className="mobile-dropdown-link"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {drop.label}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>

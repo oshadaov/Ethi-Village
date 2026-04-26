@@ -82,27 +82,42 @@ export default function Stay() {
 
       {/* FOOD AND DRINK SECTION */}
       <section id="food" className="section section-soft">
-        <Container className="split-layout">
-          <div className="split-image" style={{ order: -1 }}>
-            <img src={images?.stay_food || "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"} alt="Traditional Sri Lankan Food" />
-          </div>
+        <Container>
+          <div className="dining-grid-layout">
+            <div className="dining-content">
+              <SectionHeader
+                eyebrow="Food and Drink"
+                title="The Best Food in Sri Lanka"
+                description="Guests love the food at ETILI, frequently commenting that it is the best food that they tasted in Sri Lanka."
+              />
+              <div className="dining-text-wrap">
+                <p>
+                  As far as possible, we produce from our own organic farm, or we source fresh fruit and vegetables from our farming community in the village. We make our own herbal tea, jams and chutneys using ingredients growing around the village. We also grow our own herbs and spices, and we make our own curds and milk from our herd cows in the village.
+                </p>
+                <p>
+                  The ladies who cook for guests are all from the village, so we focus on traditional village-style cuisine. Breakfast usually includes Sri Lankan specialities like roti, hoppers or Milk Rice. For lunch and dinner, we typically serve rice with delicious village-style curries. <strong>Guests can always chat with the chefs and customize their meal choices.</strong>
+                </p>
+                <p>
+                  We can also prepare picnics for hikes and excursions, and guests can enjoy snacks and refreshments throughout the day. Also we built a restaurant called <strong>ETILI Kitchen</strong> by giving the opportunity to learn traditional cooking methods.
+                </p>
+                <p className="dining-note">
+                  <em>We are not licensed, but guests are welcome to bring their own beer, wine and spirits.</em>
+                </p>
+              </div>
+              <Button to="/contact" style={{ marginTop: "24px" }}>Plan Your Dining Experience</Button>
+            </div>
 
-          <div>
-            <SectionHeader
-              eyebrow="Food and Drink"
-              title="The Best Food in Sri Lanka"
-              description="Guests love the food at ETILI, frequently commenting that it is the best food they tasted in Sri Lanka."
-            />
-            <p>
-              As far as possible, we produce from our own organic farm, or we source fresh fruit and vegetables from our farming community in the village. We make our own herbal tea, jams and chutneys using ingredients growing around the village.
-            </p>
-            <p>
-              The ladies who cook for guests are all from the village, focusing on traditional village-style cuisine. Breakfast usually includes Sri Lankan specialities like roti, hoppers or Milk Rice. For lunch and dinner, we serve rice with delicious village-style curries.
-            </p>
-            <p>
-              We also built a restaurant called ETILI Kitchen, giving the opportunity to learn traditional cooking methods.
-            </p>
-            <Button to="/contact" style={{ marginTop: "20px" }}>Request a Custom Meal Plan</Button>
+            <div className="dining-image-grid">
+              <div className="dining-img-card main">
+                <img src={images.stay_dining_1 || "/images/food/breakfast.png"} alt="Traditional Breakfast" />
+              </div>
+              <div className="dining-img-card">
+                <img src={images.stay_dining_2 || "/images/food/curries.png"} alt="Village Curries" />
+              </div>
+              <div className="dining-img-card">
+                <img src={images.stay_dining_3 || "/images/food/kitchen.png"} alt="ETILI Kitchen" />
+              </div>
+            </div>
           </div>
         </Container>
       </section>
@@ -124,6 +139,9 @@ export default function Stay() {
                 <ExperienceCard key={exp.id} experience={exp} />
               ))
             )}
+          </div>
+          <div className="section-cta" style={{ textAlign: "center", marginTop: "40px" }}>
+            <Button to="/activities" variant="secondary">View All Activities & Details</Button>
           </div>
         </Container>
       </section>

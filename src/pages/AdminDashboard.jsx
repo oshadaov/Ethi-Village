@@ -41,6 +41,7 @@ const emptyExperience = {
   difficulty: "",
   priceText: "",
   shortDescription: "",
+  description: "",
   highlights: [""],
   includes: [""],
   bestFor: [""],
@@ -67,10 +68,14 @@ const emptyRoom = {
   type: "",
   guests: "",
   priceText: "",
+  pricePerNight: "",
+  minNights: "",
   imageKey: "",
   description: "",
   amenities: [""],
   highlights: [""],
+  mealsIncluded: [""],
+  staffServices: [""],
 };
 
 const emptyBlog = {
@@ -103,6 +108,8 @@ function normalizeForSubmit(tab, form) {
       ...payload,
       amenities: arrayClean(payload.amenities),
       highlights: arrayClean(payload.highlights),
+      mealsIncluded: arrayClean(payload.mealsIncluded),
+      staffServices: arrayClean(payload.staffServices),
     };
   }
 
@@ -126,6 +133,7 @@ function parseFormFromItem(tab, item) {
       difficulty: item.difficulty || "",
       priceText: item.priceText || "",
       shortDescription: item.shortDescription || "",
+      description: item.description || "",
       highlights: item.highlights?.length ? item.highlights : [""],
       includes: item.includes?.length ? item.includes : [""],
       bestFor: item.bestFor?.length ? item.bestFor : [""],
@@ -168,10 +176,14 @@ function parseFormFromItem(tab, item) {
     type: item.type || "",
     guests: item.guests || "",
     priceText: item.priceText || "",
+    pricePerNight: item.pricePerNight || "",
+    minNights: item.minNights || "",
     imageKey: item.imageKey || "",
     description: item.description || "",
     amenities: item.amenities?.length ? item.amenities : [""],
     highlights: item.highlights?.length ? item.highlights : [""],
+    mealsIncluded: item.mealsIncluded?.length ? item.mealsIncluded : [""],
+    staffServices: item.staffServices?.length ? item.staffServices : [""],
   };
 }
 
@@ -443,6 +455,7 @@ export default function AdminDashboard() {
   };
 
   return (
+    
     <div className="admin-dashboard-wrapper">
       <div className="admin-header">
         <p className="admin-header-eyebrow">Admin Panel</p>
@@ -580,7 +593,17 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         handleTextChange("shortDescription", e.target.value)
                       }
-                      placeholder="Describe the experience"
+                      placeholder="Short summary for the card"
+                    />
+                  </Field>
+                  <Field label="Long Description">
+                    <TextArea
+                      rows={6}
+                      value={form.description}
+                      onChange={(e) =>
+                        handleTextChange("description", e.target.value)
+                      }
+                      placeholder="Detailed description for the experience page"
                     />
                   </Field>
                   <ArrayField
@@ -728,13 +751,35 @@ export default function AdminDashboard() {
                     </Field>
                   </div>
                   <div className="admin-form-grid-2">
-                    <Field label="Price Text">
+                    <Field label="Price (Number)">
+                      <TextInput
+                        type="number"
+                        value={form.pricePerNight}
+                        onChange={(e) =>
+                          handleTextChange("pricePerNight", e.target.value)
+                        }
+                        placeholder="180"
+                      />
+                    </Field>
+                    <Field label="Min Nights">
+                      <TextInput
+                        type="number"
+                        value={form.minNights}
+                        onChange={(e) =>
+                          handleTextChange("minNights", e.target.value)
+                        }
+                        placeholder="2"
+                      />
+                    </Field>
+                  </div>
+                  <div className="admin-form-grid-2">
+                    <Field label="Price Text (Display)">
                       <TextInput
                         value={form.priceText}
                         onChange={(e) =>
                           handleTextChange("priceText", e.target.value)
                         }
-                        placeholder="From LKR 18,500 / night"
+                        placeholder="From $180 / night"
                       />
                     </Field>
                     <Field label="Image Key">
@@ -743,7 +788,7 @@ export default function AdminDashboard() {
                         onChange={(e) =>
                           handleTextChange("imageKey", e.target.value)
                         }
-                        placeholder="room_family_village"
+                        placeholder="room_mud_house"
                       />
                     </Field>
                   </div>
@@ -766,6 +811,16 @@ export default function AdminDashboard() {
                     label="Highlights"
                     values={form.highlights}
                     onChange={(value) => handleArrayChange("highlights", value)}
+                  />
+                  <ArrayField
+                    label="Meals Included"
+                    values={form.mealsIncluded}
+                    onChange={(value) => handleArrayChange("mealsIncluded", value)}
+                  />
+                  <ArrayField
+                    label="Staff Services"
+                    values={form.staffServices}
+                    onChange={(value) => handleArrayChange("staffServices", value)}
                   />
                 </>
               )}

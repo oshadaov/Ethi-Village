@@ -1,73 +1,32 @@
 import Button from "../common/Button";
+import { Link } from "react-router-dom";
 
 export default function ExperienceCard({ experience }) {
   const resolvedImage = experience.image;
 
   return (
-    <article className="experience-detail-card">
-      <div className="experience-detail-image">
+    <article className="experience-card-v3">
+      <div className="experience-card-image-v3">
         <img src={resolvedImage} alt={experience.title} />
       </div>
 
-      <div className="experience-detail-content">
-        <div className="experience-top-row">
-          <span className="experience-category">{experience.category}</span>
-          <span className="experience-price">{experience.priceText}</span>
-        </div>
-
-        <h3>{experience.title}</h3>
-        <p>{experience.shortDescription}</p>
-
-        <div className="experience-meta">
-          <span>
-            <strong>Duration:</strong> {experience.duration}
-          </span>
-          <span>
-            <strong>Group:</strong> {experience.groupType}
-          </span>
-          <span>
-            <strong>Difficulty:</strong> {experience.difficulty}
-          </span>
-        </div>
-
-        <div className="experience-columns">
-          <div>
-            <h4>Highlights</h4>
-            <ul>
-              {experience.highlights.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+      <div className="experience-card-overlay-v3">
+        <div className="experience-card-content-v3">
+          <div className="experience-card-header-v3">
+            <span className="experience-category-v3">{experience.category}</span>
+            <h3 className="experience-title-v3">{experience.title}</h3>
           </div>
+          
+          <p className="experience-price-v3">{experience.priceText}</p>
 
-          <div>
-            <h4>Includes</h4>
-            <ul>
-              {experience.includes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+          <div className="experience-card-actions-v3">
+            <Button to={`/activities/${experience.id}`} variant="secondary" className="view-details-btn-v3">
+              View Details
+            </Button>
+            <Button to="/contact" className="book-now-btn-v3">
+              Book Now
+            </Button>
           </div>
-        </div>
-
-        <div className="experience-tags">
-          {experience.bestFor.map((tag) => (
-            <span key={tag} className="experience-tag">
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <div className="experience-actions">
-          <Button to="/contact">Book This Experience</Button>
-          <Button
-            href={`https://wa.me/94771234567?text=${encodeURIComponent(
-              `Hello, I’m interested in the ${experience.title}. Please share more details.`,
-            )}`}
-            variant="secondary"
-          >
-            WhatsApp Inquiry
-          </Button>
         </div>
       </div>
     </article>

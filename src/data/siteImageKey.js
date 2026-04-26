@@ -4,16 +4,25 @@ export const siteImageKeys = [
   
   { key: "stay_hero", label: "Stay: Hero Image" },
   { key: "stay_food", label: "Stay: Food & Drink Image" },
+  { key: "stay_dining_1", label: "Stay: Dining Image 1" },
+  { key: "stay_dining_2", label: "Stay: Dining Image 2" },
+  { key: "stay_dining_3", label: "Stay: Dining Image 3" },
   
   { key: "impact_hero", label: "Impact: Hero Image" },
-  { key: "impact_community", label: "Impact: Community Dev Image" },
-  { key: "impact_environment", label: "Impact: Environment Image" },
+  { key: "impact_community", label: "Impact: Community Development" },
+  { key: "impact_environment", label: "Impact: Environment Restoration" },
 
   { key: "gallery_hero", label: "Gallery: Hero Image" },
   { key: "contact_hero", label: "Contact: Hero Image" },
   { key: "comments_hero", label: "Comments: Hero Image" },
   { key: "blog_hero", label: "Blog: Hero Image" },
+  { key: "activities_hero", label: "Activities: Hero Image" },
 
+  // Section Specifics
+  { key: "home_activities_bg", label: "Home: Activities Section BG" },
+  { key: "home_impact_bg", label: "Home: Impact Section BG" },
+  { key: "contact_map_placeholder", label: "Contact: Map Placeholder" },
+  
   // Old routes kept for backwards compatibility
   { key: "about_hero", label: "Old About: Hero Image" },
   { key: "about_story", label: "Old About: Story Image" },

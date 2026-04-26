@@ -136,10 +136,10 @@ export default function Contact() {
                 <h3>Connect With Us</h3>
                 <p>Find all the latest information, photos, reviews and more on our pages:</p>
                 <div className="social-links-grid">
-                  <a href="https://facebook.com" target="_blank" rel="noreferrer" className="social-pill">Facebook</a>
-                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="social-pill">Instagram</a>
-                  <a href="https://tripadvisor.com" target="_blank" rel="noreferrer" className="social-pill">TripAdvisor</a>
-                  <a href="https://youtube.com" target="_blank" rel="noreferrer" className="social-pill">YouTube</a>
+                  <a href={import.meta.env.VITE_FACEBOOK_URL} target="_blank" rel="noreferrer" className="social-pill">Facebook</a>
+                  <a href={import.meta.env.VITE_INSTAGRAM_URL} target="_blank" rel="noreferrer" className="social-pill">Instagram</a>
+                  <a href={import.meta.env.VITE_TRIPADVISOR_URL} target="_blank" rel="noreferrer" className="social-pill">TripAdvisor</a>
+                  <a href={import.meta.env.VITE_YOUTUBE_URL} target="_blank" rel="noreferrer" className="social-pill">YouTube</a>
                 </div>
               </div>
 

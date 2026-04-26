@@ -15,8 +15,9 @@ import  planting from "../assets/images/gallery/experience/planting.jpg"
 import  discover from "../assets/images/gallery/village/discover.jpg"
 import logo from "../assets/images/gallery/logo.png/"
 import hero from "../assets/images/gallery/village/heroImage.webp"
-
+import split from "../assets/images/gallery/split.jpg"
+import glamping from "../assets/images/gallery/stay/glamping.jpg"
 
 export const images = {
-    village01,village02,food01,food02,nature01,nature02,guide01,guide02,stay01,stay02,lunch,cooking,planting,discover,logo,hero
+    village01,village02,food01,food02,nature01,nature02,guide01,guide02,stay01,stay02,lunch,cooking,planting,discover,logo,hero,split,glamping
 }

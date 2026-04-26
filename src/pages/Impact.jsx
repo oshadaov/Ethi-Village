@@ -1,6 +1,7 @@
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import { useSiteImages } from "../hooks/useSiteImages";
+import { images as defaultImagess } from "../assets/images";
 
 export default function Impact() {
   const { images, loading } = useSiteImages();
@@ -44,7 +45,7 @@ export default function Impact() {
           </div>
 
           <div className="split-image">
-            <img src={images?.impact_community || "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=1200&q=80"} alt="Community Development" />
+            <img src={images?.impact_community || defaultImagess?.split || "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=1200&q=80"} alt="Community Development" />
           </div>
         </Container>
       </section>
