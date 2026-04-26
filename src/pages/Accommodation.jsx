@@ -1,17 +1,27 @@
+import { useState, useEffect } from "react";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
-import RoomCard from "../components/accommodation/RoomCard";
-import { rooms } from "../data/rooms";
+import AccommodationGrid from "../components/accommodation/AccommodationGrid";
+import ReservationChecker from "../components/accommodation/ReservationChecker";
+import { accommodationData } from "../data/accommodationData";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Accommodation() {
   const { images, loading } = useSiteImages();
+  const [roomsData, setRoomsData] = useState(accommodationData);
+
   const remoteHero = images?.accommodation_hero;
   const heroBackground =
     !loading && remoteHero
       ? remoteHero
       : "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80";
+
+  const remoteImage = images?.accomondation_split;
+  const accomondation_split =
+    !loading && remoteImage
+      ? remoteImage
+      : "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1200&q=80";
 
   return (
     <main>
@@ -37,11 +47,13 @@ export default function Accommodation() {
             description="Choose from thoughtfully prepared rooms designed for couples, families, and slow travelers seeking a meaningful village escape."
           />
 
-          <div className="room-list">
-            {rooms.map((room) => (
-              <RoomCard key={room.id} room={room} />
-            ))}
-          </div>
+          <AccommodationGrid accommodations={roomsData} />
+        </Container>
+      </section>
+
+      <section className="section section-soft">
+        <Container>
+          <ReservationChecker rooms={roomsData} />
         </Container>
       </section>
 
@@ -82,10 +94,7 @@ export default function Accommodation() {
           </div>
 
           <div className="split-image">
-            <img
-              src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80"
-              alt="Countryside accommodation"
-            />
+            <img src={accomondation_split} alt="Countryside accommodation" />
           </div>
         </Container>
       </section>

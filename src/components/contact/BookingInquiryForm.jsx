@@ -5,6 +5,8 @@ import { buildWhatsAppUrl } from "../../utils/contactUtils";
 export default function BookingInquiryForm({
   formData,
   submitted,
+  isSubmitting,
+  submitError,
   experiences,
   guestOptions,
   yesNoMaybeOptions,
@@ -25,8 +27,13 @@ export default function BookingInquiryForm({
 
       {submitted && (
         <div className="form-success-message">
-          <strong>Thank you.</strong> Your inquiry has been prepared. Next,
-          connect this form to your backend or email service.
+          <strong>Thank you.</strong> Your inquiry has been sent successfully. We will get back to you soon.
+        </div>
+      )}
+
+      {submitError && (
+        <div className="form-error-message" style={{ color: "red", marginBottom: "20px", padding: "12px", background: "#fee2e2", borderRadius: "8px" }}>
+          {submitError}
         </div>
       )}
 
@@ -179,7 +186,9 @@ export default function BookingInquiryForm({
         </div>
 
         <div className="form-actions">
-          <Button>Send Inquiry</Button>
+          <Button disabled={isSubmitting}>
+            {isSubmitting ? "Sending..." : "Send Inquiry"}
+          </Button>
           <Button href={whatsappLink} variant="secondary">
             Send on WhatsApp
           </Button>

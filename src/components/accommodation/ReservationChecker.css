@@ -1,0 +1,199 @@
+.reservation-checker {
+  margin: 2rem 0;
+  padding: 0;
+}
+
+.checker-card {
+  background: linear-gradient(135deg, #f5f3f0 0%, #f9f7f5 100%);
+  border: 1px solid #e8ddd5;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.checker-card h3 {
+  font-size: 1.75rem;
+  color: #2c2416;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.checker-subtitle {
+  color: #6b5b4f;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.checker-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #3d3428;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-input {
+  padding: 0.875rem 1rem;
+  border: 1px solid #d4c4b8;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
+  color: #2c2416;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #8b7355;
+  box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+  background: #fafaf8;
+}
+
+.form-input::placeholder {
+  color: #a89b8f;
+}
+
+.form-input:disabled {
+  background-color: #f0ebe5;
+  color: #9d8d79;
+  cursor: not-allowed;
+}
+
+.checker-results {
+  background: white;
+  border: 1px solid #e8ddd5;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  color: #5a4f47;
+  font-size: 0.95rem;
+}
+
+.result-row span {
+  font-weight: 500;
+}
+
+.result-row strong {
+  color: #3d3428;
+  font-weight: 600;
+}
+
+.result-row.total-price {
+  border-top: 2px solid #e8ddd5;
+  border-bottom: 2px solid #e8ddd5;
+  padding: 1rem 0;
+  margin: 0.75rem 0;
+  font-size: 1.1rem;
+}
+
+.result-row.total-price strong {
+  color: #8b7355;
+  font-size: 1.3rem;
+}
+
+.availability-status {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+}
+
+.availability-status.available {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.availability-status.unavailable {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.checker-card button {
+  grid-column: 1 / -1;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.checker-card button:not(.disabled) {
+  background-color: #8b7355;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.checker-card button:not(.disabled):hover {
+  background-color: #6b5344;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
+}
+
+.checker-card button:not(.disabled):active {
+  transform: translateY(0);
+}
+
+.checker-card button.disabled {
+  background-color: #e8ddd5;
+  color: #a89b8f;
+  border: 1px solid #d4c4b8;
+  cursor: not-allowed;
+}
+
+.checker-note {
+  font-size: 0.85rem;
+  color: #6b5b4f;
+  background-color: rgba(139, 115, 85, 0.05);
+  border-left: 3px solid #8b7355;
+  padding: 1rem;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .checker-card {
+    padding: 1.5rem;
+  }
+
+  .checker-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .checker-form {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .result-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}

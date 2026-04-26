@@ -1,4 +1,29 @@
-User-agent: *
-Disallow: /admin/
+# Etili Village Robots.txt
+# Allow all search engines to crawl the site
 
-Sitemap: https://ethili-village.com/sitemap.xml
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /.next/
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /api/
+
+# Googlebot specific rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bingbot specific rules
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# All other bots
+User-agent: *
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://etilivillage.com/sitemap.xml
+Sitemap: https://etilivillage.com/sitemap-images.xml
+Sitemap: https://etilivillage.com/sitemap-pages.xml

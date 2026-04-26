@@ -1,11 +1,25 @@
+import { useState, useEffect } from "react";
 import Container from "../common/Container";
 import SectionHeader from "../common/SectionHeader";
 import Button from "../common/Button";
-import { galleryItems } from "../../data/gallery";
+import { getGalleryItems } from "../../data/gallery";
 import { useSiteImages } from "../../hooks/useSiteImages";
 
 export default function GalleryPreviewSection() {
   const { images, loading } = useSiteImages();
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [loadingData, setLoadingData] = useState(true);
+
+  useEffect(() => {
+    const loadGalleryItems = async () => {
+      setLoadingData(true);
+      const items = await getGalleryItems();
+      setGalleryItems(items);
+      setLoadingData(false);
+    };
+    loadGalleryItems();
+  }, []);
+
   const previewImages = galleryItems.slice(0, 4);
 
   return (
@@ -18,29 +32,33 @@ export default function GalleryPreviewSection() {
         />
 
         <div className="gallery-grid">
-          {previewImages.map((item, index) => {
-            const imageSrc =
-              !loading && images[item.imageKey]
-                ? images[item.imageKey]
-                : item.image;
-            let sizeClass = "";
+          {loadingData ? (
+            <p>Loading gallery preview...</p>
+          ) : (
+            previewImages.map((item, index) => {
+              const imageSrc =
+                !loading && images[item.imageKey]
+                  ? images[item.imageKey]
+                  : item.image;
+              let sizeClass = "";
 
-            if (index === 0) sizeClass = "large";
-            else if (index === 3) sizeClass = "wide";
+              if (index === 0) sizeClass = "large";
+              else if (index === 3) sizeClass = "wide";
 
-            return (
-              <div key={item.id} className={`gallery-card ${sizeClass}`}>
-                <img src={imageSrc} alt={item.alt} />
+              return (
+                <div key={item.id} className={`gallery-card ${sizeClass}`}>
+                  <img src={imageSrc} alt={item.alt} />
 
-                <div className="gallery-overlay">
-                  <div className="overlay-content">
-                    <h3>{item.title}</h3>
-                    <p>{item.category}</p>
+                  <div className="gallery-overlay">
+                    <div className="overlay-content">
+                      <h3>{item.title}</h3>
+                      <p>{item.category}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
 
         <div className="section-actions">

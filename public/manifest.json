@@ -1,0 +1,60 @@
+{
+  "name": "Etili Village - Authentic Community Tourism in Sri Lanka",
+  "short_name": "Etili Village",
+  "description": "Award-winning community tourism enterprise offering authentic cultural experiences, wildlife encounters, and sustainable stays in Sri Lanka's Uva Province.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fcfd",
+  "theme_color": "#1e4a6d",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["travel", "tourism"],
+  "screenshots": [
+    {
+      "src": "/logo.jpeg",
+      "sizes": "540x720",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book Accommodation",
+      "short_name": "Book Stay",
+      "description": "Book your stay at Etili Village",
+      "url": "/accommodation",
+      "icons": [
+        {
+          "src": "/logo.jpeg",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Explore Experiences",
+      "short_name": "Experiences",
+      "description": "Discover unique experiences at Etili Village",
+      "url": "/experiences",
+      "icons": [
+        {
+          "src": "/logo.jpeg",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

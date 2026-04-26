@@ -1,29 +1,75 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Home from "../pages/Home";
-import Experiences from "../pages/Experiences";
-import Accommodation from "../pages/Accommodation";
-import Guides from "../pages/Guides";
 import Gallery from "../pages/Gallery";
-import About from "../pages/About";
 import Contact from "../pages/Contact";
+import Stay from "../pages/Stay";
+import Impact from "../pages/Impact";
+import Comments from "../pages/Comments";
+import Blog from "../pages/Blog";
+import BlogPostView from "../pages/BlogPostView";
 import NotFound from "../pages/NotFound";
-import AdminImages from "../pages/AdminImage";
+import AdminDashboard from "../pages/AdminDashboard";
+import RoomDetail from "../pages/RoomDetail";
+import Activities from "../pages/Activities";
+import ActivityDetail from "../pages/ActivityDetail";
+import RoleGuard, { AdminLogin } from "./RoleGuard";
 import FloatingWhatsApp from "../components/common/FloatingWhatsApp";
 
 export default function AppRoutes() {
+  const location = useLocation();
+  const isAdminPath = location.pathname.startsWith("/admin");
+
   return (
     <>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/experiences" element={<Experiences />} />
-        <Route path="/accommodation" element={<Accommodation />} />
-        <Route path="/guides" element={<Guides />} />
+        <Route path="/stay" element={<Stay />} />
+        <Route path="/impact" element={<Impact />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/comments" element={<Comments />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPostView />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/stay/:id" element={<RoomDetail />} />
+        <Route path="/activities/:id" element={<ActivityDetail />} />
+        <Route path="/accommodation/:id" element={<Navigate to="/stay/:id" replace />} />
+
+        {/* Activities and Experiences */}
+        <Route path="/activities" element={<Activities />} />
+        <Route path="/experiences" element={<Activities />} />
+        
+        <Route
+          path="/accommodation"
+          element={<Navigate to="/stay" replace />}
+        />
+        <Route
+          path="/guides"
+          element={<Navigate to="/stay#activities" replace />}
+        />
+        <Route path="/about" element={<Navigate to="/impact" replace />} />
+        <Route
+          path="/admin/login"
+          element={
+            localStorage.getItem("adminAuth") === "true" ? (
+              <Navigate to="/admin/dashboard" replace />
+            ) : (
+              <AdminLogin
+                onLogin={() => (window.location.href = "/admin/dashboard")}
+              />
+            )
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <RoleGuard requiredRole="admin">
+              <AdminDashboard />
+            </RoleGuard>
+          }
+        />
         <Route
           path="/admin"
           element={<Navigate to="/admin/images" replace />}
@@ -32,10 +78,17 @@ export default function AppRoutes() {
           path="/admin/imges"
           element={<Navigate to="/admin/images" replace />}
         />
-        <Route path="/admin/images" element={<AdminImages />} />
+        <Route
+          path="/admin/images"
+          element={
+            <RoleGuard requiredRole="admin">
+              <AdminDashboard />
+            </RoleGuard>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <FloatingWhatsApp />
+      {!isAdminPath && <FloatingWhatsApp />}
       <Footer />
     </>
   );
