@@ -57,14 +57,16 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError("");
-    
+
     try {
       await submitContactInquiry(formData);
       setSubmitted(true);
       setFormData(initialContactForm);
     } catch (error) {
       console.error("Error submitting form:", error);
-      setSubmitError("There was a problem submitting your inquiry. Please try again or use WhatsApp.");
+      setSubmitError(
+        "There was a problem submitting your inquiry. Please try again or use WhatsApp.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -134,19 +136,54 @@ export default function Contact() {
 
               <div className="social-links-box">
                 <h3>Connect With Us</h3>
-                <p>Find all the latest information, photos, reviews and more on our pages:</p>
+                <p>
+                  Find all the latest information, photos, reviews and more on
+                  our pages:
+                </p>
                 <div className="social-links-grid">
-                  <a href={import.meta.env.VITE_FACEBOOK_URL} target="_blank" rel="noreferrer" className="social-pill">Facebook</a>
-                  <a href={import.meta.env.VITE_INSTAGRAM_URL} target="_blank" rel="noreferrer" className="social-pill">Instagram</a>
-                  <a href={import.meta.env.VITE_TRIPADVISOR_URL} target="_blank" rel="noreferrer" className="social-pill">TripAdvisor</a>
-                  <a href={import.meta.env.VITE_YOUTUBE_URL} target="_blank" rel="noreferrer" className="social-pill">YouTube</a>
+                  <a
+                    href={import.meta.env.VITE_FACEBOOK_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="social-pill"
+                  >
+                    Facebook
+                  </a>
+                  <a
+                    href={import.meta.env.VITE_INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="social-pill"
+                  >
+                    Instagram
+                  </a>
+                  <a
+                    href={import.meta.env.VITE_TRIPADVISOR_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="social-pill"
+                  >
+                    TripAdvisor
+                  </a>
+                  <a
+                    href={import.meta.env.VITE_YOUTUBE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="social-pill"
+                  >
+                    YouTube
+                  </a>
                 </div>
               </div>
 
               <div className="download-box">
                 <h3>Directions</h3>
                 <p>Download our detailed map and directions guide.</p>
-                <Button variant="secondary" href="/Etili_Directions.pdf" download>
+                <Button
+                  variant="secondary"
+                  href="/Etili_Directions.pdf"
+                  download
+                >
                   Download PDF Map
                 </Button>
               </div>
