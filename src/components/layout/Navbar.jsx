@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { HashLink } from 'react-router-hash-link';
+import { HashLink } from "react-router-hash-link";
 import { Menu, X } from "lucide-react";
 import Button from "../common/Button";
 import Container from "../common/Container";
@@ -8,22 +8,22 @@ import { images } from "../../assets/images";
 
 const navLinks = [
   { label: "Home", path: "/" },
-  { 
-    label: "Stay", 
+  {
+    label: "Stay",
     path: "/stay",
     dropdown: [
       { label: "Accommodation", path: "/stay#accommodation" },
       { label: "Food and drinks", path: "/stay#food" },
-      { label: "Activities", path: "/activities" }
-    ]
+      { label: "Activities", path: "/activities" },
+    ],
   },
-  { 
-    label: "Impact", 
+  {
+    label: "Impact",
     path: "/impact",
     dropdown: [
       { label: "Community development", path: "/impact#community" },
-      { label: "Environmental restoration", path: "/impact#environment" }
-    ]
+      { label: "Environmental restoration", path: "/impact#environment" },
+    ],
   },
   { label: "Gallery", path: "/gallery" },
   { label: "Comments", path: "/comments" },
@@ -41,37 +41,67 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close mobile menu when resizing to desktop view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <header className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
       <Container className="navbar-inner">
-       <Link to="/" className="logo">
-  <img src={images.logo} alt="Etili Village Experience" className="logo-img" />
+        <Link to="/" className="logo">
+          <img
+            src={images.logo}
+            alt="Etili Village Experience"
+            className="logo-img"
+          />
 
-  {/* <div className="logo-text">
+          {/* <div className="logo-text">
     <strong>Etili Village</strong>
     <span>Experience</span>
   </div> */}
-</Link>
+        </Link>
 
         <nav className="desktop-nav">
           {navLinks.map((link) => (
-            <div key={link.path} className={`nav-item ${link.dropdown ? "has-dropdown" : ""}`}>
+            <div
+              key={link.path}
+              className={`nav-item ${link.dropdown ? "has-dropdown" : ""}`}
+            >
               <NavLink
                 to={link.path}
-                className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
               >
                 {link.label}
               </NavLink>
               {link.dropdown && (
                 <div className="dropdown-menu">
-                  {link.dropdown.map(drop => {
+                  {link.dropdown.map((drop) => {
                     const isHashLink = drop.path.includes("#");
                     return isHashLink ? (
-                      <HashLink smooth key={drop.path} to={drop.path} className="dropdown-link">
+                      <HashLink
+                        smooth
+                        key={drop.path}
+                        to={drop.path}
+                        className="dropdown-link"
+                      >
                         {drop.label}
                       </HashLink>
                     ) : (
-                      <Link key={drop.path} to={drop.path} className="dropdown-link">
+                      <Link
+                        key={drop.path}
+                        to={drop.path}
+                        className="dropdown-link"
+                      >
                         {drop.label}
                       </Link>
                     );
@@ -108,22 +138,22 @@ export default function Navbar() {
                 </NavLink>
                 {link.dropdown && (
                   <div className="mobile-dropdown">
-                    {link.dropdown.map(drop => {
+                    {link.dropdown.map((drop) => {
                       const isHashLink = drop.path.includes("#");
                       return isHashLink ? (
-                        <HashLink 
+                        <HashLink
                           smooth
-                          key={drop.path} 
-                          to={drop.path} 
+                          key={drop.path}
+                          to={drop.path}
                           className="mobile-dropdown-link"
                           onClick={() => setMobileOpen(false)}
                         >
                           {drop.label}
                         </HashLink>
                       ) : (
-                        <Link 
-                          key={drop.path} 
-                          to={drop.path} 
+                        <Link
+                          key={drop.path}
+                          to={drop.path}
                           className="mobile-dropdown-link"
                           onClick={() => setMobileOpen(false)}
                         >
