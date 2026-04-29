@@ -62,7 +62,7 @@ export default function Experiences() {
     return matches.map((item) => {
       const key = item.imageKey || `experience_${item.slug}`;
       const remoteImage = images[key];
-      const apiImage = item.imageUrl;
+      const apiImage = item.image;
 
       return {
         ...item,

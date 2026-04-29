@@ -75,10 +75,15 @@ export const getGalleryItems = async () => {
 // For backward compatibility
 export const galleryCategories = [
   "All",
-  "Village Life",
-  "Food",
-  "Nature",
-  "Guides",
-  "Stay",
+  "Village Images",
+  "Accommodation",
+  "Foods and Drinks",
+  "Tours",
+  "Sites Nearby",
+  "Organic Farms",
+  "Team",
+  "Visitors",
+  "Animals and Birds",
+  "Community",
 ];
 export const galleryItems = [];

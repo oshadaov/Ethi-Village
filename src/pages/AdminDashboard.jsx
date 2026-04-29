@@ -14,10 +14,11 @@ const API_BASE =
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8085/api/admin";
 
 const tabs = [
-  { key: "experiences", label: "Experiences" },
+  { key: "experiences", label: "Activities" },
   { key: "gallery", label: "Gallery" },
   { key: "guides", label: "Guides" },
-  { key: "rooms", label: "Rooms" },
+  { key: "rooms", label: "Accommodation" },
+  { key: "blogs", label: "Blogs" },
   { key: "images", label: "Images" },
 ];
 
@@ -40,6 +41,7 @@ const emptyExperience = {
   difficulty: "",
   priceText: "",
   shortDescription: "",
+  description: "",
   highlights: [""],
   includes: [""],
   bestFor: [""],
@@ -66,10 +68,23 @@ const emptyRoom = {
   type: "",
   guests: "",
   priceText: "",
+  pricePerNight: "",
+  minNights: "",
   imageKey: "",
   description: "",
   amenities: [""],
   highlights: [""],
+  mealsIncluded: [""],
+  staffServices: [""],
+};
+
+const emptyBlog = {
+  title: "",
+  slug: "",
+  author: "",
+  content: "",
+  shortDescription: "",
+  imageKey: "",
 };
 
 function arrayClean(values) {
@@ -93,6 +108,8 @@ function normalizeForSubmit(tab, form) {
       ...payload,
       amenities: arrayClean(payload.amenities),
       highlights: arrayClean(payload.highlights),
+      mealsIncluded: arrayClean(payload.mealsIncluded),
+      staffServices: arrayClean(payload.staffServices),
     };
   }
 
@@ -116,6 +133,7 @@ function parseFormFromItem(tab, item) {
       difficulty: item.difficulty || "",
       priceText: item.priceText || "",
       shortDescription: item.shortDescription || "",
+      description: item.description || "",
       highlights: item.highlights?.length ? item.highlights : [""],
       includes: item.includes?.length ? item.includes : [""],
       bestFor: item.bestFor?.length ? item.bestFor : [""],
@@ -142,15 +160,30 @@ function parseFormFromItem(tab, item) {
     };
   }
 
+  if (tab === "blogs") {
+    return {
+      title: item.title || "",
+      slug: item.slug || "",
+      author: item.author || "",
+      content: item.content || "",
+      shortDescription: item.shortDescription || "",
+      imageKey: item.imageKey || "",
+    };
+  }
+
   return {
     name: item.name || "",
     type: item.type || "",
     guests: item.guests || "",
     priceText: item.priceText || "",
+    pricePerNight: item.pricePerNight || "",
+    minNights: item.minNights || "",
     imageKey: item.imageKey || "",
     description: item.description || "",
     amenities: item.amenities?.length ? item.amenities : [""],
     highlights: item.highlights?.length ? item.highlights : [""],
+    mealsIncluded: item.mealsIncluded?.length ? item.mealsIncluded : [""],
+    staffServices: item.staffServices?.length ? item.staffServices : [""],
   };
 }
 
@@ -158,6 +191,7 @@ function getDefaultForm(tab) {
   if (tab === "experiences") return emptyExperience;
   if (tab === "gallery") return emptyGallery;
   if (tab === "guides") return emptyGuide;
+  if (tab === "blogs") return emptyBlog;
   return emptyRoom;
 }
 
@@ -172,6 +206,7 @@ function getEndpoint(tab) {
   if (tab === "experiences") return `${API_BASE}/experiences`;
   if (tab === "gallery") return `${API_BASE}/gallery`;
   if (tab === "guides") return `${API_BASE}/guides`;
+  if (tab === "blogs") return `${API_BASE}/blogs`;
   if (tab === "images") return `${API_BASE}/site-images`;
   return `${API_BASE}/rooms`;
 }
@@ -420,6 +455,7 @@ export default function AdminDashboard() {
   };
 
   return (
+    
     <div className="admin-dashboard-wrapper">
       <div className="admin-header">
         <p className="admin-header-eyebrow">Admin Panel</p>
@@ -557,7 +593,17 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         handleTextChange("shortDescription", e.target.value)
                       }
-                      placeholder="Describe the experience"
+                      placeholder="Short summary for the card"
+                    />
+                  </Field>
+                  <Field label="Long Description">
+                    <TextArea
+                      rows={6}
+                      value={form.description}
+                      onChange={(e) =>
+                        handleTextChange("description", e.target.value)
+                      }
+                      placeholder="Detailed description for the experience page"
                     />
                   </Field>
                   <ArrayField
@@ -705,13 +751,35 @@ export default function AdminDashboard() {
                     </Field>
                   </div>
                   <div className="admin-form-grid-2">
-                    <Field label="Price Text">
+                    <Field label="Price (Number)">
+                      <TextInput
+                        type="number"
+                        value={form.pricePerNight}
+                        onChange={(e) =>
+                          handleTextChange("pricePerNight", e.target.value)
+                        }
+                        placeholder="180"
+                      />
+                    </Field>
+                    <Field label="Min Nights">
+                      <TextInput
+                        type="number"
+                        value={form.minNights}
+                        onChange={(e) =>
+                          handleTextChange("minNights", e.target.value)
+                        }
+                        placeholder="2"
+                      />
+                    </Field>
+                  </div>
+                  <div className="admin-form-grid-2">
+                    <Field label="Price Text (Display)">
                       <TextInput
                         value={form.priceText}
                         onChange={(e) =>
                           handleTextChange("priceText", e.target.value)
                         }
-                        placeholder="From LKR 18,500 / night"
+                        placeholder="From $180 / night"
                       />
                     </Field>
                     <Field label="Image Key">
@@ -720,7 +788,7 @@ export default function AdminDashboard() {
                         onChange={(e) =>
                           handleTextChange("imageKey", e.target.value)
                         }
-                        placeholder="room_family_village"
+                        placeholder="room_mud_house"
                       />
                     </Field>
                   </div>
@@ -744,6 +812,67 @@ export default function AdminDashboard() {
                     values={form.highlights}
                     onChange={(value) => handleArrayChange("highlights", value)}
                   />
+                  <ArrayField
+                    label="Meals Included"
+                    values={form.mealsIncluded}
+                    onChange={(value) => handleArrayChange("mealsIncluded", value)}
+                  />
+                  <ArrayField
+                    label="Staff Services"
+                    values={form.staffServices}
+                    onChange={(value) => handleArrayChange("staffServices", value)}
+                  />
+                </>
+              )}
+
+              {activeTab === "blogs" && (
+                <>
+                  <Field label="Title">
+                    <TextInput
+                      value={form.title}
+                      onChange={(e) => handleTextChange("title", e.target.value)}
+                      placeholder="My Awesome Blog Post"
+                    />
+                  </Field>
+                  <div className="admin-form-grid-2">
+                    <Field label="Slug (URL)">
+                      <TextInput
+                        value={form.slug}
+                        onChange={(e) => handleTextChange("slug", e.target.value)}
+                        placeholder="my-awesome-blog-post"
+                      />
+                    </Field>
+                    <Field label="Author">
+                      <TextInput
+                        value={form.author}
+                        onChange={(e) => handleTextChange("author", e.target.value)}
+                        placeholder="Jane Doe"
+                      />
+                    </Field>
+                  </div>
+                  <Field label="Image Key (Optional)">
+                    <TextInput
+                      value={form.imageKey}
+                      onChange={(e) => handleTextChange("imageKey", e.target.value)}
+                      placeholder="blog_my_post"
+                    />
+                  </Field>
+                  <Field label="Short Description">
+                    <TextArea
+                      rows={2}
+                      value={form.shortDescription}
+                      onChange={(e) => handleTextChange("shortDescription", e.target.value)}
+                      placeholder="A short summary of the post for the card"
+                    />
+                  </Field>
+                  <Field label="Content">
+                    <TextArea
+                      rows={10}
+                      value={form.content}
+                      onChange={(e) => handleTextChange("content", e.target.value)}
+                      placeholder="Full markdown/html content of the blog post..."
+                    />
+                  </Field>
                 </>
               )}
 
@@ -795,43 +924,57 @@ export default function AdminDashboard() {
                   </div>
                 </>
               ) : (
-                <div className="admin-images-grid">
-                  {siteImageKeys.map((entry) => {
-                    const current =
-                      items.find((i) => i.imageKey === entry.key) || {};
-                    const imageUrl =
-                      current.imageDataUrl || current.imageUrl || current.image;
-                    return (
-                      <div key={entry.key} className="admin-image-card">
-                        <h4>{entry.label}</h4>
-                        <div className="admin-image-preview">
-                          {imageUrl ? (
-                            <img src={imageUrl} alt={entry.label} />
-                          ) : (
-                            <div className="admin-card-image-placeholder">
-                              No image
+                <div className="admin-images-wrapper">
+                  {Object.entries(
+                    siteImageKeys.reduce((acc, entry) => {
+                      const page = entry.label.split(":")[0];
+                      if (!acc[page]) acc[page] = [];
+                      acc[page].push(entry);
+                      return acc;
+                    }, {})
+                  ).map(([page, keys]) => (
+                    <div key={page} className="admin-image-category">
+                      <h3 className="admin-image-category-title">{page}</h3>
+                      <div className="admin-images-grid">
+                        {keys.map((entry) => {
+                          const current =
+                            items.find((i) => i.imageKey === entry.key) || {};
+                          const imageUrl =
+                            current.imageDataUrl || current.imageUrl || current.image;
+                          return (
+                            <div key={entry.key} className="admin-image-card">
+                              <h4>{entry.label.split(":")[1] || entry.label}</h4>
+                              <div className="admin-image-preview">
+                                {imageUrl ? (
+                                  <img src={imageUrl} alt={entry.label} />
+                                ) : (
+                                  <div className="admin-card-image-placeholder">
+                                    No image
+                                  </div>
+                                )}
+                              </div>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) =>
+                                  handleImageUpload(entry.key, e.target.files?.[0])
+                                }
+                              />
+                              {imageUrl && (
+                                <button
+                                  type="button"
+                                  className="admin-delete-btn"
+                                  onClick={() => handleImageDelete(entry.key)}
+                                >
+                                  Delete
+                                </button>
+                              )}
                             </div>
-                          )}
-                        </div>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) =>
-                            handleImageUpload(entry.key, e.target.files?.[0])
-                          }
-                        />
-                        {imageUrl && (
-                          <button
-                            type="button"
-                            className="admin-delete-btn"
-                            onClick={() => handleImageDelete(entry.key)}
-                          >
-                            Delete
-                          </button>
-                        )}
+                          );
+                        })}
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
               )}
             </form>
