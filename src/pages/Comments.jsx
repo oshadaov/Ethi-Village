@@ -52,7 +52,7 @@ export default function Comments() {
               <h3>Google Reviews</h3>
               <p>4.9/5 Stars</p>
               <a
-                href="https://google.com"
+                href={import.meta.env.VITE_GOOGLE_REVIEWS_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-secondary"

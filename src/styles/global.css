@@ -401,7 +401,7 @@ p {
 
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
 
@@ -409,17 +409,17 @@ p {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  color: #fff;
+  color: #ffffff;
 }
 
 .hero-overlay {
-  position: absolute;
+  position:absolute;
   inset: 0;
   background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.4) 0%,
-    rgba(0, 0, 0, 0.7) 50%,
-    rgba(0, 0, 0, 0.4) 100%
+    280deg,
+    rgba(207, 200, 200, 0.1) 0%,
+    rgba(101, 35, 35, 0.2) 20%,
+    rgba(211, 206, 206, 0.1) 100%
   );
 }
 
@@ -429,7 +429,10 @@ p {
   display: flex;
   justify-content: center;
   width: 100%;
+  font-size: 400px;
+
 }
+
 
 .hero-text {
   width: 100%;
@@ -487,7 +490,7 @@ p {
   transition: all 0.3s ease;
   cursor: pointer;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(246, 245, 245, 0.99);
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 

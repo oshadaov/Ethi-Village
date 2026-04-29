@@ -15,25 +15,25 @@ export default function HeroSection() {
   const socialLinks = [
     {
       icon: FaFacebook,
-      url: "https://www.facebook.com/etilivillage",
+      url: import.meta.env.VITE_FACEBOOK_URL,
       label: "Facebook",
       color: "#1877F2",
     },
     {
       icon: FaYoutube,
-      url: "https://www.youtube.com/channel/etilivillage",
+      url: import.meta.env.VITE_YOUTUBE_URL,
       label: "YouTube",
       color: "#FF0000",
     },
     {
       icon: FaInstagram,
-      url: "https://www.instagram.com/etilivillage",
+      url: import.meta.env.VITE_INSTAGRAM_URL,
       label: "Instagram",
       color: "#E4405F",
     },
     {
       icon: SiTripadvisor,
-      url: "https://www.tripadvisor.com/etilivillage",
+      url: import.meta.env.VITE_TRIPADVISOR_URL,
       label: "TripAdvisor",
       color: "#00AF87",
     },
@@ -50,7 +50,7 @@ export default function HeroSection() {
           className="hero-text"
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
         >
           <h1>
             ETHILI
