@@ -25,9 +25,7 @@ export default function HomeIntro() {
           <p><strong>Our village consistently ranks among the top community-driven enterprises in Sri Lanka.</strong></p>
         </div>
         
-        <div className="split-image">
-          <img src={images?.home_intro || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80"} alt="Etili Village Beauty" />
-        </div>
+        
       </Container>
     </section>
   );

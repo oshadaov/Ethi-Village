@@ -14,7 +14,7 @@ import cooking from "../assets/images/gallery/food/cooking.jpg"
 import  planting from "../assets/images/gallery/experience/planting.jpg"
 import  discover from "../assets/images/gallery/village/discover.jpg"
 import logo from "../assets/images/gallery/logo.png/"
-import hero from "../assets/images/gallery/village/heroImage.webp"
+import hero from "../assets/images/gallery/village/hero.jpg"
 import split from "../assets/images/gallery/split.jpg"
 import glamping from "../assets/images/gallery/stay/glamping.jpg"
 

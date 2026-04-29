@@ -1,8 +1,24 @@
+import { motion } from "framer-motion";
 import Container from "../common/Container";
 import SectionHeader from "../common/SectionHeader";
+import { SiTripadvisor } from "react-icons/si";
+import { FaMedal } from "react-icons/fa";
 import awardImage from "../../assets/images/gallery/stay/award.jpg";
 
 export default function HomeAwards() {
+  const certifications = [
+    {
+      icon: SiTripadvisor,
+      title: "TripAdvisor Certified",
+      color: "#00af87",
+    },
+    {
+      icon: FaMedal,
+      title: "Award Winner",
+      color: "#ffc107",
+    },
+  ];
+
   return (
     <section className="section">
       <Container className="split-layout">
@@ -42,6 +58,28 @@ export default function HomeAwards() {
               tourism enterprises, setting the standard for responsible and
               authentic travel experiences.
             </p>
+          </div>
+
+          <div className="award-certifications">
+            {certifications.map((cert, index) => {
+              const Icon = cert.icon;
+              return (
+                <motion.div
+                  key={index}
+                  className="certification-badge"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Icon
+                    className="certification-icon"
+                    style={{ color: cert.color }}
+                  />
+                  <span>{cert.title}</span>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </Container>
