@@ -13,7 +13,7 @@ export default function HeroIntroSection() {
           viewport={{ once: true }}
         >
           <div className="hero-intro-text">
-            <h2>A Rural Community Enterprise</h2>
+            
 
             <p>
               Etili Village is a rural community that provides opportunities for

@@ -52,11 +52,12 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         >
-          <h1>
-            ETHILI
-            <br />
+          <h1 className="hero-content-heading">
+            E T H I L I</h1>
+          <h2 >
+            
             VILLAGE SRI LANKA
-          </h1>
+          </h2>
 
           <div className="hero-social-links">
             {socialLinks.map((link, index) => {
