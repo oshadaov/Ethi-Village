@@ -1,10 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getExperiences } from "../data/experiences";
+import "../styles/accommodation-detail.css"; // Reuse premium detail styles
 
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
+import ImageSlider from "../components/common/ImageSlider";
 import {
   ArrowLeft,
   CheckCircle,
@@ -59,86 +61,107 @@ export default function ActivityDetail() {
 
   if (!activity) return null;
 
-  const imageSrc = activity.image || activity.imageUrl;
+  const heroImage = activity.image || activity.imageUrl;
+
+  // Build slider images: prefer galleryImages array; fall back to single hero image
+  const sliderImages =
+    Array.isArray(activity.galleryImages) && activity.galleryImages.length > 0
+      ? activity.galleryImages
+      : heroImage
+      ? [heroImage]
+      : [];
 
   return (
     <main className="activity-detail-page">
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section
-        className="page-hero-small"
-        style={{ backgroundImage: `url('${imageSrc}')` }}
+        className="detail-hero"
+        style={{ backgroundImage: `url('${heroImage}')` }}
       >
-        <div className="page-hero-overlay" />
-
-        <Container className="page-hero-content">
-          <Button
-            variant="secondary"
-            onClick={() => navigate(-1)}
-            className="back-btn"
-          >
-            <ArrowLeft size={18} />
-            Back to Activities
-          </Button>
-
-          <h1>{activity.title}</h1>
-          <p className="room-type-pill">{activity.category}</p>
+        <Container className="detail-hero-overlay">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            ← Back
+          </button>
+          <div className="detail-hero-content">
+            <span className="detail-badge">{activity.category}</span>
+            <h1>{activity.title}</h1>
+            <div className="detail-price-section">
+              <span className="detail-price">
+                {activity.priceText || "Inquiry required"}
+              </span>
+              <span className="detail-capacity">
+                ⏱ {activity.duration || "Custom"} • 📊 {activity.difficulty || "Easy"}
+              </span>
+            </div>
+          </div>
         </Container>
       </section>
 
-      <section className="section">
-        <Container>
-          <div className="room-detail-grid">
-            <div className="room-detail-main">
-              <div className="room-detail-block">
-                <SectionHeader
-                  eyebrow="Overview"
-                  title="About this Experience"
-                />
 
-                <p className="room-description-large">
+      {/* ── Main Content ─────────────────────────────────────────────── */}
+      <section className="detail-section">
+        <Container>
+          <div className="detail-layout">
+            <div className="detail-main">
+              {/* Gallery Slider Inside Main Layout */}
+              {sliderImages.length > 0 && (
+                <div className="detail-slider-wrapper" style={{ marginBottom: "3rem" }}>
+                  <ImageSlider
+                    images={sliderImages}
+                    alt={activity.title}
+                    aspectRatio="16/9"
+                  />
+                </div>
+              )}
+
+              <div className="tab-content">
+                <h2>About this Experience</h2>
+
+                <p className="detail-description">
                   {activity.description || activity.shortDescription}
                 </p>
               </div>
 
-              <div className="room-detail-block">
+              <div className="highlights-section">
                 <h3>Experience Highlights</h3>
 
-                <div className="highlights-grid-v2">
+                <ul className="highlights-list">
                   {(activity.highlights || []).map((highlight, index) => (
-                    <div key={index} className="highlight-item-v2">
-                      <CheckCircle size={18} className="text-accent" />
-                      <span>{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="room-detail-block">
-                <h3>What's Included</h3>
-
-                <ul className="amenities-list-v2">
-                  {(activity.includes || []).map((item, index) => (
                     <li key={index}>
-                      <CheckCircle size={16} />
-                      {item}
+                      <span className="highlight-icon">✨</span>
+                      {highlight}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="room-detail-block">
+              <div className="highlights-section">
+                <h3>What's Included</h3>
+
+                <div className="amenities-grid">
+                  {(activity.includes || []).map((item, index) => (
+                    <div key={index} className="amenity-card">
+                      <span className="amenity-icon">✓</span>
+                      <span className="amenity-text">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="highlights-section">
                 <h3>Best For</h3>
 
-                <div className="experience-tags">
-                  {(activity.bestFor || []).map((tag) => (
-                    <span key={tag} className="experience-tag">
-                      {tag}
-                    </span>
+                <div className="amenities-grid">
+                  {(activity.bestFor || []).map((tag, index) => (
+                    <div key={index} className="amenity-card" style={{ padding: "1rem" }}>
+                      <span className="amenity-text">{tag}</span>
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            <aside className="room-detail-sidebar">
+            <aside className="detail-sidebar">
               <div className="booking-card-v2">
                 <div className="booking-card-header">
                   <span className="price-tag-large">
@@ -181,33 +204,27 @@ export default function ActivityDetail() {
                   <Button to="/contact" className="btn-full">
                     Inquire & Book
                   </Button>
-
                   <Button
                     href={`https://wa.me/94771234567?text=${encodeURIComponent(
                       `Hi, I'm interested in booking the ${activity.title}.`
                     )}`}
                     variant="secondary"
                     className="btn-full"
-                    style={{ marginTop: "12px" }}
                   >
-                    WhatsApp Chat
+                    💬 Chat on WhatsApp
                   </Button>
                 </div>
               </div>
 
-              <div className="sidebar-info-box">
-                <h4>
+              <div className="sidebar-info-box" style={{ marginTop: "2rem", background: "rgba(255, 255, 255, 0.6)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.4)", borderRadius: "24px", padding: "2rem" }}>
+                <h4 style={{ color: "#d4af37", marginBottom: "0.5rem", fontSize: "1.2rem", fontWeight: "600" }}>
                   <MapPin
-                    size={18}
-                    style={{
-                      verticalAlign: "middle",
-                      marginRight: "8px",
-                    }}
+                    size={20}
+                    style={{ verticalAlign: "text-bottom", marginRight: "8px" }}
                   />
                   Location
                 </h4>
-
-                <p>
+                <p style={{ color: "#4a4a4a", fontSize: "0.95rem", lineHeight: "1.6" }}>
                   This activity starts directly from Etili Village or includes
                   transport to nearby sites.
                 </p>

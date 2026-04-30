@@ -5,7 +5,9 @@ import { useSiteImages } from "../hooks/useSiteImages";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
+import ImageSlider from "../components/common/ImageSlider";
 import { ArrowLeft, CheckCircle, Users, Clock, Utensils, Info } from "lucide-react";
+import "../styles/accommodation-detail.css";
 
 export default function RoomDetail() {
   const { id } = useParams();
@@ -46,71 +48,92 @@ export default function RoomDetail() {
 
   const imageSrc = !loading && images[room.imageKey] ? images[room.imageKey] : room.image;
 
+  const sliderImages = 
+    Array.isArray(room.galleryImages) && room.galleryImages.length > 0 
+      ? room.galleryImages 
+      : imageSrc ? [imageSrc] : [];
+
   return (
     <main className="room-detail-page">
       {/* Hero Header */}
       <section 
-        className="page-hero-small" 
+        className="detail-hero" 
         style={{ backgroundImage: `url('${imageSrc}')` }}
       >
-        <div className="page-hero-overlay" />
-        <Container className="page-hero-content">
-          <Button 
-            variant="secondary" 
+        <Container className="detail-hero-overlay">
+          <button 
             onClick={() => navigate(-1)} 
-            className="back-btn"
+            className="back-button"
           >
-            <ArrowLeft size={18} />
-            Back to Stays
-          </Button>
-          <h1>{room.name}</h1>
-          <p className="room-type-pill">{room.type}</p>
+            ← Back to Stays
+          </button>
+          <div className="detail-hero-content">
+            <span className="detail-badge">{room.type}</span>
+            <h1>{room.name}</h1>
+            <div className="detail-price-section">
+              <span className="detail-price">
+                {room.priceText || `$${room.pricePerNight}/night`}
+              </span>
+              <span className="detail-capacity">
+                👥 Up to {room.guests} guests • 🌙 Min {room.minNights} nights
+              </span>
+            </div>
+          </div>
         </Container>
       </section>
 
-      <section className="section">
+
+      <section className="detail-section">
         <Container>
-          <div className="room-detail-grid">
+          <div className="detail-layout">
             {/* Left Content */}
-            <div className="room-detail-main">
-              <div className="room-detail-block">
-                <SectionHeader 
-                  eyebrow="Overview" 
-                  title="About this Stay" 
-                />
-                <p className="room-description-large">{room.description}</p>
-              </div>
-
-              <div className="room-detail-block">
-                <h3>Best Highlights</h3>
-                <div className="highlights-grid-v2">
-                  {(room.highlights || []).map((highlight, idx) => (
-                    <div key={idx} className="highlight-item-v2">
-                      <CheckCircle size={18} className="text-accent" />
-                      <span>{highlight}</span>
-                    </div>
-                  ))}
+            <div className="detail-main">
+              {/* Gallery Slider Inside Main Layout */}
+              {sliderImages.length > 0 && (
+                <div className="detail-slider-wrapper" style={{ marginBottom: "3rem" }}>
+                  <ImageSlider
+                    images={sliderImages}
+                    alt={room.name}
+                    aspectRatio="16/9"
+                  />
                 </div>
+              )}
+
+              <div className="tab-content">
+                <h2>About this Stay</h2>
+                <p className="detail-description">{room.description}</p>
               </div>
 
-              <div className="room-detail-block">
-                <h3>Amenities</h3>
-                <ul className="amenities-list-v2">
-                  {(room.amenities || []).map((amenity, idx) => (
+              <div className="highlights-section">
+                <h3>Best Highlights</h3>
+                <ul className="highlights-list">
+                  {(room.highlights || []).map((highlight, idx) => (
                     <li key={idx}>
-                      <CheckCircle size={16} />
-                      {amenity}
+                      <span className="highlight-icon">✨</span>
+                      {highlight}
                     </li>
                   ))}
                 </ul>
               </div>
+
+              <div className="highlights-section" style={{ marginTop: "3rem" }}>
+                <h3>Amenities</h3>
+                <div className="amenities-grid">
+                  {(room.amenities || []).map((amenity, idx) => (
+                    <div key={idx} className="amenity-card">
+                      <span className="amenity-icon">🏠</span>
+                      <span className="amenity-text">{amenity}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Right Sidebar */}
-            <aside className="room-detail-sidebar">
+            <aside className="detail-sidebar">
               <div className="booking-card-v2">
                 <div className="booking-card-header">
-                  <span className="price-tag-large">{room.priceText}</span>
+                  <span className="price-tag-large">{room.priceText || `$${room.pricePerNight}`}</span>
                   <p>per night</p>
                 </div>
 
@@ -135,15 +158,24 @@ export default function RoomDetail() {
 
                 <div className="booking-card-actions">
                   <Button to="/contact" className="btn-full">Book This Stay</Button>
-                  <p className="booking-note">
+                  <Button
+                    href={`https://wa.me/94771234567?text=${encodeURIComponent(
+                      `Hi, I'm interested in booking ${room.name}.`
+                    )}`}
+                    variant="secondary"
+                    className="btn-full"
+                  >
+                    💬 Chat on WhatsApp
+                  </Button>
+                  <p className="booking-note" style={{ textAlign: "center", fontSize: "0.85rem", color: "#6b5b4f", marginTop: "1rem" }}>
                     Check-in: 2:00 PM | Check-out: 11:00 AM
                   </p>
                 </div>
               </div>
 
-              <div className="sidebar-info-box">
-                <h4>Recommendation</h4>
-                <p>
+              <div className="sidebar-info-box" style={{ marginTop: "2rem", background: "rgba(255, 255, 255, 0.6)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.4)", borderRadius: "24px", padding: "2rem" }}>
+                <h4 style={{ color: "#d4af37", marginBottom: "0.5rem", fontSize: "1.2rem", fontWeight: "600" }}>Recommendation</h4>
+                <p style={{ color: "#4a4a4a", fontSize: "0.95rem", lineHeight: "1.6" }}>
                   We recommend staying at least 2 nights so that you have time to enjoy the excellent hikes, wildlife, swims, kayaking and sunsets in the village.
                 </p>
               </div>

@@ -103,6 +103,39 @@ p {
   background: var(--surface-soft);
 }
 
+/* Used by ActivityDetail gallery section */
+.section--slider-bg {
+  padding: 40px 0 0;
+  background: #fff;
+}
+
+/* Generic slider wrapper used across detail pages */
+.detail-slider-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.16);
+}
+
+@media (max-width: 768px) {
+  .section--slider-bg {
+    padding: 28px 0 0;
+  }
+  .detail-slider-wrapper {
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section--slider-bg {
+    padding: 20px 0 0;
+  }
+  .detail-slider-wrapper {
+    border-radius: 8px;
+  }
+}
+
 .section-header {
   max-width: 760px;
   margin-bottom: 42px;

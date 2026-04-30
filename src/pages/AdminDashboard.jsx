@@ -45,6 +45,7 @@ const emptyExperience = {
   highlights: [""],
   includes: [""],
   bestFor: [""],
+  galleryImages: [""],
 };
 
 const emptyGallery = {
@@ -70,6 +71,7 @@ const emptyRoom = {
   highlights: [""],
   mealsIncluded: [""],
   staffServices: [""],
+  galleryImages: [""],
 };
 
 const emptyBlog = {
@@ -94,6 +96,7 @@ function normalizeForSubmit(tab, form) {
       highlights: arrayClean(payload.highlights),
       includes: arrayClean(payload.includes),
       bestFor: arrayClean(payload.bestFor),
+      galleryImages: arrayClean(payload.galleryImages),
     };
   }
 
@@ -104,6 +107,7 @@ function normalizeForSubmit(tab, form) {
       highlights: arrayClean(payload.highlights),
       mealsIncluded: arrayClean(payload.mealsIncluded),
       staffServices: arrayClean(payload.staffServices),
+      galleryImages: arrayClean(payload.galleryImages),
     };
   }
 
@@ -131,6 +135,7 @@ function parseFormFromItem(tab, item) {
       highlights: item.highlights?.length ? item.highlights : [""],
       includes: item.includes?.length ? item.includes : [""],
       bestFor: item.bestFor?.length ? item.bestFor : [""],
+      galleryImages: item.galleryImages?.length ? item.galleryImages : [""],
     };
   }
 
@@ -169,6 +174,7 @@ function parseFormFromItem(tab, item) {
     highlights: item.highlights?.length ? item.highlights : [""],
     mealsIncluded: item.mealsIncluded?.length ? item.mealsIncluded : [""],
     staffServices: item.staffServices?.length ? item.staffServices : [""],
+    galleryImages: item.galleryImages?.length ? item.galleryImages : [""],
   };
 }
 
@@ -605,6 +611,11 @@ export default function AdminDashboard() {
                     values={form.bestFor}
                     onChange={(value) => handleArrayChange("bestFor", value)}
                   />
+                  <ArrayField
+                    label="Gallery Image URLs"
+                    values={form.galleryImages}
+                    onChange={(value) => handleArrayChange("galleryImages", value)}
+                  />
                 </>
               )}
 
@@ -767,6 +778,11 @@ export default function AdminDashboard() {
                     label="Staff Services"
                     values={form.staffServices}
                     onChange={(value) => handleArrayChange("staffServices", value)}
+                  />
+                  <ArrayField
+                    label="Gallery Image URLs"
+                    values={form.galleryImages}
+                    onChange={(value) => handleArrayChange("galleryImages", value)}
                   />
                 </>
               )}

@@ -9,6 +9,8 @@ import {
   galleryCategories as staticGalleryCategories,
   getGalleryItems,
 } from "../data/gallery";
+import { getExperiences } from "../data/experiences";
+import { getAccommodationData } from "../data/accommodationData";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Gallery() {
@@ -31,9 +33,57 @@ export default function Gallery() {
   useEffect(() => {
     const loadGallery = async () => {
       setLoadingData(true);
-      const items = await getGalleryItems();
-      setGalleryItems(items);
-      setLoadingData(false);
+      try {
+        const [manualItems, experiences, rooms] = await Promise.all([
+          getGalleryItems(),
+          getExperiences(),
+          getAccommodationData(),
+        ]);
+
+        const experienceImages = [];
+        experiences.forEach((exp) => {
+          if (Array.isArray(exp.galleryImages)) {
+            exp.galleryImages.forEach((url, idx) => {
+              if (url) {
+                experienceImages.push({
+                  id: `exp-${exp.id}-${idx}`,
+                  title: `${exp.title} - Image ${idx + 1}`,
+                  category: "Tours", // Grouping under Tours category
+                  imageKey: `exp-${exp.id}-${idx}`,
+                  image: url,
+                  alt: exp.title,
+                  description: exp.shortDescription || exp.title,
+                });
+              }
+            });
+          }
+        });
+
+        const roomImages = [];
+        rooms.forEach((room) => {
+          if (Array.isArray(room.galleryImages)) {
+            room.galleryImages.forEach((url, idx) => {
+              if (url) {
+                roomImages.push({
+                  id: `room-${room.id}-${idx}`,
+                  title: `${room.name} - Image ${idx + 1}`,
+                  category: "Accommodation",
+                  imageKey: `room-${room.id}-${idx}`,
+                  image: url,
+                  alt: room.name,
+                  description: room.description || room.name,
+                });
+              }
+            });
+          }
+        });
+
+        setGalleryItems([...manualItems, ...experienceImages, ...roomImages]);
+      } catch (err) {
+        console.error("Failed to load combined gallery data", err);
+      } finally {
+        setLoadingData(false);
+      }
     };
 
     loadGallery();
