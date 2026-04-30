@@ -1,31 +1,46 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect ,useMemo} from "react";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import ExperienceCard from "../components/experiences/ExperienceCard";
-import { getActivities } from "../data/activitiesData";
+import { getExperiences } from "../data/experiences";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Activities() {
   const { images, loading } = useSiteImages();
-  const [activities, setActivities] = useState([]);
+  const [experiencesData, setExperiencesData] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
 
   useEffect(() => {
-    const loadActivities = async () => {
+    const loadexperiencesData = async () => {
       setLoadingData(true);
-      const data = await getActivities();
-      setActivities(data);
+      const data = await getExperiences();
+      setExperiencesData(data);
       setLoadingData(false);
     };
-    loadActivities();
+    loadexperiencesData();
   }, []);
 
-  const remoteHero = images?.activities_hero;
+  const remoteHero = images?.experiencesData_hero;
   const heroBackground =
     !loading && remoteHero
       ? remoteHero
       : "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80";
+
+  const mappedExperiences = useMemo(() => {
+    return experiencesData.map((item) => {
+      const key = item.imageKey || `experience_${item.slug}`;
+      const remoteImage = images[key];
+      return {
+        ...item,
+        image:
+          item.imageUrl ||
+          (!loading && remoteImage
+            ? remoteImage
+            : "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=600&q=80"),
+      };
+    });
+  }, [experiencesData, images, loading]);
 
   return (
     <main className="activities-page">
@@ -36,7 +51,8 @@ export default function Activities() {
         <Container className="page-hero-content">
           <h1>Adventures & Relaxation</h1>
           <p>
-            From peaceful meditation to thrilling wildlife encounters, discover the diverse experiences Etili Village has to offer.
+            From peaceful meditation to thrilling wildlife encounters, discover
+            the diverse experiences Etili Village has to offer.
           </p>
         </Container>
       </section>
@@ -50,10 +66,15 @@ export default function Activities() {
                 title="Your Gateway to Rejuvenation"
               />
               <p className="large-text">
-                Etili Village is a perfect spot for relaxation and rejuvenation. Those who want to escape from the stressful urban life, we provide an extensive selection of books, games, swings, shaded sitouts, and stunning views for peaceful walks or meditation.
+                Etili Village is a perfect spot for relaxation and rejuvenation.
+                Those who want to escape from the stressful urban life, we
+                provide an extensive selection of books, games, swings, shaded
+                sitouts, and stunning views for peaceful walks or meditation.
               </p>
               <p>
-                For those who are into adventures, there is a wide range of activities and attractions in and around the village. Explore our curated experiences below.
+                For those who are into adventures, there is a wide range of
+                activities and attractions in and around the village. Explore
+                our curated experiences below.
               </p>
             </div>
             <div className="intro-stats">
@@ -82,13 +103,12 @@ export default function Activities() {
             title="Things to Do"
             description="Hand-picked activities to make your stay unforgettable."
           />
-
           <div className="experience-list">
             {loadingData ? (
               <p>Loading activities...</p>
             ) : (
-              activities.map((activity) => (
-                <ExperienceCard key={activity.id} experience={activity} />
+              mappedExperiences.map((exp) => (
+                <ExperienceCard key={exp.id} experience={exp} />
               ))
             )}
           </div>
@@ -101,14 +121,17 @@ export default function Activities() {
             <div className="cta-content">
               <h2>Ready to Adventure?</h2>
               <p>
-                Whether it's a safari to Yala, a hike up Kandeyaya rock, or a peaceful kayak trip, we can arrange everything for you.
+                Whether it's a safari to Yala, a hike up Kandeyaya rock, or a
+                peaceful kayak trip, we can arrange everything for you.
               </p>
               <div className="cta-actions">
-                <Button to="/contact" size="lg">Book an Activity</Button>
-                <Button 
-                   href="https://wa.me/94771234567" 
-                   variant="secondary" 
-                   size="lg"
+                <Button to="/contact" size="lg">
+                  Book an Activity
+                </Button>
+                <Button
+                  href="https://wa.me/94771234567"
+                  variant="secondary"
+                  size="lg"
                 >
                   WhatsApp Inquiry
                 </Button>
@@ -129,19 +152,26 @@ export default function Activities() {
             <div className="regional-card">
               <h3>Historical Sites</h3>
               <p>
-                Visit the Buddhist statues at <strong>Buduruwagala</strong> (1-hour drive). Features seven colossal statues carved into a 70-foot rock face, dating back to the 10th century.
+                Visit the Buddhist statues at <strong>Buduruwagala</strong>{" "}
+                (1-hour drive). Features seven colossal statues carved into a
+                70-foot rock face, dating back to the 10th century.
               </p>
             </div>
             <div className="regional-card">
               <h3>Waterfalls & Nature</h3>
               <p>
-                Explore <strong>Diyaluma Falls</strong>, Ella wala waterfalls, and Rawana falls. Discover the unique ecosystems of <strong>World’s End</strong> and <strong>Horton Plains</strong> (within 2 hours).
+                Explore <strong>Diyaluma Falls</strong>, Ella wala waterfalls,
+                and Rawana falls. Discover the unique ecosystems of{" "}
+                <strong>World’s End</strong> and <strong>Horton Plains</strong>{" "}
+                (within 2 hours).
               </p>
             </div>
             <div className="regional-card">
               <h3>Safaris & Culture</h3>
               <p>
-                Base yourself for <strong>Yala</strong> or <strong>Udawalawe</strong> safaris. Visit colonial mansions or historical sites, all within a scenic drive from the village.
+                Base yourself for <strong>Yala</strong> or{" "}
+                <strong>Udawalawe</strong> safaris. Visit colonial mansions or
+                historical sites, all within a scenic drive from the village.
               </p>
             </div>
           </div>

@@ -1,10 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
 
 :root {
   /* Backgrounds */
   --bg: #f8fcfd;
   --surface: #ffffff;
   --surface-soft: #f0f6f9;
+
+
+  /* Fonts */
+  --font-primary: "Montserrat";
+  --font-heading: "Montserrat";
+
+  /* (your existing variables...) */
 
   /* Text */
   --text: #1a2b3c;
@@ -45,7 +51,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-primary);
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -73,7 +79,7 @@ h3,
 h4 {
   margin: 0 0 17px;
   line-height: 1.5;
-  font-family: "Instrument Serif", serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   color: var(--primary);
 }
@@ -132,7 +138,7 @@ p {
   padding: 16px 32px;
   border-radius: 999px;
   font-weight: 500;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-primary);
   font-size: 1rem;
   letter-spacing: 0.5px;
   transition: var(--transition-smooth);
@@ -538,7 +544,7 @@ p {
   line-height: 1.8;
   color: #4a4a4a;
   margin-bottom: 16px;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-primary);
   font-weight: 400;
 }
 
@@ -907,7 +913,7 @@ p {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 24px;
-  font-family: "Outfit", sans-serif;
+  font-family: var(--font-primary);
 }
 
 .footer-admin-link {

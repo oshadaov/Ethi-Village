@@ -8,7 +8,7 @@ export default function Comments() {
   const heroBackground =
     !loading && remoteHero
       ? remoteHero
-      : "https://images.unsplash.com/photo-1516483638261-f40af5af909e?auto=format&fit=crop&w=1800&q=80";
+      : "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80";
 
   return (
     <main>

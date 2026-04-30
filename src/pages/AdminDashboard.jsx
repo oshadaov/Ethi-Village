@@ -16,7 +16,7 @@ const API_BASE =
 const tabs = [
   { key: "experiences", label: "Activities" },
   { key: "gallery", label: "Gallery" },
-  { key: "guides", label: "Guides" },
+  
   { key: "rooms", label: "Accommodation" },
   { key: "blogs", label: "Blogs" },
   { key: "images", label: "Images" },
@@ -55,13 +55,7 @@ const emptyGallery = {
   description: "",
 };
 
-const emptyGuide = {
-  name: "",
-  role: "",
-  descp: "",
-  imageKey: "",
-  
-};
+
 
 const emptyRoom = {
   name: "",
@@ -150,15 +144,6 @@ function parseFormFromItem(tab, item) {
     };
   }
 
-  if (tab === "guides") {
-    return {
-      name: item.name || "",
-      role: item.role || "",
-      imageKey: item.imageKey || "",
-
-      descp: item.descp || "",
-    };
-  }
 
   if (tab === "blogs") {
     return {
@@ -205,7 +190,6 @@ function getItemId(item, tab) {
 function getEndpoint(tab) {
   if (tab === "experiences") return `${API_BASE}/experiences`;
   if (tab === "gallery") return `${API_BASE}/gallery`;
-  if (tab === "guides") return `${API_BASE}/guides`;
   if (tab === "blogs") return `${API_BASE}/blogs`;
   if (tab === "images") return `${API_BASE}/site-images`;
   return `${API_BASE}/rooms`;
@@ -682,44 +666,6 @@ export default function AdminDashboard() {
                 </>
               )}
 
-              {activeTab === "guides" && (
-                <>
-                  <Field label="Name">
-                    <TextInput
-                      value={form.name}
-                      onChange={(e) => handleTextChange("name", e.target.value)}
-                      placeholder="Bandara"
-                    />
-                  </Field>
-                  <Field label="Role">
-                    <TextInput
-                      value={form.role}
-                      onChange={(e) => handleTextChange("role", e.target.value)}
-                      placeholder="Master Gardener"
-                    />
-                  </Field>
-{/*                   
-                  <Field label="Image Key">
-                    <TextInput
-                      value={form.imageKey}
-                      onChange={(e) =>
-                        handleTextChange("imageKey", e.target.value)
-                      }
-                      placeholder="guide_bandara"
-                    />
-                  </Field> */}
-                  <Field label="Description">
-                    <TextArea
-                      rows={4}
-                      value={form.descp}
-                      onChange={(e) =>
-                        handleTextChange("descp", e.target.value)
-                      }
-                      placeholder="Guide bio"
-                    />
-                  </Field>
-                </>
-              )}
 
               {activeTab === "rooms" && (
                 <>

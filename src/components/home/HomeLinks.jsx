@@ -9,7 +9,7 @@ export default function HomeLinks() {
     { title: "Learn", path: "/stay#food", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" },
     { title: "Impact", path: "/impact", img: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=600&q=80" },
     { title: "View", path: "/gallery", img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80" },
-    { title: "Comments", path: "/comments", img: "https://images.unsplash.com/photo-1516483638261-f40af5af909e?auto=format&fit=crop&w=600&q=80" },
+    { title: "Comments", path: "/comments", img: "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=600&q=80" },
     { title: "Contact", path: "/contact", img: "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=600&q=80" },
   ];
 
