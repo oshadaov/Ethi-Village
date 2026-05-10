@@ -1,6 +1,5 @@
 import SectionHeader from "../common/SectionHeader";
 import Button from "../common/Button";
-import { buildWhatsAppUrl } from "../../utils/contactUtils";
 
 export default function BookingInquiryForm({
   formData,
@@ -15,7 +14,6 @@ export default function BookingInquiryForm({
   onChange,
   onSubmit,
 }) {
-  const whatsappLink = buildWhatsAppUrl(whatsappNumber, whatsappMessage);
 
   return (
     <div className="booking-form-card">
@@ -187,10 +185,7 @@ export default function BookingInquiryForm({
 
         <div className="form-actions">
           <Button disabled={isSubmitting}>
-            {isSubmitting ? "Sending..." : "Send Inquiry"}
-          </Button>
-          <Button href={whatsappLink} variant="secondary">
-            Send on WhatsApp
+            {isSubmitting ? "Opening WhatsApp..." : "Send Inquiry via WhatsApp"}
           </Button>
         </div>
       </form>

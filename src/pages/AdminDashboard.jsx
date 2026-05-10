@@ -305,6 +305,7 @@ export default function AdminDashboard() {
   const [saving, setSaving] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+  const [galleryFiles, setGalleryFiles] = useState([]);
   const [previewUrl, setPreviewUrl] = useState("");
   const [form, setForm] = useState(getDefaultForm("experiences"));
 
@@ -314,6 +315,7 @@ export default function AdminDashboard() {
     (tab = activeTab) => {
       setEditingId(null);
       setImageFile(null);
+      setGalleryFiles([]);
       setPreviewUrl("");
       setForm(getDefaultForm(tab));
     },
@@ -342,6 +344,7 @@ export default function AdminDashboard() {
     const itemId = getItemId(item, activeTab);
     setEditingId(itemId);
     setImageFile(null);
+    setGalleryFiles([]);
     setPreviewUrl(item.imageUrl || item.image || item.img || "");
     setForm(parseFormFromItem(activeTab, item));
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -378,6 +381,9 @@ export default function AdminDashboard() {
       const formData = new FormData();
       formData.append("data", JSON.stringify(payload));
       if (imageFile) formData.append("image", imageFile);
+      if (galleryFiles && galleryFiles.length > 0) {
+        galleryFiles.forEach((file) => formData.append("galleryFiles", file));
+      }
 
       if (editingId) {
         await axios.put(`${endpoint}/${editingId}`, formData);
@@ -863,6 +869,34 @@ export default function AdminDashboard() {
                       </div>
                     )}
                   </div>
+
+                  {(activeTab === "experiences" || activeTab === "rooms") && (
+                    <div className="admin-upload-zone" style={{ marginTop: '1rem' }}>
+                      <div className="admin-upload-label">
+                        <ImagePlus size={20} />
+                        <span>Upload Gallery Images</span>
+                      </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) =>
+                          setGalleryFiles(Array.from(e.target.files || []))
+                        }
+                        className="admin-upload-input"
+                        id={`gallery-upload-${activeTab}`}
+                      />
+                      <label htmlFor={`gallery-upload-${activeTab}`}>
+                        Choose multiple images or drag here
+                      </label>
+                      {galleryFiles.length > 0 && (
+                        <div style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+                          {galleryFiles.length} file(s) selected
+                        </div>
+                      )}
+                    </div>
+                  )}
+
 
                   <div className="admin-form-actions">
                     <button

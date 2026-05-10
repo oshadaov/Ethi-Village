@@ -9,9 +9,8 @@ import {
 } from "../data/contactConfig";
 import ContactInfoPanel from "../components/contact/ContactInfoPanel";
 import BookingInquiryForm from "../components/contact/BookingInquiryForm";
-import { buildWhatsAppMessage } from "../utils/contactUtils";
+import { buildWhatsAppMessage, buildWhatsAppUrl } from "../utils/contactUtils";
 import { useSiteImages } from "../hooks/useSiteImages";
-import { submitContactInquiry } from "../services/api";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 
@@ -59,13 +58,17 @@ export default function Contact() {
     setSubmitError("");
 
     try {
-      await submitContactInquiry(formData);
+      const whatsappLink = buildWhatsAppUrl(
+        contactInfo.whatsappNumber,
+        whatsappMessage,
+      );
+      window.open(whatsappLink, "_blank");
       setSubmitted(true);
       setFormData(initialContactForm);
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error redirecting to WhatsApp:", error);
       setSubmitError(
-        "There was a problem submitting your inquiry. Please try again or use WhatsApp.",
+        "There was a problem redirecting you to WhatsApp. Please try again.",
       );
     } finally {
       setIsSubmitting(false);
