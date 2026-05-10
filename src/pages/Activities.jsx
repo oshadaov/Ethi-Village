@@ -3,23 +3,31 @@ import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import ExperienceCard from "../components/experiences/ExperienceCard";
-import { getExperiences } from "../data/experiences";
+import { getCachedData, getExperiences } from "../services/api";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Activities() {
   const { images, loading } = useSiteImages();
-  const [experiencesData, setExperiencesData] = useState([]);
-  const [loadingData, setLoadingData] = useState(true);
+  const cachedExp = getCachedData("/experiences");
+  const [experiencesData, setExperiencesData] = useState(cachedExp || []);
+  const [loadingData, setLoadingData] = useState(!cachedExp);
 
   useEffect(() => {
-    const loadexperiencesData = async () => {
-      setLoadingData(true);
-      const data = await getExperiences();
-      setExperiencesData(data);
-      setLoadingData(false);
-    };
-    loadexperiencesData();
-  }, []);
+    if (!cachedExp) {
+      const load = async () => {
+        setLoadingData(true);
+        try {
+          const data = await getExperiences();
+          setExperiencesData(data || []);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          setLoadingData(false);
+        }
+      };
+      load();
+    }
+  }, [cachedExp]);
 
   const remoteHero = images?.experiencesData_hero;
   const heroBackground =

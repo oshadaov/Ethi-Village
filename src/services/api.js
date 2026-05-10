@@ -6,8 +6,55 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL;
 
-// Generic fetch helper with error handling
-const fetchData = async (endpoint) => {
+const CACHE_PREFIX = "ethi_cache_";
+const CACHE_DURATION = 1000 * 60 * 5; // 5 minutes
+
+export const clearCache = () => {
+  try {
+    Object.keys(sessionStorage).forEach((key) => {
+      if (key.startsWith(CACHE_PREFIX)) {
+        sessionStorage.removeItem(key);
+      }
+    });
+  } catch (error) {
+    console.error("Error clearing cache:", error);
+  }
+};
+
+export const getCachedData = (endpoint) => {
+  const cacheKey = `${CACHE_PREFIX}${endpoint}`;
+  try {
+    const cachedData = sessionStorage.getItem(cacheKey);
+    if (cachedData) {
+      const { data, timestamp } = JSON.parse(cachedData);
+      if (Date.now() - timestamp < CACHE_DURATION) {
+        return data;
+      }
+    }
+  } catch (e) {
+    // Ignore parse errors
+  }
+  return null;
+};
+
+// Generic fetch helper with error handling and caching
+const fetchData = async (endpoint, forceRefresh = false) => {
+  const cacheKey = `${CACHE_PREFIX}${endpoint}`;
+
+  if (!forceRefresh) {
+    try {
+      const cachedData = sessionStorage.getItem(cacheKey);
+      if (cachedData) {
+        const { data, timestamp } = JSON.parse(cachedData);
+        if (Date.now() - timestamp < CACHE_DURATION) {
+          return data; // Return cached data
+        }
+      }
+    } catch (e) {
+      // Ignore parse errors, proceed to fetch
+    }
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`);
 
@@ -16,6 +63,16 @@ const fetchData = async (endpoint) => {
     }
 
     const data = await response.json();
+    
+    try {
+      sessionStorage.setItem(
+        cacheKey,
+        JSON.stringify({ data, timestamp: Date.now() })
+      );
+    } catch (e) {
+      // Ignore quota errors
+    }
+
     return data;
   } catch (error) {
     console.error(`Error fetching from ${endpoint}:`, error);
@@ -77,6 +134,7 @@ export const uploadSiteImage = async (imageKey, file) => {
     throw new Error(`API Error: ${response.status} ${response.statusText}`);
   }
 
+  clearCache();
   return response.json();
 };
 
@@ -92,6 +150,7 @@ export const deleteSiteImage = async (imageKey) => {
     throw new Error(`API Error: ${response.status} ${response.statusText}`);
   }
 
+  clearCache();
   return response.json();
 };
 
@@ -118,4 +177,6 @@ export default {
   deleteSiteImage,
   getBlogs,
   getBlogBySlug,
+  clearCache,
+  getCachedData,
 };

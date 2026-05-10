@@ -1,13 +1,28 @@
 import { useEffect, useState } from "react";
-import { getSiteImages } from "../services/api";
+import { getSiteImages, getCachedData } from "../services/api";
 
 export function useSiteImages() {
-  const [images, setImages] = useState({});
-  const [loading, setLoading] = useState(true);
+  const cachedData = getCachedData("/site-images");
+  
+  const mapImages = (data) => {
+    const mapped = {};
+    (data || []).forEach((item) => {
+      const remoteImage = item.imageDataUrl || item.imageUrl || item.image;
+      if (item.imageKey) {
+        mapped[item.imageKey] = remoteImage;
+      }
+    });
+    return mapped;
+  };
+
+  const [images, setImages] = useState(() => mapImages(cachedData));
+  const [loading, setLoading] = useState(!cachedData);
 
   useEffect(() => {
-    fetchImages();
-  }, []);
+    if (!cachedData) {
+      fetchImages();
+    }
+  }, [cachedData]);
 
   const fetchImages = async () => {
     try {

@@ -7,11 +7,11 @@ import {
   getSiteImages,
   uploadSiteImage,
   deleteSiteImage,
+  clearCache,
 } from "../services/api";
 
 import "../styles/admin.css";
-const API_BASE =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8085/api/admin";
+const API_BASE = import.meta.env.VITE_API_BASE_URL + "/admin";
 
 const tabs = [
   { key: "experiences", label: "Activities" },
@@ -393,6 +393,7 @@ export default function AdminDashboard() {
         alert("Created successfully.");
       }
 
+      clearCache();
       resetEditor(activeTab);
       await loadItems(activeTab);
     } catch (error) {
@@ -409,6 +410,7 @@ export default function AdminDashboard() {
 
     try {
       await axios.delete(`${endpoint}/${itemId}`);
+      clearCache();
       if (editingId === itemId) resetEditor(activeTab);
       await loadItems(activeTab);
       alert("Deleted successfully.");

@@ -4,29 +4,38 @@ import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import RoomCard from "../components/accommodation/RoomCard";
 import ExperienceCard from "../components/experiences/ExperienceCard";
-import { getRooms } from "../data/rooms";
-import { getExperiences } from "../data/experiences";
+import { getCachedData, getRooms, getExperiences } from "../services/api";
 import { useSiteImages } from "../hooks/useSiteImages";
 
 export default function Stay() {
   const { images, loading } = useSiteImages();
-  const [roomsData, setRoomsData] = useState([]);
-  const [experiencesData, setExperiencesData] = useState([]);
-  const [loadingData, setLoadingData] = useState(true);
+  const cachedRooms = getCachedData("/rooms");
+  const cachedExp = getCachedData("/experiences");
+
+  const [roomsData, setRoomsData] = useState(cachedRooms || []);
+  const [experiencesData, setExperiencesData] = useState(cachedExp || []);
+  const [loadingData, setLoadingData] = useState(!cachedRooms || !cachedExp);
 
   useEffect(() => {
-    const loadData = async () => {
-      setLoadingData(true);
-      const [rooms, experiences] = await Promise.all([
-        getRooms(),
-        getExperiences()
-      ]);
-      setRoomsData(rooms);
-      setExperiencesData(experiences);
-      setLoadingData(false);
-    };
-    loadData();
-  }, []);
+    if (!cachedRooms || !cachedExp) {
+      const loadData = async () => {
+        setLoadingData(true);
+        try {
+          const [rooms, experiences] = await Promise.all([
+            getRooms(),
+            getExperiences()
+          ]);
+          setRoomsData(rooms || []);
+          setExperiencesData(experiences || []);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          setLoadingData(false);
+        }
+      };
+      loadData();
+    }
+  }, [cachedRooms, cachedExp]);
 
   const remoteHero = images?.stay_hero;
   const heroBackground =

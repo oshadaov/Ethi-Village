@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getExperiences } from "../data/experiences";
+import { getCachedData, getExperiences } from "../services/api";
 import "../styles/accommodation-detail.css"; // Reuse premium detail styles
 
 import Container from "../components/common/Container";
@@ -21,35 +21,41 @@ export default function ActivityDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [activity, setActivity] = useState(null);
-  const [loadingData, setLoadingData] = useState(true);
+  const cachedExp = getCachedData("/experiences");
+  const initialActivity = cachedExp
+    ? cachedExp.find(
+        (item) => item.slug === id || String(item.id) === String(id)
+      )
+    : null;
+
+  const [activity, setActivity] = useState(initialActivity);
+  const [loadingData, setLoadingData] = useState(!initialActivity);
 
   useEffect(() => {
-    const loadActivity = async () => {
-      setLoadingData(true);
+    if (!initialActivity) {
+      const loadActivity = async () => {
+        setLoadingData(true);
+        try {
+          const data = await getExperiences();
+          const selectedActivity = data.find(
+            (item) => item.slug === id || String(item.id) === String(id)
+          );
 
-      try {
-        const data = await getExperiences();
-
-        const selectedActivity = data.find(
-          (item) => item.slug === id || String(item.id) === String(id)
-        );
-
-        if (selectedActivity) {
-          setActivity(selectedActivity);
-        } else {
+          if (selectedActivity) {
+            setActivity(selectedActivity);
+          } else {
+            navigate("/activities");
+          }
+        } catch (error) {
+          console.error("Error loading activity:", error);
           navigate("/activities");
+        } finally {
+          setLoadingData(false);
         }
-      } catch (error) {
-        console.error("Error loading activity:", error);
-        navigate("/activities");
-      } finally {
-        setLoadingData(false);
-      }
-    };
-
-    loadActivity();
-  }, [id, navigate]);
+      };
+      loadActivity();
+    }
+  }, [id, navigate, initialActivity]);
 
   if (loadingData) {
     return (

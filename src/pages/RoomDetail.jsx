@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAccommodationById } from "../data/accommodationData";
+import { getCachedData, getRooms } from "../services/api";
 import { useSiteImages } from "../hooks/useSiteImages";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
@@ -20,28 +20,33 @@ export default function RoomDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { images, loading } = useSiteImages();
-  const [room, setRoom] = useState(null);
-  const [loadingData, setLoadingData] = useState(true);
+  const cachedRooms = getCachedData("/rooms");
+  const initialRoom = cachedRooms ? cachedRooms.find(r => r.id === parseInt(id)) : null;
+  const [room, setRoom] = useState(initialRoom);
+  const [loadingData, setLoadingData] = useState(!initialRoom);
 
   useEffect(() => {
-    const loadRoom = async () => {
-      setLoadingData(true);
-      try {
-        const data = await getAccommodationById(id);
-        if (data) {
-          setRoom(data);
-        } else {
+    if (!initialRoom) {
+      const loadRoom = async () => {
+        setLoadingData(true);
+        try {
+          const rooms = await getRooms();
+          const data = rooms.find(r => r.id === parseInt(id));
+          if (data) {
+            setRoom(data);
+          } else {
+            navigate("/stay");
+          }
+        } catch (error) {
+          console.error("Error loading room:", error);
           navigate("/stay");
+        } finally {
+          setLoadingData(false);
         }
-      } catch (error) {
-        console.error("Error loading room:", error);
-        navigate("/stay");
-      } finally {
-        setLoadingData(false);
-      }
-    };
-    loadRoom();
-  }, [id, navigate]);
+      };
+      loadRoom();
+    }
+  }, [id, navigate, initialRoom]);
 
   if (loadingData || !room) {
     return (
