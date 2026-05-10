@@ -1,5 +1,4 @@
 import { getExperiences as fetchExperiencesAPI } from "../services/api";
-import { activitiesData } from "./activitiesData";
 
 // Cache for experiences
 let experiencesCache = null;
@@ -23,20 +22,15 @@ export const getExperiences = async () => {
   // Create new fetch promise
   cachePromise = fetchExperiencesAPI()
     .then((data) => {
-      // Use API data if available, otherwise fallback to static data
-      experiencesCache = (data && data.length > 0) ? data : activitiesData;
+      experiencesCache = data || [];
       cachePromise = null;
       return experiencesCache;
     })
     .catch((error) => {
       cachePromise = null;
-      console.error("Failed to fetch experiences from API, using static data:", error);
-      // Fallback to static data on error
-      return activitiesData;
+      console.error("Failed to fetch experiences from API:", error);
+      return [];
     });
 
   return cachePromise;
 };
-
-// For backward compatibility
-export const experiences = activitiesData;
