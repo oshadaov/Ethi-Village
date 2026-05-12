@@ -7,10 +7,11 @@ export default function Button({
   variant = "primary",
   className = "",
   onClick,
+  state,
 }) {
   if (to) {
     return (
-      <Link to={to} className={`btn btn-${variant} ${className}`}>
+      <Link to={to} state={state} className={`btn btn-${variant} ${className}`}>
         {children}
       </Link>
     );

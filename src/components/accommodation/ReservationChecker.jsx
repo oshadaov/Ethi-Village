@@ -1,19 +1,19 @@
 import { useState, useMemo } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Button from "../common/Button";
 import "../accommodation/ReservationChecker.css";
 
 export default function ReservationChecker({ rooms = [] }) {
-  const [checkInDate, setCheckInDate] = useState("");
-  const [checkOutDate, setCheckOutDate] = useState("");
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
   const [guests, setGuests] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState(null);
 
   // Calculate night count and total price
   const nightCount = useMemo(() => {
     if (!checkInDate || !checkOutDate) return 0;
-    const check_in = new Date(checkInDate);
-    const check_out = new Date(checkOutDate);
-    const diffTime = check_out - check_in;
+    const diffTime = checkOutDate - checkInDate;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 0;
   }, [checkInDate, checkOutDate]);
@@ -42,14 +42,14 @@ export default function ReservationChecker({ rooms = [] }) {
     // Pass booking info to contact page or booking system
     const bookingData = {
       room: selectedRoom.name,
-      checkIn: checkInDate,
-      checkOut: checkOutDate,
+      checkIn: checkInDate.toISOString().split('T')[0],
+      checkOut: checkOutDate.toISOString().split('T')[0],
       nights: nightCount,
       guests,
       totalPrice,
     };
 
-    const message = `I'd like to book ${selectedRoom.name} from ${checkInDate} to ${checkOutDate} (${nightCount} nights) for ${guests} guest(s). Total: $${totalPrice}`;
+    const message = `I'd like to book ${selectedRoom.name} from ${bookingData.checkIn} to ${bookingData.checkOut} (${nightCount} nights) for ${guests} guest(s). Total: $${totalPrice}`;
 
     // Open WhatsApp with pre-filled message
     window.open(
@@ -91,26 +91,44 @@ export default function ReservationChecker({ rooms = [] }) {
           {/* Check-in Date */}
           <div className="form-group">
             <label htmlFor="check-in">Check-in Date</label>
-            <input
-              id="check-in"
-              type="date"
-              value={checkInDate}
-              onChange={(e) => setCheckInDate(e.target.value)}
+            <DatePicker
+              selected={checkInDate}
+              onChange={(date) => setCheckInDate(date)}
+              selectsStart
+              startDate={checkInDate}
+              endDate={checkOutDate}
+              minDate={new Date()}
+              excludeDates={selectedRoom?.bookedDates?.map(d => new Date(d))}
+              dayClassName={date => 
+                selectedRoom?.bookedDates?.includes(date.toISOString().split('T')[0]) 
+                  ? "booked-date" 
+                  : undefined
+              }
+              placeholderText="Select check-in date"
               className="form-input"
-              min={new Date().toISOString().split("T")[0]}
+              dateFormat="yyyy-MM-dd"
             />
           </div>
-
+          
           {/* Check-out Date */}
           <div className="form-group">
             <label htmlFor="check-out">Check-out Date</label>
-            <input
-              id="check-out"
-              type="date"
-              value={checkOutDate}
-              onChange={(e) => setCheckOutDate(e.target.value)}
+            <DatePicker
+              selected={checkOutDate}
+              onChange={(date) => setCheckOutDate(date)}
+              selectsEnd
+              startDate={checkInDate}
+              endDate={checkOutDate}
+              minDate={checkInDate || new Date()}
+              excludeDates={selectedRoom?.bookedDates?.map(d => new Date(d))}
+              dayClassName={date => 
+                selectedRoom?.bookedDates?.includes(date.toISOString().split('T')[0]) 
+                  ? "booked-date" 
+                  : undefined
+              }
+              placeholderText="Select check-out date"
               className="form-input"
-              min={checkInDate || new Date().toISOString().split("T")[0]}
+              dateFormat="yyyy-MM-dd"
             />
           </div>
 

@@ -113,7 +113,7 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar-actions">
-          <Button to="/contact">Book Now</Button>
+          <Button to="/book">Book Now</Button>
           <button
             className="mobile-menu-btn"
             onClick={() => setMobileOpen((prev) => !prev)}
@@ -165,7 +165,7 @@ export default function Navbar() {
                 )}
               </div>
             ))}
-            <Button to="/contact" className="mobile-book-btn">
+            <Button to="/book" className="mobile-book-btn">
               Book Now
             </Button>
           </Container>

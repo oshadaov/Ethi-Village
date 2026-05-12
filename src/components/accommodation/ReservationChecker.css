@@ -177,6 +177,38 @@
   line-height: 1.6;
 }
 
+/* DatePicker Custom Styles */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.booked-date {
+  background-color: #ffcdd2 !important;
+  color: #c62828 !important;
+  border-radius: 4px !important;
+  position: relative;
+}
+
+.booked-date::after {
+  content: "Booked";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #c62828;
+}
+
+.booked-date:hover {
+  background-color: #ef9a9a !important;
+}
+
+.react-datepicker__day--disabled.booked-date {
+  opacity: 1;
+  cursor: not-allowed;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .checker-card {

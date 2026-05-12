@@ -16,6 +16,7 @@ export const initialContactForm = {
   guests: "2",
   experience: "",
   accommodation: "No",
+  room: "",
   pickup: "No",
   message: "",
 };

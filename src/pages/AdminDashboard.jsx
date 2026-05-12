@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import axios from "axios";
-import { ImagePlus, Pencil, Trash2, Plus, X } from "lucide-react";
+import { ImagePlus, Pencil, Trash2, Plus, X, Calendar } from "lucide-react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { siteImageKeys } from "../data/siteImageKey";
 import { galleryCategories } from "../data/gallery";
 import {
@@ -11,7 +13,7 @@ import {
 } from "../services/api";
 
 import "../styles/admin.css";
-const API_BASE = import.meta.env.VITE_API_BASE_URL + "/admin";
+const API_BASE = import.meta.env.VITE_API_BASE_URL ;
 
 const tabs = [
   { key: "experiences", label: "Activities" },
@@ -72,6 +74,7 @@ const emptyRoom = {
   mealsIncluded: [""],
   staffServices: [""],
   galleryImages: [""],
+  bookedDates: [""],
 };
 
 const emptyBlog = {
@@ -108,6 +111,7 @@ function normalizeForSubmit(tab, form) {
       mealsIncluded: arrayClean(payload.mealsIncluded),
       staffServices: arrayClean(payload.staffServices),
       galleryImages: arrayClean(payload.galleryImages),
+      bookedDates: arrayClean(payload.bookedDates),
     };
   }
 
@@ -175,6 +179,7 @@ function parseFormFromItem(tab, item) {
     mealsIncluded: item.mealsIncluded?.length ? item.mealsIncluded : [""],
     staffServices: item.staffServices?.length ? item.staffServices : [""],
     galleryImages: item.galleryImages?.length ? item.galleryImages : [""],
+    bookedDates: item.bookedDates?.length ? item.bookedDates : [""],
   };
 }
 
@@ -254,6 +259,58 @@ function ArrayField({ label, values, onChange }) {
               className="admin-remove-btn"
             >
               <X size={16} />
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DateArrayField({ label, values, onChange }) {
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const addDate = (date) => {
+    if (!date) return;
+    const dateStr = date.toISOString().split("T")[0];
+    if (!values.includes(dateStr)) {
+      onChange([...(values || []), dateStr]);
+    }
+    setSelectedDate(null);
+  };
+
+  const removeDate = (dateToRemove) => {
+    const next = (values || []).filter((date) => date !== dateToRemove);
+    onChange(next.length ? next : [""]);
+  };
+
+  return (
+    <div className="admin-array-field">
+      <div className="admin-array-header">
+        <label>{label}</label>
+      </div>
+
+      <div className="admin-date-picker-input">
+        <DatePicker
+          selected={selectedDate}
+          onChange={addDate}
+          placeholderText="Select a date to block"
+          dateFormat="yyyy-MM-dd"
+          className="admin-text-input"
+        />
+        <Calendar size={20} className="datepicker-icon" />
+      </div>
+
+      <div className="admin-date-tags">
+        {(values || []).filter(Boolean).map((date, index) => (
+          <div key={index} className="admin-date-tag">
+            <span>{date}</span>
+            <button
+              type="button"
+              onClick={() => removeDate(date)}
+              className="admin-tag-remove"
+            >
+              <X size={12} />
             </button>
           </div>
         ))}
@@ -791,6 +848,11 @@ export default function AdminDashboard() {
                     label="Gallery Image URLs"
                     values={form.galleryImages}
                     onChange={(value) => handleArrayChange("galleryImages", value)}
+                  />
+                  <DateArrayField
+                    label="Booked Dates"
+                    values={form.bookedDates}
+                    onChange={(value) => handleArrayChange("bookedDates", value)}
                   />
                 </>
               )}

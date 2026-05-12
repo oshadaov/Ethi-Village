@@ -14,6 +14,9 @@ import AdminDashboard from "../pages/AdminDashboard";
 import RoomDetail from "../pages/RoomDetail";
 import Activities from "../pages/Activities";
 import ActivityDetail from "../pages/ActivityDetail";
+import RoomBooking from "../pages/RoomBooking";
+import ExperienceBooking from "../pages/ExperienceBooking";
+import BookingSelection from "../pages/BookingSelection";
 import RoleGuard, { AdminLogin } from "./RoleGuard";
 import FloatingWhatsApp from "../components/common/FloatingWhatsApp";
 
@@ -35,6 +38,11 @@ export default function AppRoutes() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/stay/:id" element={<RoomDetail />} />
         <Route path="/activities/:id" element={<ActivityDetail />} />
+        <Route path="/book-room" element={<RoomBooking />} />
+        <Route path="/book-room/:id" element={<RoomBooking />} />
+        <Route path="/book-experience" element={<ExperienceBooking />} />
+        <Route path="/book-experience/:id" element={<ExperienceBooking />} />
+        <Route path="/book" element={<BookingSelection />} />
         <Route path="/accommodation/:id" element={<Navigate to="/stay/:id" replace />} />
 
         {/* Activities and Experiences */}

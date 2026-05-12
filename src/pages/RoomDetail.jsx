@@ -188,7 +188,7 @@ export default function RoomDetail() {
                 </div>
 
                 <div className="booking-card-actions">
-                  <Button to="/contact" className="btn-full">
+                  <Button to={`/book-room/${room.id}`} className="btn-full">
                     Book This Stay
                   </Button>
                   <Button

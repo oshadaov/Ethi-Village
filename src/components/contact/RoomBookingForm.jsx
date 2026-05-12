@@ -1,32 +1,46 @@
 import SectionHeader from "../common/SectionHeader";
 import Button from "../common/Button";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Calendar } from "lucide-react";
 
-export default function BookingInquiryForm({
+export default function RoomBookingForm({
   formData,
   submitted,
   isSubmitting,
   submitError,
-  experiences,
   rooms,
+  experiences,
   guestOptions,
   yesNoMaybeOptions,
-  whatsappNumber,
-  whatsappMessage,
   onChange,
   onSubmit,
+  onWhatsAppSubmit,
 }) {
+  const selectedRoom = rooms?.find(r => r.name === formData.room);
+
+  // Convert bookedDates strings (YYYY-MM-DD) to Date objects
+  const excludedDates = selectedRoom?.bookedDates 
+    ? selectedRoom.bookedDates.map(dateStr => new Date(dateStr))
+    : [];
+
+  const handleDateChange = (date) => {
+    // Format to YYYY-MM-DD for consistency with backend
+    const formattedDate = date ? date.toISOString().split('T')[0] : "";
+    onChange({ target: { name: "preferredDate", value: formattedDate } });
+  };
 
   return (
     <div className="booking-form-card">
       <SectionHeader
-        eyebrow="Booking Form"
-        title="Send Your Inquiry"
-        description="Fill in the details below and we’ll get back to you with the best option."
+        eyebrow="Room Booking"
+        title={selectedRoom ? `Book ${selectedRoom.name}` : "Book Your Stay"}
+        description="Experience the tranquility of Etili Village. Fill in your details below."
       />
 
       {submitted && (
         <div className="form-success-message">
-          <strong>Thank you.</strong> Your inquiry has been sent successfully. We will get back to you soon.
+          <strong>Thank you.</strong> Your room booking inquiry has been sent. We will contact you shortly.
         </div>
       )}
 
@@ -36,46 +50,18 @@ export default function BookingInquiryForm({
         </div>
       )}
 
-      {/* Selection Summary */}
-      {(formData.experience || (formData.accommodation === "Yes" && formData.room)) && (
+      {selectedRoom && (
         <div className="booking-selection-summary">
-          {formData.experience && experiences && (
-            <div className="selection-item">
-              <h4>Selected Experience</h4>
-              {(() => {
-                const exp = experiences.find(e => e.title === formData.experience);
-                if (!exp) return <p>{formData.experience}</p>;
-                return (
-                  <div className="selection-details">
-                    <img src={exp.imageUrl || exp.image} alt={exp.title} />
-                    <div>
-                      <p className="selection-name">{exp.title}</p>
-                      <p className="selection-meta">{exp.duration} • {exp.priceText}</p>
-                    </div>
-                  </div>
-                );
-              })()}
+          <div className="selection-item">
+            <h4>Selected Accommodation</h4>
+            <div className="selection-details">
+              <img src={selectedRoom.image} alt={selectedRoom.name} />
+              <div>
+                <p className="selection-name">{selectedRoom.name}</p>
+                <p className="selection-meta">{selectedRoom.type} • {selectedRoom.priceText || `$${selectedRoom.pricePerNight}/night`}</p>
+              </div>
             </div>
-          )}
-          
-          {formData.accommodation === "Yes" && formData.room && rooms && (
-            <div className="selection-item">
-              <h4>Selected Room</h4>
-              {(() => {
-                const rm = rooms.find(r => r.name === formData.room);
-                if (!rm) return <p>{formData.room}</p>;
-                return (
-                  <div className="selection-details">
-                    <img src={rm.image} alt={rm.name} />
-                    <div>
-                      <p className="selection-name">{rm.name}</p>
-                      <p className="selection-meta">{rm.type} • {rm.priceText || `$${rm.pricePerNight}/night`}</p>
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-          )}
+          </div>
         </div>
       )}
 
@@ -93,7 +79,6 @@ export default function BookingInquiryForm({
               required
             />
           </div>
-
           <div className="form-field">
             <label htmlFor="email">Email</label>
             <input
@@ -121,7 +106,6 @@ export default function BookingInquiryForm({
               required
             />
           </div>
-
           <div className="form-field">
             <label htmlFor="nationality">Nationality</label>
             <input
@@ -137,18 +121,28 @@ export default function BookingInquiryForm({
 
         <div className="form-grid three">
           <div className="form-field">
-            <label htmlFor="preferredDate">Preferred Date</label>
-            <input
-              id="preferredDate"
-              name="preferredDate"
-              type="date"
-              value={formData.preferredDate}
-              onChange={onChange}
-            />
+            <label htmlFor="preferredDate">Check-in Date</label>
+            <div className="custom-datepicker-container">
+              <DatePicker
+                selected={formData.preferredDate ? new Date(formData.preferredDate) : null}
+                onChange={handleDateChange}
+                dateFormat="yyyy-MM-dd"
+                minDate={new Date()}
+                highlightDates={[
+                  {
+                    "booked-date-highlight": excludedDates
+                  }
+                ]}
+                excludeDates={excludedDates}
+                placeholderText="Select check-in date"
+                className="datepicker-input-full"
+                required
+              />
+              <Calendar className="datepicker-field-icon" size={18} />
+            </div>
           </div>
-
           <div className="form-field">
-            <label htmlFor="guests">Guests</label>
+            <label htmlFor="guests">Number of Guests</label>
             <select
               id="guests"
               name="guests"
@@ -162,55 +156,42 @@ export default function BookingInquiryForm({
               ))}
             </select>
           </div>
-
           <div className="form-field">
-            <label htmlFor="experience">Preferred Experience</label>
+            <label htmlFor="room">Select Room</label>
             <select
-              id="experience"
-              name="experience"
-              value={formData.experience}
+              id="room"
+              name="room"
+              value={formData.room}
               onChange={onChange}
+              required
             >
-              <option value="">Select an experience</option>
-              {experiences.map((item) => (
-                <option key={item.id} value={item.title}>
-                  {item.title}
+              <option value="">Select a room</option>
+              {rooms?.map((r) => (
+                <option key={r.id} value={r.name}>
+                  {r.name}
                 </option>
               ))}
             </select>
           </div>
         </div>
 
-        <div className="form-grid three">
+        <div className="form-grid two">
           <div className="form-field">
-            <label htmlFor="accommodation">Need Accommodation?</label>
+            <label htmlFor="experience">Add an Experience? (Optional)</label>
             <select
-              id="accommodation"
-              name="accommodation"
-              value={formData.accommodation}
+              id="experience"
+              name="experience"
+              value={formData.experience}
               onChange={onChange}
             >
-              {yesNoMaybeOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+              <option value="">None / Select later</option>
+              {experiences?.map((item) => (
+                <option key={item.id} value={item.title}>
+                  {item.title}
                 </option>
               ))}
             </select>
           </div>
-
-          <div className="form-field">
-            <label htmlFor="room">Specific Room (Optional)</label>
-            <input
-              id="room"
-              name="room"
-              type="text"
-              value={formData.room}
-              onChange={onChange}
-              placeholder="e.g. Mud House"
-              disabled={formData.accommodation === "No"}
-            />
-          </div>
-
           <div className="form-field">
             <label htmlFor="pickup">Need Pickup?</label>
             <select
@@ -229,20 +210,27 @@ export default function BookingInquiryForm({
         </div>
 
         <div className="form-field">
-          <label htmlFor="message">Message</label>
+          <label htmlFor="message">Special Requests / Message</label>
           <textarea
             id="message"
             name="message"
-            rows="5"
+            rows="4"
             value={formData.message}
             onChange={onChange}
-            placeholder="Tell us about your travel plan, interests, or questions..."
+            placeholder="Anything else we should know?"
           />
         </div>
 
-        <div className="form-actions">
-          <Button disabled={isSubmitting}>
-            {isSubmitting ? "Sending..." : "Send Booking Inquiry"}
+        <div className="form-actions booking-dual-actions">
+          <Button disabled={isSubmitting} type="submit" className="btn-email">
+            {isSubmitting ? "Sending..." : "Book via Email"}
+          </Button>
+          <Button 
+            variant="secondary" 
+            onClick={onWhatsAppSubmit} 
+            className="btn-whatsapp"
+          >
+            Book via WhatsApp
           </Button>
         </div>
       </form>

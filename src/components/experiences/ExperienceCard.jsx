@@ -23,7 +23,7 @@ export default function ExperienceCard({ experience }) {
             <Button to={`/activities/${experience.id}`} variant="secondary" className="view-details-btn-v3">
               View Details
             </Button>
-            <Button to="/contact" className="book-now-btn-v3">
+            <Button to={`/book-experience/${experience.id}`} className="book-now-btn-v3">
               Book Now
             </Button>
           </div>

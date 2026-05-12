@@ -207,7 +207,7 @@ export default function ActivityDetail() {
                 </div>
 
                 <div className="booking-card-actions">
-                  <Button to="/contact" className="btn-full">
+                  <Button to={`/book-experience/${activity.id}`} className="btn-full">
                     Inquire & Book
                   </Button>
                   <Button

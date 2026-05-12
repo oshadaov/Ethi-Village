@@ -30,7 +30,7 @@ export default function RoomCard({ room }) {
             <Button to={`/stay/${room.id}`} variant="secondary" className="view-details-btn-v3">
               View Details
             </Button>
-            <Button to="/contact" className="book-stay-btn-v3">
+            <Button to={`/book-room/${room.id}`} className="book-stay-btn-v3">
               Book Now
             </Button>
           </div>

@@ -1,15 +1,6 @@
-import { useMemo, useState, useEffect } from "react";
 import Container from "../components/common/Container";
-import { getExperiences } from "../data/experiences";
-import {
-  contactInfo,
-  guestOptions,
-  initialContactForm,
-  yesNoMaybeOptions,
-} from "../data/contactConfig";
+import { contactInfo } from "../data/contactConfig";
 import ContactInfoPanel from "../components/contact/ContactInfoPanel";
-import BookingInquiryForm from "../components/contact/BookingInquiryForm";
-import { buildWhatsAppMessage, buildWhatsAppUrl } from "../utils/contactUtils";
 import { useSiteImages } from "../hooks/useSiteImages";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
@@ -21,59 +12,6 @@ export default function Contact() {
     !loading && remoteHero
       ? remoteHero
       : "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=1800&q=80";
-  const [formData, setFormData] = useState(initialContactForm);
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [experiencesData, setExperiencesData] = useState([]);
-  const [loadingExperiences, setLoadingExperiences] = useState(true);
-
-  useEffect(() => {
-    const loadExperiences = async () => {
-      setLoadingExperiences(true);
-      const data = await getExperiences();
-      setExperiencesData(data);
-      setLoadingExperiences(false);
-    };
-    loadExperiences();
-  }, []);
-
-  const whatsappMessage = useMemo(
-    () => buildWhatsAppMessage(formData),
-    [formData],
-  );
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitError("");
-
-    try {
-      const whatsappLink = buildWhatsAppUrl(
-        contactInfo.whatsappNumber,
-        whatsappMessage,
-      );
-      window.open(whatsappLink, "_blank");
-      setSubmitted(true);
-      setFormData(initialContactForm);
-    } catch (error) {
-      console.error("Error redirecting to WhatsApp:", error);
-      setSubmitError(
-        "There was a problem redirecting you to WhatsApp. Please try again.",
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <main>
@@ -82,7 +20,6 @@ export default function Contact() {
         style={{ backgroundImage: `url('${heroBackground}')` }}
       >
         <Container className="page-hero-content">
-          {/* <p className="section-eyebrow">Contact & Booking</p> */}
           <h1>Plan Your Village Escape with Confidence</h1>
           <p>
             Share your preferred date, group size, and interests. We’ll help you
@@ -92,25 +29,19 @@ export default function Contact() {
       </section>
 
       <section className="section">
-        <Container className="contact-layout">
+        <Container className="contact-layout" style={{ maxWidth: '800px', margin: '0 auto' }}>
           <ContactInfoPanel
             contactInfo={contactInfo}
-            whatsappMessage={whatsappMessage}
           />
-
-          <BookingInquiryForm
-            formData={formData}
-            submitted={submitted}
-            isSubmitting={isSubmitting}
-            submitError={submitError}
-            experiences={loadingExperiences ? [] : experiencesData}
-            guestOptions={guestOptions}
-            yesNoMaybeOptions={yesNoMaybeOptions}
-            whatsappNumber={contactInfo.whatsappNumber}
-            whatsappMessage={whatsappMessage}
-            onChange={handleChange}
-            onSubmit={handleSubmit}
-          />
+          
+          <div className="contact-cta-box glass" style={{ marginTop: '3rem', padding: '3rem', textAlign: 'center' }}>
+            <h2>Looking to book a stay or activity?</h2>
+            <p>Visit our Accommodation or Activities pages to book directly.</p>
+            <div className="cta-actions" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
+              <Button to="/stay">View Stays</Button>
+              <Button to="/activities" variant="secondary">View Activities</Button>
+            </div>
+          </div>
         </Container>
       </section>
 
