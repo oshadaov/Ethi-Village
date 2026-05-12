@@ -13,12 +13,12 @@ import {
 } from "../services/api";
 
 import "../styles/admin.css";
-const API_BASE = import.meta.env.VITE_API_BASE_URL ;
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 const tabs = [
   { key: "experiences", label: "Activities" },
   { key: "gallery", label: "Gallery" },
-  
+
   { key: "rooms", label: "Accommodation" },
   { key: "blogs", label: "Blogs" },
   { key: "images", label: "Images" },
@@ -57,8 +57,6 @@ const emptyGallery = {
   alt: "",
   description: "",
 };
-
-
 
 const emptyRoom = {
   name: "",
@@ -153,7 +151,6 @@ function parseFormFromItem(tab, item) {
     };
   }
 
-
   if (tab === "blogs") {
     return {
       title: item.title || "",
@@ -247,7 +244,7 @@ function ArrayField({ label, values, onChange }) {
 
       <div className="admin-array-items">
         {(values || []).map((item, index) => (
-          <div key={`${item}-${index}`} className="admin-array-item">
+          <div key={index} className="admin-array-item">
             <input
               value={item}
               onChange={(e) => updateItem(index, e.target.value)}
@@ -395,7 +392,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     resetEditor(activeTab);
     loadItems(activeTab);
-  }, [activeTab, resetEditor]);
+  }, [activeTab]);
 
   const startEdit = (item) => {
     const itemId = getItemId(item, activeTab);
@@ -510,7 +507,6 @@ export default function AdminDashboard() {
   };
 
   return (
-    
     <div className="admin-dashboard-wrapper">
       <div className="admin-header">
         <p className="admin-header-eyebrow">Admin Panel</p>
@@ -679,7 +675,9 @@ export default function AdminDashboard() {
                   <ArrayField
                     label="Gallery Image URLs"
                     values={form.galleryImages}
-                    onChange={(value) => handleArrayChange("galleryImages", value)}
+                    onChange={(value) =>
+                      handleArrayChange("galleryImages", value)
+                    }
                   />
                 </>
               )}
@@ -741,7 +739,6 @@ export default function AdminDashboard() {
                   </Field>
                 </>
               )}
-
 
               {activeTab === "rooms" && (
                 <>
@@ -837,22 +834,30 @@ export default function AdminDashboard() {
                   <ArrayField
                     label="Meals Included"
                     values={form.mealsIncluded}
-                    onChange={(value) => handleArrayChange("mealsIncluded", value)}
+                    onChange={(value) =>
+                      handleArrayChange("mealsIncluded", value)
+                    }
                   />
                   <ArrayField
                     label="Staff Services"
                     values={form.staffServices}
-                    onChange={(value) => handleArrayChange("staffServices", value)}
+                    onChange={(value) =>
+                      handleArrayChange("staffServices", value)
+                    }
                   />
                   <ArrayField
                     label="Gallery Image URLs"
                     values={form.galleryImages}
-                    onChange={(value) => handleArrayChange("galleryImages", value)}
+                    onChange={(value) =>
+                      handleArrayChange("galleryImages", value)
+                    }
                   />
                   <DateArrayField
                     label="Booked Dates"
                     values={form.bookedDates}
-                    onChange={(value) => handleArrayChange("bookedDates", value)}
+                    onChange={(value) =>
+                      handleArrayChange("bookedDates", value)
+                    }
                   />
                 </>
               )}
@@ -862,7 +867,9 @@ export default function AdminDashboard() {
                   <Field label="Title">
                     <TextInput
                       value={form.title}
-                      onChange={(e) => handleTextChange("title", e.target.value)}
+                      onChange={(e) =>
+                        handleTextChange("title", e.target.value)
+                      }
                       placeholder="My Awesome Blog Post"
                     />
                   </Field>
@@ -870,14 +877,18 @@ export default function AdminDashboard() {
                     <Field label="Slug (URL)">
                       <TextInput
                         value={form.slug}
-                        onChange={(e) => handleTextChange("slug", e.target.value)}
+                        onChange={(e) =>
+                          handleTextChange("slug", e.target.value)
+                        }
                         placeholder="my-awesome-blog-post"
                       />
                     </Field>
                     <Field label="Author">
                       <TextInput
                         value={form.author}
-                        onChange={(e) => handleTextChange("author", e.target.value)}
+                        onChange={(e) =>
+                          handleTextChange("author", e.target.value)
+                        }
                         placeholder="Jane Doe"
                       />
                     </Field>
@@ -885,7 +896,9 @@ export default function AdminDashboard() {
                   <Field label="Image Key (Optional)">
                     <TextInput
                       value={form.imageKey}
-                      onChange={(e) => handleTextChange("imageKey", e.target.value)}
+                      onChange={(e) =>
+                        handleTextChange("imageKey", e.target.value)
+                      }
                       placeholder="blog_my_post"
                     />
                   </Field>
@@ -893,7 +906,9 @@ export default function AdminDashboard() {
                     <TextArea
                       rows={2}
                       value={form.shortDescription}
-                      onChange={(e) => handleTextChange("shortDescription", e.target.value)}
+                      onChange={(e) =>
+                        handleTextChange("shortDescription", e.target.value)
+                      }
                       placeholder="A short summary of the post for the card"
                     />
                   </Field>
@@ -901,7 +916,9 @@ export default function AdminDashboard() {
                     <TextArea
                       rows={10}
                       value={form.content}
-                      onChange={(e) => handleTextChange("content", e.target.value)}
+                      onChange={(e) =>
+                        handleTextChange("content", e.target.value)
+                      }
                       placeholder="Full markdown/html content of the blog post..."
                     />
                   </Field>
@@ -935,7 +952,10 @@ export default function AdminDashboard() {
                   </div>
 
                   {(activeTab === "experiences" || activeTab === "rooms") && (
-                    <div className="admin-upload-zone" style={{ marginTop: '1rem' }}>
+                    <div
+                      className="admin-upload-zone"
+                      style={{ marginTop: "1rem" }}
+                    >
                       <div className="admin-upload-label">
                         <ImagePlus size={20} />
                         <span>Upload Gallery Images</span>
@@ -954,13 +974,14 @@ export default function AdminDashboard() {
                         Choose multiple images or drag here
                       </label>
                       {galleryFiles.length > 0 && (
-                        <div style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+                        <div
+                          style={{ marginTop: "0.5rem", fontSize: "0.85rem" }}
+                        >
                           {galleryFiles.length} file(s) selected
                         </div>
                       )}
                     </div>
                   )}
-
 
                   <div className="admin-form-actions">
                     <button
@@ -991,7 +1012,7 @@ export default function AdminDashboard() {
                       if (!acc[page]) acc[page] = [];
                       acc[page].push(entry);
                       return acc;
-                    }, {})
+                    }, {}),
                   ).map(([page, keys]) => (
                     <div key={page} className="admin-image-category">
                       <h3 className="admin-image-category-title">{page}</h3>
@@ -1000,10 +1021,14 @@ export default function AdminDashboard() {
                           const current =
                             items.find((i) => i.imageKey === entry.key) || {};
                           const imageUrl =
-                            current.imageDataUrl || current.imageUrl || current.image;
+                            current.imageDataUrl ||
+                            current.imageUrl ||
+                            current.image;
                           return (
                             <div key={entry.key} className="admin-image-card">
-                              <h4>{entry.label.split(":")[1] || entry.label}</h4>
+                              <h4>
+                                {entry.label.split(":")[1] || entry.label}
+                              </h4>
                               <div className="admin-image-preview">
                                 {imageUrl ? (
                                   <img src={imageUrl} alt={entry.label} />
@@ -1017,7 +1042,10 @@ export default function AdminDashboard() {
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) =>
-                                  handleImageUpload(entry.key, e.target.files?.[0])
+                                  handleImageUpload(
+                                    entry.key,
+                                    e.target.files?.[0],
+                                  )
                                 }
                               />
                               {imageUrl && (
