@@ -1,7 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
 import Container from "../components/common/Container";
 import SectionHeader from "../components/common/SectionHeader";
-import Button from "../components/common/Button";
 import GalleryFilter from "../components/gallery/GalleryFilter";
 import GalleryGrid from "../components/gallery/GalleryGrid";
 import LightboxModal from "../components/gallery/LightboxModal";
@@ -21,9 +20,7 @@ export default function Gallery() {
       ? remoteHero
       : "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=80";
 
-  const [galleryCategories, setGalleryCategories] = useState(
-    staticGalleryCategories,
-  );
+  const [galleryCategories] = useState(staticGalleryCategories);
   const [galleryItems, setGalleryItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -48,7 +45,7 @@ export default function Gallery() {
                 experienceImages.push({
                   id: `exp-${exp.id}-${idx}`,
                   title: `${exp.title} - Image ${idx + 1}`,
-                  category: "Tours", // Grouping under Tours category
+                  category: "Tours",
                   imageKey: `exp-${exp.id}-${idx}`,
                   image: url,
                   alt: exp.title,
@@ -85,7 +82,6 @@ export default function Gallery() {
         setLoadingData(false);
       }
     };
-
     loadGallery();
   }, []);
 
@@ -99,65 +95,61 @@ export default function Gallery() {
     setLightboxOpen(true);
   };
 
-  const handleCloseLightbox = () => {
-    setLightboxOpen(false);
-  };
-
-  const handlePrev = () => {
-    setSelectedIndex((prev) =>
-      prev === 0 ? filteredItems.length - 1 : prev - 1,
-    );
-  };
-
-  const handleNext = () => {
-    setSelectedIndex((prev) =>
-      prev === filteredItems.length - 1 ? 0 : prev + 1,
-    );
-  };
+  const handleCloseLightbox = () => setLightboxOpen(false);
+  const handlePrev = () => setSelectedIndex((prev) => prev === 0 ? filteredItems.length - 1 : prev - 1);
+  const handleNext = () => setSelectedIndex((prev) => prev === filteredItems.length - 1 ? 0 : prev + 1);
 
   return (
-    <main>
-      <section
-        className="page-hero page-hero-gallery"
-        style={{ backgroundImage: `url('${heroBackground}')` }}
-      >
-        <Container className="page-hero-content">
-          {/* <p className="section-eyebrow">Gallery</p> */}
-          <h1>See the Spirit of Etili Through Real Moments</h1>
-          <p>
-            Explore village life, traditional food, nature, local guides, and
-            peaceful stays through a visual journey shaped by authentic
-            experiences.
+    <main className="bg-bg">
+      {/* Hero Section */}
+      <section className="relative h-[50vh] flex items-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${heroBackground}')` }}
+        />
+        <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]" />
+        
+        <Container className="relative z-10 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg font-serif">
+            See the Spirit of Etili
+          </h1>
+          <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed italic font-light">
+            Explore village life, traditional food, and peaceful stays through a visual journey shaped by authentic experiences.
           </p>
         </Container>
       </section>
 
-      <section className="section">
+      <section className="py-24">
         <Container>
           <SectionHeader
+            center
             eyebrow="Visual Journey"
-            title="Moments That Make the Experience Memorable"
-            description="Browse by category and open any image for a larger full-screen preview."
+            title="Moments That Make the Experience"
+            description="Browse by category and open any image for a full-screen preview."
           />
 
-          <GalleryFilter
-            categories={galleryCategories}
-            activeCategory={activeCategory}
-            onChange={setActiveCategory}
-          />
+          <div className="mt-12">
+            <GalleryFilter
+              categories={galleryCategories}
+              activeCategory={activeCategory}
+              onChange={setActiveCategory}
+            />
 
-          <div className="results-bar">
-            <p>
-              Showing <strong>{filteredItems.length}</strong> image
-              {filteredItems.length !== 1 ? "s" : ""}
-            </p>
+            <div className="flex items-center justify-center mb-12">
+              <div className="bg-white px-6 py-2 rounded-full shadow-sm border border-border/10 text-xs font-bold text-primary uppercase tracking-[0.2em]">
+                Found {filteredItems.length} {filteredItems.length === 1 ? 'Moment' : 'Moments'}
+              </div>
+            </div>
+
+            {loadingData ? (
+              <div className="py-24 text-center">
+                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                <p className="text-muted font-bold">Developing films...</p>
+              </div>
+            ) : (
+              <GalleryGrid items={filteredItems} onOpen={handleOpenLightbox} />
+            )}
           </div>
-
-          {loadingData ? (
-            <p>Loading gallery...</p>
-          ) : (
-            <GalleryGrid items={filteredItems} onOpen={handleOpenLightbox} />
-          )}
         </Container>
       </section>
 

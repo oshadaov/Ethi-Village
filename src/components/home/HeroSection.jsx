@@ -8,58 +8,57 @@ import { SiTripadvisor } from "react-icons/si";
 export default function HeroSection() {
   const { images, loading } = useSiteImages();
   const remoteHero = images?.hero_main;
-  // Using default hero image - you can replace this URL with the new landscape image
-  const heroBackground =
-    !loading && remoteHero ? remoteHero : defaultImages.hero;
+  const heroBackground = !loading && remoteHero ? remoteHero : defaultImages.hero;
 
   const socialLinks = [
     {
       icon: FaFacebook,
       url: import.meta.env.VITE_FACEBOOK_URL,
       label: "Facebook",
-      color: "#1877F2",
+      color: "hover:text-[#1877F2]",
     },
     {
       icon: FaYoutube,
       url: import.meta.env.VITE_YOUTUBE_URL,
       label: "YouTube",
-      color: "#FF0000",
+      color: "hover:text-[#FF0000]",
     },
     {
       icon: FaInstagram,
       url: import.meta.env.VITE_INSTAGRAM_URL,
       label: "Instagram",
-      color: "#E4405F",
+      color: "hover:text-[#E4405F]",
     },
     {
       icon: SiTripadvisor,
       url: import.meta.env.VITE_TRIPADVISOR_URL,
       label: "TripAdvisor",
-      color: "#00AF87",
+      color: "hover:text-[#00AF87]",
     },
   ];
 
   return (
-    <section
-      className="hero-section"
-      style={{ backgroundImage: `url('${heroBackground}')` }}
-    >
-      <div className="hero-overlay" />
-      <Container className="hero-content">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] scale-105 hover:scale-100"
+        style={{ backgroundImage: `url('${heroBackground}')` }}
+      />
+      
+      <Container className="relative z-10 text-center">
         <motion.div
-          className="hero-text"
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="flex flex-col items-center"
         >
-          <h1 className="hero-content-heading">
-            E T H I L I</h1>
-          <h2 >
-            
-            VILLAGE SRI LANKA
+          <h1 className="text-6xl md:text-9xl font-bold text-white mb-2 tracking-[0.2em] drop-shadow-2xl font-serif">
+            ETHILI
+          </h1>
+          <h2 className="text-xl md:text-3xl font-bold text-white uppercase tracking-[0.5em] mb-12 drop-shadow-lg">
+            Village Sri Lanka
           </h2>
 
-          <div className="hero-social-links">
+          <div className="flex gap-8 items-center bg-white/10 backdrop-blur-md px-8 py-4 rounded-full border border-white/20 shadow-2xl">
             {socialLinks.map((link, index) => {
               const Icon = link.icon;
               return (
@@ -68,8 +67,7 @@ export default function HeroSection() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-icon"
-                  style={{ color: link.color }}
+                  className={`text-white text-2xl transition-all duration-300 transform hover:scale-125 ${link.color}`}
                   aria-label={link.label}
                   title={link.label}
                 >
@@ -80,6 +78,10 @@ export default function HeroSection() {
           </div>
         </motion.div>
       </Container>
+      
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="w-1 h-12 rounded-full bg-gradient-to-b from-white/0 via-white to-white/0" />
+      </div>
     </section>
   );
 }

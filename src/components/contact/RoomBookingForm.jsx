@@ -31,7 +31,7 @@ export default function RoomBookingForm({
   };
 
   return (
-    <div className="booking-form-card">
+    <div className="bg-white rounded-[32px] p-8 md:p-12 shadow-premium border border-border/50">
       <SectionHeader
         eyebrow="Room Booking"
         title={selectedRoom ? `Book ${selectedRoom.name}` : "Book Your Stay"}
@@ -39,36 +39,36 @@ export default function RoomBookingForm({
       />
 
       {submitted && (
-        <div className="form-success-message">
-          <strong>Thank you.</strong> Your room booking inquiry has been sent. We will contact you shortly.
+        <div className="mb-8 p-6 bg-green-50 border border-green-100 text-green-800 rounded-2xl animate-fade-in">
+          <strong className="block text-lg mb-1">Thank you.</strong> 
+          Your room booking inquiry has been sent. We will contact you shortly.
         </div>
       )}
 
       {submitError && (
-        <div className="form-error-message" style={{ color: "red", marginBottom: "20px", padding: "12px", background: "#fee2e2", borderRadius: "8px" }}>
+        <div className="mb-8 p-6 bg-red-50 border border-red-100 text-red-800 rounded-2xl animate-shake">
           {submitError}
         </div>
       )}
 
       {selectedRoom && (
-        <div className="booking-selection-summary">
-          <div className="selection-item">
-            <h4>Selected Accommodation</h4>
-            <div className="selection-details">
-              <img src={selectedRoom.image} alt={selectedRoom.name} />
-              <div>
-                <p className="selection-name">{selectedRoom.name}</p>
-                <p className="selection-meta">{selectedRoom.type} • {selectedRoom.priceText || `$${selectedRoom.pricePerNight}/night`}</p>
-              </div>
+        <div className="mb-10 p-6 bg-bg rounded-2xl border border-border/30">
+          <div className="flex flex-col md:flex-row gap-6 items-center">
+            <div className="w-full md:w-32 h-32 rounded-xl overflow-hidden shrink-0">
+              <img src={selectedRoom.image} alt={selectedRoom.name} className="w-full h-full object-cover" />
+            </div>
+            <div className="text-center md:text-left">
+              <h4 className="text-xl font-bold text-primary mb-1">{selectedRoom.name}</h4>
+              <p className="text-muted m-0">{selectedRoom.type} • <span className="text-accent font-bold">{selectedRoom.priceText || `$${selectedRoom.pricePerNight}/night`}</span></p>
             </div>
           </div>
         </div>
       )}
 
-      <form className="booking-form" onSubmit={onSubmit}>
-        <div className="form-grid two">
-          <div className="form-field">
-            <label htmlFor="fullName">Full Name</label>
+      <form className="space-y-8" onSubmit={onSubmit}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="fullName" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Full Name</label>
             <input
               id="fullName"
               name="fullName"
@@ -77,10 +77,11 @@ export default function RoomBookingForm({
               onChange={onChange}
               placeholder="Your full name"
               required
+              className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted/50"
             />
           </div>
-          <div className="form-field">
-            <label htmlFor="email">Email</label>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="email" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Email</label>
             <input
               id="email"
               name="email"
@@ -89,13 +90,14 @@ export default function RoomBookingForm({
               onChange={onChange}
               placeholder="Your email"
               required
+              className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted/50"
             />
           </div>
         </div>
 
-        <div className="form-grid two">
-          <div className="form-field">
-            <label htmlFor="phone">WhatsApp / Phone</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="phone" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">WhatsApp / Phone</label>
             <input
               id="phone"
               name="phone"
@@ -104,10 +106,11 @@ export default function RoomBookingForm({
               onChange={onChange}
               placeholder="Your contact number"
               required
+              className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted/50"
             />
           </div>
-          <div className="form-field">
-            <label htmlFor="nationality">Nationality</label>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="nationality" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Nationality</label>
             <input
               id="nationality"
               name="nationality"
@@ -115,14 +118,15 @@ export default function RoomBookingForm({
               value={formData.nationality}
               onChange={onChange}
               placeholder="Your nationality"
+              className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted/50"
             />
           </div>
         </div>
 
-        <div className="form-grid three">
-          <div className="form-field">
-            <label htmlFor="preferredDate">Check-in Date</label>
-            <div className="custom-datepicker-container">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="preferredDate" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Check-in Date</label>
+            <div className="relative">
               <DatePicker
                 selected={formData.preferredDate ? new Date(formData.preferredDate) : null}
                 onChange={handleDateChange}
@@ -135,19 +139,20 @@ export default function RoomBookingForm({
                 ]}
                 excludeDates={excludedDates}
                 placeholderText="Select check-in date"
-                className="datepicker-input-full"
                 required
+                className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted/50 cursor-pointer"
               />
-              <Calendar className="datepicker-field-icon" size={18} />
+              <Calendar className="absolute right-6 top-1/2 -translate-y-1/2 text-primary/40 pointer-events-none" size={18} />
             </div>
           </div>
-          <div className="form-field">
-            <label htmlFor="guests">Number of Guests</label>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="guests" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Number of Guests</label>
             <select
               id="guests"
               name="guests"
               value={formData.guests}
               onChange={onChange}
+              className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer"
             >
               {guestOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -156,14 +161,15 @@ export default function RoomBookingForm({
               ))}
             </select>
           </div>
-          <div className="form-field">
-            <label htmlFor="room">Select Room</label>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="room" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Select Room</label>
             <select
               id="room"
               name="room"
               value={formData.room}
               onChange={onChange}
               required
+              className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer"
             >
               <option value="">Select a room</option>
               {rooms?.map((r) => (
@@ -175,14 +181,15 @@ export default function RoomBookingForm({
           </div>
         </div>
 
-        <div className="form-grid two">
-          <div className="form-field">
-            <label htmlFor="experience">Add an Experience? (Optional)</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="experience" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Add an Experience? (Optional)</label>
             <select
               id="experience"
               name="experience"
               value={formData.experience}
               onChange={onChange}
+              className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer"
             >
               <option value="">None / Select later</option>
               {experiences?.map((item) => (
@@ -192,13 +199,14 @@ export default function RoomBookingForm({
               ))}
             </select>
           </div>
-          <div className="form-field">
-            <label htmlFor="pickup">Need Pickup?</label>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="pickup" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Need Pickup?</label>
             <select
               id="pickup"
               name="pickup"
               value={formData.pickup}
               onChange={onChange}
+              className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer"
             >
               {yesNoMaybeOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -209,8 +217,8 @@ export default function RoomBookingForm({
           </div>
         </div>
 
-        <div className="form-field">
-          <label htmlFor="message">Special Requests / Message</label>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="message" className="text-sm font-bold text-primary uppercase tracking-wider ml-1">Special Requests / Message</label>
           <textarea
             id="message"
             name="message"
@@ -218,17 +226,18 @@ export default function RoomBookingForm({
             value={formData.message}
             onChange={onChange}
             placeholder="Anything else we should know?"
+            className="w-full px-6 py-4 bg-bg border-none rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-muted/50 resize-none"
           />
         </div>
 
-        <div className="form-actions booking-dual-actions">
-          <Button disabled={isSubmitting} type="submit" className="btn-email">
+        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <Button disabled={isSubmitting} type="submit" className="flex-1 min-w-[200px]">
             {isSubmitting ? "Sending..." : "Book via Email"}
           </Button>
           <Button 
             variant="secondary" 
             onClick={onWhatsAppSubmit} 
-            className="btn-whatsapp"
+            className="flex-1 min-w-[200px] border-[#25d366] text-[#25d366] hover:bg-[#25d366] hover:text-white"
           >
             Book via WhatsApp
           </Button>

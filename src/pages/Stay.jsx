@@ -55,31 +55,39 @@ export default function Stay() {
   }, [experiencesData, images, loading]);
 
   return (
-    <main>
-      <section
-        className="page-hero"
-        style={{ backgroundImage: `url('${heroBackground}')` }}
-      >
-        <Container className="page-hero-content">
-          <h1>Stay & Experience Etili</h1>
-          <p>
-            A mud house, a tree house, a glamping unit and one Farmhouse operating as a comprehensive guest house, providing visitors with the chance to learn organic farming, local cuisine and coexistence with wildlife.
-          </p>
+    <main className="bg-bg">
+      {/* Hero Section */}
+      <section className="relative h-[60vh] flex items-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-1000"
+          style={{ backgroundImage: `url('${heroBackground}')` }}
+        />
+        <div className="absolute inset-0 bg-primary/40 backdrop-blur-[1px]" />
+        
+        <Container className="relative z-10">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+              Stay & Experience Etili
+            </h1>
+            <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-0">
+              Discover our authentic mud houses, tree houses, and glamping units. Learn organic farming, enjoy local cuisine, and coexist with nature in the heart of our mountain village.
+            </p>
+          </div>
         </Container>
       </section>
 
       {/* ACCOMMODATION SECTION */}
-      <section id="accommodation" className="section">
+      <section id="accommodation" className="py-24">
         <Container>
           <SectionHeader
             eyebrow="Accommodation"
             title="Simple, Unspoiled Surroundings"
-            description="The accommodation is simple, yet regularly rated as one of the best guest-houses in Sri Lanka, thanks to the stunning scenery, delicious food, wildlife and unspoiled surroundings."
+            description="Our rooms are simple, yet regularly rated as one of the best guest-houses in Sri Lanka, thanks to the stunning scenery, delicious food, and authentic village vibes."
           />
 
-          <div className="room-list">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {loadingData ? (
-              <p>Loading accommodation...</p>
+              <div className="col-span-full py-12 text-center text-muted">Loading accommodation...</div>
             ) : (
               roomsData.map((room) => (
                 <RoomCard key={room.id} room={room} />
@@ -90,41 +98,38 @@ export default function Stay() {
       </section>
 
       {/* FOOD AND DRINK SECTION */}
-      <section id="food" className="section section-soft">
+      <section id="food" className="py-24 bg-white">
         <Container>
-          <div className="dining-grid-layout">
-            <div className="dining-content">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1">
               <SectionHeader
                 eyebrow="Food and Drink"
                 title="The Best Food in Sri Lanka"
-                description="Guests love the food at ETILI, frequently commenting that it is the best food that they tasted in Sri Lanka."
+                description="Guests frequently comment that ETILI serves the most authentic and delicious food they tasted in Sri Lanka."
               />
-              <div className="dining-text-wrap">
+              <div className="space-y-6 text-muted leading-relaxed">
                 <p>
-                  As far as possible, we produce from our own organic farm, or we source fresh fruit and vegetables from our farming community in the village. We make our own herbal tea, jams and chutneys using ingredients growing around the village. We also grow our own herbs and spices, and we make our own curds and milk from our herd cows in the village.
-                </p>
-                <p>
-                  The ladies who cook for guests are all from the village, so we focus on traditional village-style cuisine. Breakfast usually includes Sri Lankan specialities like roti, hoppers or Milk Rice. For lunch and dinner, we typically serve rice with delicious village-style curries. <strong>Guests can always chat with the chefs and customize their meal choices.</strong>
+                  Most of our ingredients come from our own organic farm or local village community. We make our own herbal tea, jams, and chutneys using fresh local ingredients, herbs, and spices.
                 </p>
                 <p>
-                  We can also prepare picnics for hikes and excursions, and guests can enjoy snacks and refreshments throughout the day. Also we built a restaurant called <strong>ETILI Kitchen</strong> by giving the opportunity to learn traditional cooking methods.
+                  Our village chefs specialize in traditional cuisine. Enjoy roti, hoppers, or Milk Rice for breakfast, and delicious village-style curries for lunch and dinner.
                 </p>
-                <p className="dining-note">
-                  <em>We are not licensed, but guests are welcome to bring their own beer, wine and spirits.</em>
-                </p>
+                <div className="p-6 bg-bg rounded-2xl border-l-4 border-accent italic">
+                  "Guests can always chat with the chefs and customize their meal choices. We also offer cooking classes at ETILI Kitchen."
+                </div>
+                <Button to="/book" className="mt-8">Plan Your Dining Experience</Button>
               </div>
-              <Button to="/contact" style={{ marginTop: "24px" }}>Plan Your Dining Experience</Button>
             </div>
 
-            <div className="dining-image-grid">
-              <div className="dining-img-card main">
-                <img src={images.stay_dining_1 || "/images/food/breakfast.png"} alt="Traditional Breakfast" />
+            <div className="order-1 lg:order-2 grid grid-cols-2 gap-4 h-[500px]">
+              <div className="col-span-2 h-2/3 rounded-3xl overflow-hidden shadow-premium">
+                <img src={images.stay_dining_1 || "/images/food/breakfast.png"} alt="Traditional Breakfast" className="w-full h-full object-cover" />
               </div>
-              <div className="dining-img-card">
-                <img src={images.stay_dining_2 || "/images/food/curries.png"} alt="Village Curries" />
+              <div className="h-full rounded-3xl overflow-hidden shadow-premium">
+                <img src={images.stay_dining_2 || "/images/food/curries.png"} alt="Village Curries" className="w-full h-full object-cover" />
               </div>
-              <div className="dining-img-card">
-                <img src={images.stay_dining_3 || "/images/food/kitchen.png"} alt="ETILI Kitchen" />
+              <div className="h-full rounded-3xl overflow-hidden shadow-premium">
+                <img src={images.stay_dining_3 || "/images/food/kitchen.png"} alt="ETILI Kitchen" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -132,7 +137,7 @@ export default function Stay() {
       </section>
 
       {/* ACTIVITIES SECTION */}
-      <section id="activities" className="section">
+      <section id="activities" className="py-24">
         <Container>
           <SectionHeader
             eyebrow="Activities & Experiences"
@@ -140,21 +145,20 @@ export default function Stay() {
             description="Etili Village is a perfect spot for relaxation and rejuvenation, or an adventurous escape."
           />
 
-          <div className="experience-list">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
              {loadingData ? (
-              <p>Loading activities...</p>
+              <div className="col-span-full py-12 text-center text-muted">Loading activities...</div>
             ) : (
-              mappedExperiences.map((exp) => (
+              mappedExperiences.slice(0, 3).map((exp) => (
                 <ExperienceCard key={exp.id} experience={exp} />
               ))
             )}
           </div>
-          <div className="section-cta" style={{ textAlign: "center", marginTop: "40px" }}>
-            <Button to="/activities" variant="secondary">View All Activities & Details</Button>
+          <div className="text-center mt-12">
+            <Button to="/activities" variant="secondary">View All Activities</Button>
           </div>
         </Container>
       </section>
-
     </main>
   );
 }

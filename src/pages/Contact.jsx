@@ -4,6 +4,7 @@ import ContactInfoPanel from "../components/contact/ContactInfoPanel";
 import { useSiteImages } from "../hooks/useSiteImages";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
+import { Facebook, Instagram, Youtube, Map as MapIcon, Download } from "lucide-react";
 
 export default function Contact() {
   const { images, loading } = useSiteImages();
@@ -14,46 +15,56 @@ export default function Contact() {
       : "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=1800&q=80";
 
   return (
-    <main>
+    <main className="bg-bg">
+      {/* Hero Section */}
       <section
-        className="page-hero page-hero-contact"
-        style={{ backgroundImage: `url('${heroBackground}')` }}
+        className="relative h-[50vh] flex items-center overflow-hidden"
       >
-        <Container className="page-hero-content">
-          <h1>Plan Your Village Escape with Confidence</h1>
-          <p>
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${heroBackground}')` }}
+        />
+        <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]" />
+        
+        <Container className="relative z-10 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight font-serif drop-shadow-2xl">
+            Plan Your Village Escape
+          </h1>
+          <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed italic font-light">
             Share your preferred date, group size, and interests. We’ll help you
             choose the right experience and stay option.
           </p>
         </Container>
       </section>
 
-      <section className="section">
-        <Container className="contact-layout" style={{ maxWidth: '800px', margin: '0 auto' }}>
+      {/* Info Section */}
+      <section className="py-24">
+        <Container className="max-w-5xl mx-auto">
           <ContactInfoPanel
             contactInfo={contactInfo}
           />
           
-          <div className="contact-cta-box glass" style={{ marginTop: '3rem', padding: '3rem', textAlign: 'center' }}>
-            <h2>Looking to book a stay or activity?</h2>
-            <p>Visit our Accommodation or Activities pages to book directly.</p>
-            <div className="cta-actions" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
-              <Button to="/stay">View Stays</Button>
-              <Button to="/activities" variant="secondary">View Activities</Button>
+          <div className="mt-20 p-12 md:p-16 rounded-[40px] bg-white shadow-premium border border-border/10 text-center group hover:border-accent transition-all duration-500">
+            <h2 className="text-3xl font-bold text-primary mb-4 font-serif">Looking to book a stay or activity?</h2>
+            <p className="text-muted text-lg mb-10">Visit our dedicated booking sections to secure your spot directly.</p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button to="/stay" className="!px-10">View Stays</Button>
+              <Button to="/activities" variant="secondary" className="!px-10">View Activities</Button>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section section-soft">
-        <Container className="contact-extras">
-          <div className="contact-extras-grid">
-            <div className="map-container">
+      {/* Map & Social Section */}
+      <section className="py-24 bg-white">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-7 rounded-[40px] overflow-hidden shadow-premium border-8 border-bg transform hover:-rotate-1 transition-transform duration-500">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126685.25368146683!2d81.16127814282035!3d6.8452331575037165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae46500732dc7c3%3A0xe54e2ed11f75d5ee!2sWellawaya!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk"
                 width="100%"
-                height="450"
-                style={{ border: 0, borderRadius: "20px" }}
+                height="550"
+                style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -61,66 +72,43 @@ export default function Contact() {
               ></iframe>
             </div>
 
-            <div className="extras-content">
+            <div className="lg:col-span-5 space-y-12">
               <SectionHeader
                 eyebrow="Location & Info"
                 title="Find Us & Connect"
                 description="ETILI Village is located in between Tissamaharama and Ella. It's a 15 minutes drive from Wellawaya town."
               />
 
-              <div className="social-links-box">
-                <h3>Connect With Us</h3>
-                <p>
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold text-primary flex items-center gap-3">
+                  <span className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
+                    <Facebook size={20} />
+                  </span>
+                  Connect With Us
+                </h3>
+                <p className="text-muted leading-relaxed">
                   Find all the latest information, photos, reviews and more on
-                  our pages:
+                  our social channels:
                 </p>
-                <div className="social-links-grid">
-                  <a
-                    href={import.meta.env.VITE_FACEBOOK_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="social-pill"
-                  >
-                    Facebook
-                  </a>
-                  <a
-                    href={import.meta.env.VITE_INSTAGRAM_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="social-pill"
-                  >
-                    Instagram
-                  </a>
-                  <a
-                    href={import.meta.env.VITE_TRIPADVISOR_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="social-pill"
-                  >
-                    TripAdvisor
-                  </a>
-                  <a
-                    href={import.meta.env.VITE_YOUTUBE_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="social-pill"
-                  >
-                    YouTube
-                  </a>
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    { label: "Facebook", url: import.meta.env.VITE_FACEBOOK_URL, icon: Facebook },
+                    { label: "Instagram", url: import.meta.env.VITE_INSTAGRAM_URL, icon: Instagram },
+                    { label: "YouTube", url: import.meta.env.VITE_YOUTUBE_URL, icon: Youtube }
+                  ].map((social, i) => (
+                    <a
+                      key={i}
+                      href={social.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-6 py-2 rounded-full border border-border/20 text-xs font-bold text-muted hover:bg-primary hover:text-white hover:border-primary transition-all uppercase tracking-widest"
+                    >
+                      {social.label}
+                    </a>
+                  ))}
                 </div>
               </div>
 
-              <div className="download-box">
-                <h3>Directions</h3>
-                <p>Download our detailed map and directions guide.</p>
-                <Button
-                  variant="secondary"
-                  href="/Etili_Directions.pdf"
-                  download
-                >
-                  Download PDF Map
-                </Button>
-              </div>
             </div>
           </div>
         </Container>

@@ -10,11 +10,11 @@ export default function HomeLinks() {
     { title: "Impact", path: "/impact", img: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=600&q=80" },
     { title: "View", path: "/gallery", img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80" },
     { title: "Comments", path: "/comments", img: "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=600&q=80" },
-    { title: "Contact", path: "/contact", img: "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?auto=format&fit=crop&w=600&q=80" },
+    { title: "Contact", path: "/contact", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" },
   ];
 
   return (
-    <section className="section">
+    <section className="py-24 bg-white">
       <Container>
         <SectionHeader
           eyebrow="Explore More"
@@ -22,30 +22,24 @@ export default function HomeLinks() {
           center
         />
 
-        <div className="home-links-grid" style={{
-          display: "grid", 
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", 
-          gap: "20px"
-        }}>
-          {links.map(link => (
-            <Link smooth to={link.path} key={link.title} className="home-link-card" style={{
-              display: "block",
-              position: "relative",
-              borderRadius: "20px",
-              overflow: "hidden",
-              height: "200px",
-              textDecoration: "none"
-            }}>
-              <img src={link.img} alt={link.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              <div style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent)",
-                display: "flex",
-                alignItems: "flex-end",
-                padding: "20px"
-              }}>
-                <h3 style={{ color: "white", margin: 0 }}>{link.title}</h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-12">
+          {links.map((link, idx) => (
+            <Link 
+              smooth={true}
+              to={link.path} 
+              key={link.title} 
+              className="group relative block h-[240px] rounded-[32px] overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-500 transform hover:-translate-y-2"
+            >
+              <img 
+                src={link.img} 
+                alt={link.title} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent flex items-end p-8">
+                <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                  <h3 className="text-lg md:text-2xl font-bold text-white tracking-tight">{link.title}</h3>
+                  <div className="w-8 h-1 bg-accent mt-2 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+                </div>
               </div>
             </Link>
           ))}

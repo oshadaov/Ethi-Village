@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0a1f1c;
+  --color-primary-dark: #05100e;
+  --color-accent: #d4af37;
+  --color-accent-soft: #fcf8e8;
+  --color-bg: #fcfdfe;
+  --color-surface: #ffffff;
+  --color-text: #0a1f1c;
+  --color-muted: #4a5a58;
+  --color-border: #e2e8e7;
+  
+  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Montserrat", serif;
+  
+  --radius-lg: 32px;
+  --radius-md: 20px;
+  --radius-sm: 12px;
+  
+  --shadow-premium: 0 16px 40px -10px rgba(10, 31, 28, 0.08);
+  --shadow-premium-hover: 0 24px 50px -12px rgba(10, 31, 28, 0.15);
+}
+
+@layer base {
+  * {
+    font-family: "Montserrat", sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 font-sans bg-bg text-text leading-relaxed;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply m-0 mb-4 font-bold text-primary leading-tight;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  p {
+    @apply m-0 mb-4 text-muted text-lg;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  img {
+    @apply w-full block;
+  }
+
+  button, input, select, textarea {
+    font-family: "Montserrat", sans-serif;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-[1240px] mx-auto px-4 w-full;
+  }
+
+  .section {
+    @apply py-24;
+  }
+}
