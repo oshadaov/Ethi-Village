@@ -52,10 +52,10 @@ export default function Comments() {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif drop-shadow-2xl">
             Guest Moments & Reviews
           </h1>
-          <p className="text-white/90 text-xl max-w-4xl mx-auto leading-relaxed italic font-light">
+          {/* <p className="text-white/90 text-xl max-w-4xl mx-auto leading-relaxed italic font-light">
             Etili village has been honoured by the consistently superlative
             reviews we receive from guests and visitors worldwide.
-          </p>
+          </p> */}
         </Container>
       </section>
 

@@ -4,7 +4,13 @@ import ContactInfoPanel from "../components/contact/ContactInfoPanel";
 import { useSiteImages } from "../hooks/useSiteImages";
 import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
-import { Facebook, Instagram, Youtube, Map as MapIcon, Download } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Youtube,
+  Map as MapIcon,
+  Download,
+} from "lucide-react";
 
 export default function Contact() {
   const { images, loading } = useSiteImages();
@@ -17,15 +23,13 @@ export default function Contact() {
   return (
     <main className="bg-bg">
       {/* Hero Section */}
-      <section
-        className="relative h-[50vh] flex items-center overflow-hidden"
-      >
-        <div 
+      <section className="relative h-[50vh] flex items-center overflow-hidden">
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${heroBackground}')` }}
         />
         <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]" />
-        
+
         <Container className="relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight font-serif drop-shadow-2xl">
             Plan Your Village Escape
@@ -47,16 +51,22 @@ export default function Contact() {
               with nature in the heart of our mountain village.
             </p>
           </div>
-          <ContactInfoPanel
-            contactInfo={contactInfo}
-          />
-          
+          <ContactInfoPanel contactInfo={contactInfo} />
+
           <div className="mt-20 p-12 md:p-16 rounded-[40px] bg-white shadow-premium border border-border/10 text-center group hover:border-accent transition-all duration-500">
-            <h2 className="text-3xl font-bold text-primary mb-4 font-serif">Looking to book a stay or activity?</h2>
-            <p className="text-muted text-lg mb-10">Visit our dedicated booking sections to secure your spot directly.</p>
+            <h2 className="text-3xl font-bold text-primary mb-4 font-serif">
+              Looking to book a stay or activity?
+            </h2>
+            <p className="text-muted text-lg mb-10">
+              Visit our dedicated booking sections to secure your spot directly.
+            </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button to="/stay" className="!px-10">View Stays</Button>
-              <Button to="/activities" variant="secondary" className="!px-10">View Activities</Button>
+              <Button to="/stay" className="!px-10">
+                View Stays
+              </Button>
+              <Button to="/activities" variant="secondary" className="!px-10">
+                View Activities
+              </Button>
             </div>
           </div>
         </Container>
@@ -68,7 +78,7 @@ export default function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-7 rounded-[40px] overflow-hidden shadow-premium border-8 border-bg transform hover:-rotate-1 transition-transform duration-500">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126685.25368146683!2d81.16127814282035!3d6.8452331575037165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae46500732dc7c3%3A0xe54e2ed11f75d5ee!2sWellawaya!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.6189998!2d81.1270888!3d6.6189998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae415baaa374107%3A0x89bb285e3167cd54!2sEtili%20Village%20Experience!5e0!3m2!1sen!2sus!4v1714567890123!5m2!1sen!2sus"
                 width="100%"
                 height="550"
                 style={{ border: 0 }}
@@ -99,9 +109,21 @@ export default function Contact() {
                 </p>
                 <div className="flex flex-wrap gap-3">
                   {[
-                    { label: "Facebook", url: import.meta.env.VITE_FACEBOOK_URL, icon: Facebook },
-                    { label: "Instagram", url: import.meta.env.VITE_INSTAGRAM_URL, icon: Instagram },
-                    { label: "YouTube", url: import.meta.env.VITE_YOUTUBE_URL, icon: Youtube }
+                    {
+                      label: "Facebook",
+                      url: import.meta.env.VITE_FACEBOOK_URL,
+                      icon: Facebook,
+                    },
+                    {
+                      label: "Instagram",
+                      url: import.meta.env.VITE_INSTAGRAM_URL,
+                      icon: Instagram,
+                    },
+                    {
+                      label: "YouTube",
+                      url: import.meta.env.VITE_YOUTUBE_URL,
+                      icon: Youtube,
+                    },
                   ].map((social, i) => (
                     <a
                       key={i}
@@ -115,7 +137,6 @@ export default function Contact() {
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
         </Container>
