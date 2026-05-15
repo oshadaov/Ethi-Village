@@ -64,16 +64,23 @@ export default function Activities() {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
             Adventures & Relaxation
           </h1>
-          <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
+          {/* <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
             From peaceful meditation to thrilling wildlife encounters, discover
             the diverse experiences Etili Village has to offer.
-          </p>
+          </p> */}
         </Container>
       </section>
 
       {/* Intro Section */}
       <section className="py-24">
         <Container>
+          <div className="relative z-10 text-center mb-12">
+            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
+              Discover our authentic mud houses, tree houses, and glamping
+              units. Learn organic farming, enjoy local cuisine, and coexist
+              with nature in the heart of our mountain village.
+            </p>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-7">
               <SectionHeader

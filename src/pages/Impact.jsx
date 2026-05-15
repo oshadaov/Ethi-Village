@@ -25,18 +25,25 @@ export default function Impact() {
         <div className="absolute inset-0 bg-primary/50 backdrop-blur-[2px]" />
         
         <Container className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight font-serif drop-shadow-2xl">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight font-serif drop-shadow-2xl">
             Community & Environment First
           </h1>
-          <p className="text-white/90 text-xl max-w-4xl mx-auto leading-relaxed italic font-light">
+          {/* <p className="text-white/90 text-xl max-w-4xl mx-auto leading-relaxed italic font-light">
             Despite its scenic charm, Uva Province ranks as one of the least developed regions in Sri Lanka. Through tourism, we generate economic opportunities and promote environmental restoration.
-          </p>
+          </p> */}
         </Container>
       </section>
 
       {/* Community Section */}
       <section id="community" className="py-24">
         <Container>
+          <div className="relative z-10 text-center mb-12">
+            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
+              Discover our authentic mud houses, tree houses, and glamping
+              units. Learn organic farming, enjoy local cuisine, and coexist
+              with nature in the heart of our mountain village.
+            </p>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1">
               <SectionHeader

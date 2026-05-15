@@ -23,7 +23,7 @@ export default function Stay() {
         try {
           const [rooms, experiences] = await Promise.all([
             getRooms(),
-            getExperiences()
+            getExperiences(),
           ]);
           setRoomsData(rooms || []);
           setExperiencesData(experiences || []);
@@ -49,7 +49,11 @@ export default function Stay() {
       const remoteImage = images[key];
       return {
         ...item,
-        image: item.imageUrl || (!loading && remoteImage ? remoteImage : "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=600&q=80"),
+        image:
+          item.imageUrl ||
+          (!loading && remoteImage
+            ? remoteImage
+            : "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=600&q=80"),
       };
     });
   }, [experiencesData, images, loading]);
@@ -58,27 +62,30 @@ export default function Stay() {
     <main className="bg-bg">
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-1000"
           style={{ backgroundImage: `url('${heroBackground}')` }}
         />
         <div className="absolute inset-0 bg-primary/40 backdrop-blur-[1px]" />
-        
-        <Container className="relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Stay & Experience Etili
-            </h1>
-            <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-0">
-              Discover our authentic mud houses, tree houses, and glamping units. Learn organic farming, enjoy local cuisine, and coexist with nature in the heart of our mountain village.
-            </p>
-          </div>
+
+        <Container className="relative z-10 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            Stay & Experience Etili
+          </h1>
         </Container>
       </section>
 
       {/* ACCOMMODATION SECTION */}
       <section id="accommodation" className="py-24">
         <Container>
+          <div className="relative z-10 text-center mb-12">
+            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
+              Discover our authentic mud houses, tree houses, and glamping
+              units. Learn organic farming, enjoy local cuisine, and coexist
+              with nature in the heart of our mountain village.
+            </p>
+          </div>
+
           <SectionHeader
             eyebrow="Accommodation"
             title="Simple, Unspoiled Surroundings"
@@ -87,11 +94,11 @@ export default function Stay() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {loadingData ? (
-              <div className="col-span-full py-12 text-center text-muted">Loading accommodation...</div>
+              <div className="col-span-full py-12 text-center text-muted">
+                Loading accommodation...
+              </div>
             ) : (
-              roomsData.map((room) => (
-                <RoomCard key={room.id} room={room} />
-              ))
+              roomsData.map((room) => <RoomCard key={room.id} room={room} />)
             )}
           </div>
         </Container>
@@ -109,27 +116,46 @@ export default function Stay() {
               />
               <div className="space-y-6 text-muted leading-relaxed">
                 <p>
-                  Most of our ingredients come from our own organic farm or local village community. We make our own herbal tea, jams, and chutneys using fresh local ingredients, herbs, and spices.
+                  Most of our ingredients come from our own organic farm or
+                  local village community. We make our own herbal tea, jams, and
+                  chutneys using fresh local ingredients, herbs, and spices.
                 </p>
                 <p>
-                  Our village chefs specialize in traditional cuisine. Enjoy roti, hoppers, or Milk Rice for breakfast, and delicious village-style curries for lunch and dinner.
+                  Our village chefs specialize in traditional cuisine. Enjoy
+                  roti, hoppers, or Milk Rice for breakfast, and delicious
+                  village-style curries for lunch and dinner.
                 </p>
                 <div className="p-6 bg-bg rounded-2xl border-l-4 border-accent italic">
-                  "Guests can always chat with the chefs and customize their meal choices. We also offer cooking classes at ETILI Kitchen."
+                  "Guests can always chat with the chefs and customize their
+                  meal choices. We also offer cooking classes at ETILI Kitchen."
                 </div>
-                <Button to="/book" className="mt-8">Plan Your Dining Experience</Button>
+                <Button to="/book" className="mt-8">
+                  Plan Your Dining Experience
+                </Button>
               </div>
             </div>
 
             <div className="order-1 lg:order-2 grid grid-cols-2 gap-4 h-[500px]">
               <div className="col-span-2 h-2/3 rounded-3xl overflow-hidden shadow-premium">
-                <img src={images.stay_dining_1 || "/images/food/breakfast.png"} alt="Traditional Breakfast" className="w-full h-full object-cover" />
+                <img
+                  src={images.stay_dining_1 || "/images/food/breakfast.png"}
+                  alt="Traditional Breakfast"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="h-full rounded-3xl overflow-hidden shadow-premium">
-                <img src={images.stay_dining_2 || "/images/food/curries.png"} alt="Village Curries" className="w-full h-full object-cover" />
+                <img
+                  src={images.stay_dining_2 || "/images/food/curries.png"}
+                  alt="Village Curries"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="h-full rounded-3xl overflow-hidden shadow-premium">
-                <img src={images.stay_dining_3 || "/images/food/kitchen.png"} alt="ETILI Kitchen" className="w-full h-full object-cover" />
+                <img
+                  src={images.stay_dining_3 || "/images/food/kitchen.png"}
+                  alt="ETILI Kitchen"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -146,16 +172,20 @@ export default function Stay() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-             {loadingData ? (
-              <div className="col-span-full py-12 text-center text-muted">Loading activities...</div>
+            {loadingData ? (
+              <div className="col-span-full py-12 text-center text-muted">
+                Loading activities...
+              </div>
             ) : (
-              mappedExperiences.slice(0, 3).map((exp) => (
-                <ExperienceCard key={exp.id} experience={exp} />
-              ))
+              mappedExperiences
+                .slice(0, 3)
+                .map((exp) => <ExperienceCard key={exp.id} experience={exp} />)
             )}
           </div>
           <div className="text-center mt-12">
-            <Button to="/activities" variant="secondary">View All Activities</Button>
+            <Button to="/activities" variant="secondary">
+              View All Activities
+            </Button>
           </div>
         </Container>
       </section>

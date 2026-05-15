@@ -113,14 +113,21 @@ export default function Gallery() {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg font-serif">
             See the Spirit of Etili
           </h1>
-          <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed italic font-light">
+          {/* <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed italic font-light">
             Explore village life, traditional food, and peaceful stays through a visual journey shaped by authentic experiences.
-          </p>
+          </p> */}
         </Container>
       </section>
 
       <section className="py-24">
         <Container>
+          <div className="relative z-10 text-center mb-12">
+            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
+              Discover our authentic mud houses, tree houses, and glamping
+              units. Learn organic farming, enjoy local cuisine, and coexist
+              with nature in the heart of our mountain village.
+            </p>
+          </div>
           <SectionHeader
             center
             eyebrow="Visual Journey"

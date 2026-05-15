@@ -62,6 +62,13 @@ export default function Comments() {
       {/* Reviews Grid */}
       <section className="py-24">
         <Container>
+          <div className="relative z-10 text-center mb-12">
+            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
+              Discover our authentic mud houses, tree houses, and glamping
+              units. Learn organic farming, enjoy local cuisine, and coexist
+              with nature in the heart of our mountain village.
+            </p>
+          </div>
           <SectionHeader
             eyebrow="What People Say"
             title="Voices of Our Community"
