@@ -32,17 +32,17 @@
     font-family: "Montserrat", sans-serif;
   }
 
-  html {
+  html, body {
     scroll-behavior: smooth;
-    width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
 
   body {
-    @apply m-0 font-sans bg-bg text-text leading-relaxed;
-    width: 100%;
-    overflow-x: hidden;
-    min-width: 0;
+    @apply font-sans bg-bg text-text leading-relaxed;
+    min-height: 100vh;
   }
 
   #root {
