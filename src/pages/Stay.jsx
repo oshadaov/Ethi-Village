@@ -4,6 +4,7 @@ import SectionHeader from "../components/common/SectionHeader";
 import Button from "../components/common/Button";
 import RoomCard from "../components/accommodation/RoomCard";
 import ExperienceCard from "../components/experiences/ExperienceCard";
+import ImageSlider from "../components/common/ImageSlider";
 import { getCachedData, getRooms, getExperiences } from "../services/api";
 import { useSiteImages } from "../hooks/useSiteImages";
 
@@ -108,7 +109,7 @@ export default function Stay() {
       <section id="food" className="py-24 bg-white">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="order-2 lg:order-1">
+            <div className="lg:order-1">
               <SectionHeader
                 eyebrow="Food and Drink"
                 title="The Best Food in Sri Lanka"
@@ -135,28 +136,16 @@ export default function Stay() {
               </div>
             </div>
 
-            <div className="order-1 lg:order-2 grid grid-cols-2 gap-4 h-[500px]">
-              <div className="col-span-2 h-2/3 rounded-3xl overflow-hidden shadow-premium">
-                <img
-                  src={images.stay_dining_1 || "/images/food/breakfast.png"}
-                  alt="Traditional Breakfast"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="h-full rounded-3xl overflow-hidden shadow-premium">
-                <img
-                  src={images.stay_dining_2 || "/images/food/curries.png"}
-                  alt="Village Curries"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="h-full rounded-3xl overflow-hidden shadow-premium">
-                <img
-                  src={images.stay_dining_3 || "/images/food/kitchen.png"}
-                  alt="ETILI Kitchen"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <div className="lg:order-2">
+              <ImageSlider
+                images={[
+                  images?.stay_dining_1 || "/images/food/breakfast.png",
+                  images?.stay_dining_2 || "/images/food/curries.png",
+                  images?.stay_dining_3 || "/images/food/kitchen.png",
+                ]}
+                alt="ETILI Dining"
+                aspectRatio="4/3"
+              />
             </div>
           </div>
         </Container>
