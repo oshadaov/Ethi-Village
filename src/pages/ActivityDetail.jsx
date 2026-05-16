@@ -89,7 +89,7 @@ export default function ActivityDetail() {
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{ backgroundImage: `url('${heroImage}')` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent z-1" />
 
         <Container className="relative z-10 pb-12 md:pb-20">
           <div className="flex flex-col gap-6 text-center">
@@ -102,16 +102,16 @@ export default function ActivityDetail() {
               </button>
             </div>
 
-            <div className="max-w-4xl animate-fade-in-up justify-center mx-auto">
+            <div className="max-w-4xl animate-fade-in-up justify-center ">
               <span className="inline-block px-4 py-1 bg-white/10 backdrop-blur-md border border-white/30 rounded-lg text-white text-xs font-bold uppercase tracking-widest mb-4">
                 {activity.category}
               </span>
               <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-2xl font-serif text-center">
                 {activity.title}
               </h1>
-              <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl italic font-light text-center mx-auto">
+              {/* <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl italic font-light text-center mx-auto">
                 {activity.shortDescription || activity.description}
-              </p>
+              </p> */}
 
               <div className="flex flex-wrap gap-6 items-center border-t border-white/20 pt-8 mt-8">
                 <div className="flex flex-col">

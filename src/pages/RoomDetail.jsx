@@ -100,9 +100,9 @@ export default function RoomDetail() {
               <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-2xl font-serif text-center">
                 {room.name}
               </h1>
-              <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl italic font-light text-center">
+              {/* <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl italic font-light text-center">
                 {room.shortDescription }
-              </p>
+              </p> */}
 
               <div className="flex flex-wrap gap-6 items-center border-t border-white/20 pt-8 mt-8">
                 <div className="flex flex-col">
