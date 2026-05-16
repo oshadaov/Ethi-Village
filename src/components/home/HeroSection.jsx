@@ -8,7 +8,12 @@ import { SiTripadvisor } from "react-icons/si";
 export default function HeroSection() {
   const { images, loading } = useSiteImages();
   const remoteHero = images?.hero_main;
-  const heroBackground = !loading && remoteHero ? remoteHero : defaultImages.hero;
+  const heroBackground =
+    !loading && remoteHero ? remoteHero : defaultImages.hero;
+
+  const mobileHero = images?.heromobile;
+  const mobileBackground =
+    !loading && mobileHero ? mobileHero : defaultImages.heromobile;
 
   const socialLinks = [
     {
@@ -39,11 +44,15 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] scale-105 hover:scale-100"
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] scale-105 hover:scale-100 hidden md:block"
         style={{ backgroundImage: `url('${heroBackground}')` }}
       />
-      
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] scale-105 hover:scale-100 block md:hidden"
+        style={{ backgroundImage: `url('${mobileBackground}')` }}
+      />
+
       <Container className="relative z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -78,7 +87,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
       </Container>
-      
+
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
         <div className="w-1 h-12 rounded-full bg-gradient-to-b from-white/0 via-white to-white/0" />
       </div>

@@ -90,12 +90,7 @@ export default function ActivityDetail() {
         <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent" />
         
         <Container className="relative z-10 pb-12 md:pb-20">
-          <button 
-            className="flex items-center gap-2 px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-bold transition-all mb-8 transform hover:-translate-x-1"
-            onClick={() => navigate(-1)}
-          >
-            <ArrowLeft size={16} /> Back to Activities
-          </button>
+         
           
           <div className="max-w-4xl">
             <span className="inline-block px-4 py-1.5 bg-accent text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg mb-4 shadow-lg">
@@ -120,6 +115,12 @@ export default function ActivityDetail() {
               </div>
             </div>
           </div>
+           <button 
+            className="flex items-center gap-2 px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-bold transition-all mb-8 transform hover:-translate-x-1"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft size={16} /> Back to Activities
+          </button>
         </Container>
       </section>
 

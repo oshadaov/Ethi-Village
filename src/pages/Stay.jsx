@@ -80,7 +80,7 @@ export default function Stay() {
       <section id="accommodation" className="py-24">
         <Container>
           <div className="relative z-10 text-center mb-12">
-            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
+            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0 ">
               Discover our authentic mud houses, tree houses, and glamping
               units. Learn organic farming, enjoy local cuisine, and coexist
               with nature in the heart of our mountain village.
@@ -88,6 +88,7 @@ export default function Stay() {
           </div>
 
           <SectionHeader
+          center
             eyebrow="Accommodation"
             title="Simple, Unspoiled Surroundings"
             description="Our rooms are simple, yet regularly rated as one of the best guest-houses in Sri Lanka, thanks to the stunning scenery, delicious food, and authentic village vibes."
@@ -109,7 +110,7 @@ export default function Stay() {
       <section id="food" className="py-24 bg-white">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="lg:order-1">
+            <div className="lg:order-1 text-center lg:text-left">
               <SectionHeader
                 eyebrow="Food and Drink"
                 title="The Best Food in Sri Lanka"
@@ -155,6 +156,7 @@ export default function Stay() {
       <section id="activities" className="py-24">
         <Container>
           <SectionHeader
+            center
             eyebrow="Activities & Experiences"
             title="Adventures Around the Village"
             description="Etili Village is a perfect spot for relaxation and rejuvenation, or an adventurous escape."

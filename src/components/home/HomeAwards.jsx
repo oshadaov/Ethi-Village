@@ -11,13 +11,13 @@ export default function HomeAwards() {
       icon: SiTripadvisor,
       title: "TripAdvisor Certified",
       color: "text-[#00af87]",
-      bg: "bg-[#00af87]/10"
+      bg: "bg-[#00af87]/10",
     },
     {
       icon: FaMedal,
       title: "Award Winner",
       color: "text-[#ffc107]",
-      bg: "bg-[#ffc107]/10"
+      bg: "bg-[#ffc107]/10",
     },
   ];
 
@@ -25,7 +25,7 @@ export default function HomeAwards() {
     <section className="py-24 bg-bg/30">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
@@ -45,7 +45,7 @@ export default function HomeAwards() {
             </div>
           </motion.div>
 
-          <div>
+          <div className="text-center lg:text-left">
             <SectionHeader
               eyebrow="Industry Recognition"
               title="Sri Lanka Tourism Awards 2024"
@@ -54,10 +54,13 @@ export default function HomeAwards() {
 
             <div className="space-y-6 text-muted text-lg leading-relaxed mb-10">
               <p>
-                <strong className="text-primary">Special Recognition Award</strong> for{" "}
+                <strong className="text-primary">
+                  Special Recognition Award
+                </strong>{" "}
+                for{" "}
                 <em className="text-accent">
-                  Contribution to Destination Promotion - Community Based Tourism
-                  Initiative
+                  Contribution to Destination Promotion - Community Based
+                  Tourism Initiative
                 </em>{" "}
                 at the Sri Lanka Tourism Awards 2024.
               </p>
@@ -88,7 +91,9 @@ export default function HomeAwards() {
                     className={`flex items-center gap-3 px-6 py-3 rounded-full ${cert.bg} border border-white shadow-sm`}
                   >
                     <Icon className={`text-xl ${cert.color}`} />
-                    <span className="text-xs font-bold text-primary uppercase tracking-widest">{cert.title}</span>
+                    <span className="text-xs font-bold text-primary uppercase tracking-widest">
+                      {cert.title}
+                    </span>
                   </motion.div>
                 );
               })}

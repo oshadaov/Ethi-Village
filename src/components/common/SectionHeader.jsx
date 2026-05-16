@@ -18,7 +18,7 @@ export default function SectionHeader({ eyebrow, title, description, center = fa
         {title}
       </h2>
       {description && (
-        <p className="text-muted text-lg max-w-3xl leading-relaxed">
+        <p className={`text-muted text-lg max-w-3xl leading-relaxed ${center ? "mx-auto text-center" : ""}`}>
           {description}
         </p>
       )}
