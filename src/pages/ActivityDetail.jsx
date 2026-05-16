@@ -15,7 +15,7 @@ import {
   Info,
   Sparkles,
   ShieldCheck,
-  Smile
+  Smile,
 } from "lucide-react";
 
 export default function ActivityDetail() {
@@ -25,7 +25,7 @@ export default function ActivityDetail() {
   const cachedExp = getCachedData("/experiences");
   const initialActivity = cachedExp
     ? cachedExp.find(
-        (item) => item.slug === id || String(item.id) === String(id)
+        (item) => item.slug === id || String(item.id) === String(id),
       )
     : null;
 
@@ -39,7 +39,7 @@ export default function ActivityDetail() {
         try {
           const data = await getExperiences();
           const selectedActivity = data.find(
-            (item) => item.slug === id || String(item.id) === String(id)
+            (item) => item.slug === id || String(item.id) === String(id),
           );
 
           if (selectedActivity) {
@@ -63,7 +63,9 @@ export default function ActivityDetail() {
       <div className="min-h-screen flex items-center justify-center bg-bg">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-muted font-bold tracking-widest uppercase text-xs">Loading experience...</p>
+          <p className="text-muted font-bold tracking-widest uppercase text-xs">
+            Loading experience...
+          </p>
         </div>
       </div>
     );
@@ -76,51 +78,68 @@ export default function ActivityDetail() {
     Array.isArray(activity.galleryImages) && activity.galleryImages.length > 0
       ? activity.galleryImages
       : heroImage
-      ? [heroImage]
-      : [];
+        ? [heroImage]
+        : [];
 
   return (
     <main className="bg-bg">
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-end overflow-hidden">
-        <div 
+      <section className="relative min-h-[70vh] flex items-end overflow-hidden">
+        <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{ backgroundImage: `url('${heroImage}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent" />
-        
+
         <Container className="relative z-10 pb-12 md:pb-20">
-         
-          
-          <div className="max-w-4xl">
-            <span className="inline-block px-4 py-1.5 bg-accent text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-lg mb-4 shadow-lg">
-              {activity.category}
-            </span>
-            <h1 className="text-4xl md:text-7xl font-bold text-white leading-tight font-serif drop-shadow-2xl">
-              {activity.title}
-            </h1>
-            <div className="flex flex-wrap gap-6 items-center mt-8 pt-8 border-t border-white/10">
-              <div className="flex flex-col">
-                <span className="text-white/60 text-[10px] uppercase tracking-widest mb-1">Pricing Info</span>
-                <span className="text-2xl font-bold text-accent">{activity.priceText || "Inquiry required"}</span>
-              </div>
-              <div className="h-10 w-px bg-white/10 hidden md:block" />
-              <div className="flex gap-4">
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-white text-xs font-bold">
-                   <Clock size={14} className="text-accent" /> {activity.duration || "Custom"}
+          <div className="flex flex-col gap-6 text-center">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
+              <button
+                className="flex items-center justify-center md:justify-start gap-2 px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-bold transition-all transform hover:-translate-x-1"
+                onClick={() => navigate(-1)}
+              >
+                <ArrowLeft size={16} /> Back to Activities
+              </button>
+            </div>
+
+            <div className="max-w-4xl animate-fade-in-up justify-center mx-auto">
+              <span className="inline-block px-4 py-1 bg-white/10 backdrop-blur-md border border-white/30 rounded-lg text-white text-xs font-bold uppercase tracking-widest mb-4">
+                {activity.category}
+              </span>
+              <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-2xl font-serif text-center">
+                {activity.title}
+              </h1>
+              <p className="text-white/90 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl italic font-light text-center mx-auto">
+                {activity.shortDescription || activity.description}
+              </p>
+
+              <div className="flex flex-wrap gap-6 items-center border-t border-white/20 pt-8 mt-8">
+                <div className="flex flex-col">
+                  <span className="text-white/60 text-xs uppercase tracking-widest mb-1">
+                    Pricing Info
+                  </span>
+                  <span className="text-3xl md:text-4xl font-bold text-accent">
+                    {activity.priceText || "Inquiry required"}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-white text-xs font-bold">
-                   <Info size={14} className="text-accent" /> {activity.difficulty || "Easy"}
+                <div className="h-12 w-px bg-white/10 hidden md:block" />
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex items-center gap-2 text-white bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
+                    <Clock size={16} className="text-accent" />
+                    <span className="text-sm font-bold">
+                      {activity.duration || "Custom"}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-white bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
+                    <Info size={16} className="text-accent" />
+                    <span className="text-sm font-bold">
+                      {activity.difficulty || "Easy"}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-           <button 
-            className="flex items-center gap-2 px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-bold transition-all mb-8 transform hover:-translate-x-1"
-            onClick={() => navigate(-1)}
-          >
-            <ArrowLeft size={16} /> Back to Activities
-          </button>
         </Container>
       </section>
 
@@ -128,7 +147,7 @@ export default function ActivityDetail() {
       <section className="py-20">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 xl:gap-20">
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8 text-center lg:text-left">
               {/* Gallery Slider */}
               {sliderImages.length > 0 && (
                 <div className="mb-16 rounded-[40px] overflow-hidden shadow-premium border-8 border-white">
@@ -140,9 +159,9 @@ export default function ActivityDetail() {
                 </div>
               )}
 
-              <div className="space-y-16">
+              <div className="space-y-16 text-center">
                 <div>
-                  <h2 className="text-3xl font-bold text-primary mb-6 flex items-center gap-4">
+                  <h2 className="text-3xl font-bold text-primary mb-6 flex items-center gap-4 justify-center md:justify-start">
                     About this Experience
                     <div className="h-1 flex-1 bg-bg border-b border-accent/20" />
                   </h2>
@@ -152,15 +171,21 @@ export default function ActivityDetail() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-bold text-primary mb-8 flex items-center gap-4">
+                  <h3 className="text-2xl font-bold text-primary mb-8 flex items-center gap-4 justify-center md:justify-start">
                     Experience Highlights
                     <div className="h-1 flex-1 bg-bg border-b border-accent/20" />
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {(activity.highlights || []).map((highlight, index) => (
-                      <div key={index} className="flex gap-4 p-6 bg-white rounded-3xl shadow-sm border border-border/10 group hover:border-accent transition-all">
+                      <div
+                        key={index}
+                        className="flex gap-4 p-6 bg-white rounded-3xl shadow-sm border border-border/10 group hover:border-accent transition-all"
+                      >
                         <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors">
-                          <Sparkles size={18} className="text-accent group-hover:text-white" />
+                          <Sparkles
+                            size={18}
+                            className="text-accent group-hover:text-white"
+                          />
                         </div>
                         <p className="text-muted font-medium">{highlight}</p>
                       </div>
@@ -169,31 +194,37 @@ export default function ActivityDetail() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                   <div>
-                      <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-3">
-                        <ShieldCheck className="text-accent" /> What's Included
-                      </h3>
-                      <div className="space-y-3">
-                        {(activity.includes || []).map((item, index) => (
-                          <div key={index} className="flex items-center gap-3 text-muted text-sm font-bold">
-                            <CheckCircle size={14} className="text-accent" />
-                            {item}
-                          </div>
-                        ))}
-                      </div>
-                   </div>
-                   <div>
-                      <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-3">
-                        <Smile className="text-accent" /> Best For
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {(activity.bestFor || []).map((tag, index) => (
-                          <span key={index} className="px-4 py-2 bg-primary/5 text-primary text-xs font-bold rounded-full border border-primary/10">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                   </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-3">
+                      <ShieldCheck className="text-accent" /> What's Included
+                    </h3>
+                    <div className="space-y-3">
+                      {(activity.includes || []).map((item, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-3 text-muted text-sm font-bold"
+                        >
+                          <CheckCircle size={14} className="text-accent" />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-primary mb-6 flex items-center gap-3">
+                      <Smile className="text-accent" /> Best For
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {(activity.bestFor || []).map((tag, index) => (
+                        <span
+                          key={index}
+                          className="px-4 py-2 bg-primary/5 text-primary text-xs font-bold rounded-full border border-primary/10"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -205,35 +236,60 @@ export default function ActivityDetail() {
                     <span className="text-3xl font-bold text-primary block mb-1">
                       {activity.priceText || "Inquiry required"}
                     </span>
-                    <span className="text-[10px] font-bold text-muted uppercase tracking-widest">Pricing Subject to group size</span>
+                    <span className="text-[10px] font-bold text-muted uppercase tracking-widest">
+                      Pricing Subject to group size
+                    </span>
                   </div>
 
                   <div className="space-y-6 mb-10">
                     {[
-                      { icon: Clock, label: "Duration", value: activity.duration || "Custom" },
-                      { icon: Info, label: "Difficulty", value: activity.difficulty || "Easy" },
-                      { icon: Users, label: "Groups", value: activity.groupType || "Private / Small Group" },
-                      { icon: Calendar, label: "Availability", value: "Daily on Request" }
+                      {
+                        icon: Clock,
+                        label: "Duration",
+                        value: activity.duration || "Custom",
+                      },
+                      {
+                        icon: Info,
+                        label: "Difficulty",
+                        value: activity.difficulty || "Easy",
+                      },
+                      {
+                        icon: Users,
+                        label: "Groups",
+                        value: activity.groupType || "Private / Small Group",
+                      },
+                      {
+                        icon: Calendar,
+                        label: "Availability",
+                        value: "Daily on Request",
+                      },
                     ].map((detail, i) => (
                       <div key={i} className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-xl bg-bg flex items-center justify-center shrink-0">
                           <detail.icon size={18} className="text-accent" />
                         </div>
                         <div>
-                          <span className="block text-[10px] font-bold text-muted uppercase tracking-tighter">{detail.label}</span>
-                          <span className="text-primary font-bold text-sm">{detail.value}</span>
+                          <span className="block text-[10px] font-bold text-muted uppercase tracking-tighter">
+                            {detail.label}
+                          </span>
+                          <span className="text-primary font-bold text-sm">
+                            {detail.value}
+                          </span>
                         </div>
                       </div>
                     ))}
                   </div>
 
                   <div className="space-y-4">
-                    <Button to={`/book-experience/${activity.id}`} className="w-full py-4 text-lg">
+                    <Button
+                      to={`/book-experience/${activity.id}`}
+                      className="w-full py-4 text-lg"
+                    >
                       Inquire & Book
                     </Button>
                     <Button
                       href={`https://wa.me/94771234567?text=${encodeURIComponent(
-                        `Hi, I'm interested in booking the ${activity.title}.`
+                        `Hi, I'm interested in booking the ${activity.title}.`,
                       )}`}
                       variant="secondary"
                       className="w-full py-4 text-lg !border-green-500 !text-green-600 hover:!bg-green-500 hover:!text-white"
