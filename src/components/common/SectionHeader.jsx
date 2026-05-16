@@ -10,11 +10,11 @@ export default function SectionHeader({ eyebrow, title, description, center = fa
       transition={{ duration: 0.5 }}
     >
       {eyebrow && (
-        <span className="block text-accent font-bold uppercase tracking-wider text-sm mb-3">
+        <span className="block text-accent font-bold uppercase tracking-wider text-sm mb-3 text-center">
           {eyebrow}
         </span>
       )}
-      <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 leading-tight">
+      <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 leading-tight text-center">
         {title}
       </h2>
       {description && (
