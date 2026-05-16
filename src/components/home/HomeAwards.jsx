@@ -47,12 +47,13 @@ export default function HomeAwards() {
 
           <div className="text-center lg:text-left">
             <SectionHeader
+            center
               eyebrow="Industry Recognition"
               title="Sri Lanka Tourism Awards 2024"
               description="We are honored to have been recognized for our contribution to destination promotion and community-based tourism initiatives."
             />
 
-            <div className="space-y-6 text-muted text-lg leading-relaxed mb-10">
+            <div className="space-y-6 text-muted text-lg leading-relaxed mb-10 text-center">
               <p>
                 <strong className="text-primary">
                   Special Recognition Award
@@ -78,7 +79,7 @@ export default function HomeAwards() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 justify-center">
               {certifications.map((cert, index) => {
                 const Icon = cert.icon;
                 return (

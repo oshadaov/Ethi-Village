@@ -87,7 +87,7 @@ export default function Activities() {
                 eyebrow="Experience Etili"
                 title="Your Gateway to Rejuvenation"
               />
-              <div className="space-y-6 text-muted text-lg leading-relaxed">
+              <div className="space-y-6 text-muted text-lg leading-relaxed text-center lg:text-left">
                 <p className="text-primary font-medium text-xl leading-relaxed">
                   Etili Village is a perfect spot for relaxation and rejuvenation.
                   Those who want to escape from the stressful urban life, we

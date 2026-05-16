@@ -89,15 +89,16 @@ export default function Contact() {
               ></iframe>
             </div>
 
-            <div className="lg:col-span-5 space-y-12">
+            <div className="lg:col-span-5 space-y-12 text-center">
               <SectionHeader
+                center
                 eyebrow="Location & Info"
                 title="Find Us & Connect"
                 description="ETILI Village is located in between Tissamaharama and Ella. It's a 15 minutes drive from Wellawaya town."
               />
 
-              <div className="space-y-6">
-                <h3 className="text-xl font-bold text-primary flex items-center gap-3">
+              <div className="space-y-6 ">
+                <h3 className="text-xl font-bold text-primary flex items-center justify-center gap-3">
                   <span className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
                     <Facebook size={20} />
                   </span>
@@ -107,7 +108,7 @@ export default function Contact() {
                   Find all the latest information, photos, reviews and more on
                   our social channels:
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 justify-center">
                   {[
                     {
                       label: "Facebook",

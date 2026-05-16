@@ -15,6 +15,7 @@ export default function ContactInfoPanel({
   return (
     <div className="space-y-12">
       <SectionHeader
+      center
         eyebrow="Get in Touch"
         title="Let’s Plan Something Meaningful"
         description="Whether you want a day experience, overnight stay, or custom village visit, we’ll guide you personally."

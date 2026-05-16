@@ -18,36 +18,34 @@ export default function Comments() {
       score: "5.0/5",
       count: "Excellent",
       url: import.meta.env.VITE_TRIPADVISOR_URL,
-      color: "bg-[#00af87]"
+      color: "bg-[#00af87]",
     },
     {
       name: "Google Reviews",
       score: "4.9/5",
       count: "150+ Reviews",
       url: import.meta.env.VITE_GOOGLE_REVIEWS_URL || "#",
-      color: "bg-[#4285F4]"
+      color: "bg-[#4285F4]",
     },
     {
       name: "Facebook",
       score: "Highly Rated",
       count: "100+ Recommendations",
       url: import.meta.env.VITE_FACEBOOK_URL,
-      color: "bg-[#1877F2]"
-    }
+      color: "bg-[#1877F2]",
+    },
   ];
 
   return (
     <main className="bg-bg">
       {/* Hero Section */}
-      <section
-        className="relative h-[50vh] flex items-center overflow-hidden"
-      >
-        <div 
+      <section className="relative h-[50vh] flex items-center overflow-hidden">
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${heroBackground}')` }}
         />
         <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]" />
-        
+
         <Container className="relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif drop-shadow-2xl">
             Guest Moments & Reviews
@@ -70,6 +68,7 @@ export default function Comments() {
             </p>
           </div>
           <SectionHeader
+            mobileCenter
             eyebrow="What People Say"
             title="Voices of Our Community"
             description="Explore our authentic reviews across global platforms."
@@ -77,16 +76,29 @@ export default function Comments() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {reviewPlatforms.map((platform, i) => (
-              <div key={i} className="bg-white p-10 rounded-[40px] shadow-premium border border-border/10 group hover:border-accent transition-all duration-500 transform hover:-translate-y-2">
-                <div className={`w-14 h-14 ${platform.color} rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-black/5`}>
+              <div
+                key={i}
+                className="bg-white p-10 rounded-[40px] shadow-premium border border-border/10 group hover:border-accent transition-all duration-500 transform hover:-translate-y-2"
+              >
+                <div
+                  className={`w-14 h-14 ${platform.color} rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-black/5`}
+                >
                   <ExternalLink className="text-white" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold text-primary mb-2">{platform.name}</h3>
+                <h3 className="text-2xl font-bold text-primary mb-2">
+                  {platform.name}
+                </h3>
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={16} className="fill-accent text-accent" />
+                    <Star
+                      key={i}
+                      size={16}
+                      className="fill-accent text-accent"
+                    />
                   ))}
-                  <span className="ml-2 text-primary font-bold">{platform.score}</span>
+                  <span className="ml-2 text-primary font-bold">
+                    {platform.score}
+                  </span>
                 </div>
                 <p className="text-muted text-sm mb-10 leading-relaxed font-medium">
                   {platform.count} from verified travelers and village visitors.
@@ -127,14 +139,19 @@ export default function Comments() {
                 title="Etili Village Experience Video"
               ></iframe>
             </div>
-            
+
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary rounded-full flex items-center justify-center shadow-xl z-20 border-4 border-white hidden md:flex">
               <Play className="text-accent text-5xl animate-pulse" />
             </div>
           </div>
-          
+
           <div className="text-center mt-20">
-            <Button href="https://www.youtube.com/@EtiliVillage" target="_blank" variant="secondary" className="!px-12">
+            <Button
+              href="https://www.youtube.com/@EtiliVillage"
+              target="_blank"
+              variant="secondary"
+              className="!px-12"
+            >
               Explore Our YouTube Channel
             </Button>
           </div>

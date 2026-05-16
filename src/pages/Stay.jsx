@@ -88,7 +88,7 @@ export default function Stay() {
           </div>
 
           <SectionHeader
-          center
+            center
             eyebrow="Accommodation"
             title="Simple, Unspoiled Surroundings"
             description="Our rooms are simple, yet regularly rated as one of the best guest-houses in Sri Lanka, thanks to the stunning scenery, delicious food, and authentic village vibes."
@@ -112,11 +112,12 @@ export default function Stay() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="lg:order-1 text-center lg:text-left">
               <SectionHeader
+              center
                 eyebrow="Food and Drink"
                 title="The Best Food in Sri Lanka"
                 description="Guests frequently comment that ETILI serves the most authentic and delicious food they tasted in Sri Lanka."
               />
-              <div className="space-y-6 text-muted leading-relaxed">
+              <div className="space-y-6 text-muted leading-relaxed text-center">
                 <p>
                   Most of our ingredients come from our own organic farm or
                   local village community. We make our own herbal tea, jams, and
