@@ -122,7 +122,7 @@ export default function Gallery() {
       <section className="py-24">
         <Container>
           <div className="relative z-10 mb-12 text-center">
-            <p className="mb-0 text-lg leading-relaxed text-black/90 md:text-xl">
+           <p className="max-w-4xl mx-auto text-xl italic font-light leading-relaxed text-black/90">
                Explore village life, traditional food, and peaceful stays through a visual journey shaped by authentic experiences.
           
             </p>
