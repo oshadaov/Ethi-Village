@@ -104,16 +104,16 @@ export default function Gallery() {
       {/* Hero Section */}
       <section className="relative h-[50vh] flex items-center overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-center bg-cover"
           style={{ backgroundImage: `url('${heroBackground}')` }}
         />
         <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]" />
         
         <Container className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg font-serif">
+          <h1 className="mb-6 font-serif text-4xl font-bold text-white md:text-6xl drop-shadow-lg">
             See the Spirit of Etili
           </h1>
-          {/* <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed italic font-light">
+          {/* <p className="max-w-3xl mx-auto text-xl italic font-light leading-relaxed text-white/90">
             Explore village life, traditional food, and peaceful stays through a visual journey shaped by authentic experiences.
           </p> */}
         </Container>
@@ -121,11 +121,10 @@ export default function Gallery() {
 
       <section className="py-24">
         <Container>
-          <div className="relative z-10 text-center mb-12">
-            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
-              Discover our authentic mud houses, tree houses, and glamping
-              units. Learn organic farming, enjoy local cuisine, and coexist
-              with nature in the heart of our mountain village.
+          <div className="relative z-10 mb-12 text-center">
+            <p className="mb-0 text-lg leading-relaxed text-black/90 md:text-xl">
+               Explore village life, traditional food, and peaceful stays through a visual journey shaped by authentic experiences.
+          
             </p>
           </div>
           <SectionHeader
@@ -150,8 +149,8 @@ export default function Gallery() {
 
             {loadingData ? (
               <div className="py-24 text-center">
-                <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-muted font-bold">Developing films...</p>
+                <div className="w-12 h-12 mx-auto mb-4 border-4 rounded-full border-primary border-t-transparent animate-spin" />
+                <p className="font-bold text-muted">Developing films...</p>
               </div>
             ) : (
               <GalleryGrid items={filteredItems} onOpen={handleOpenLightbox} />

@@ -41,16 +41,16 @@ export default function Comments() {
       {/* Hero Section */}
       <section className="relative h-[50vh] flex items-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-center bg-cover"
           style={{ backgroundImage: `url('${heroBackground}')` }}
         />
         <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]" />
 
         <Container className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif drop-shadow-2xl">
+          <h1 className="mb-6 font-serif text-4xl font-bold text-white md:text-6xl drop-shadow-2xl">
             Guest Moments & Reviews
           </h1>
-          {/* <p className="text-white/90 text-xl max-w-4xl mx-auto leading-relaxed italic font-light">
+          {/* <p className="max-w-4xl mx-auto text-xl italic font-light leading-relaxed text-white/90">
             Etili village has been honoured by the consistently superlative
             reviews we receive from guests and visitors worldwide.
           </p> */}
@@ -60,21 +60,20 @@ export default function Comments() {
       {/* Reviews Grid */}
       <section className="py-24">
         <Container>
-          <div className="relative z-10 text-center mb-12">
-            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
-              Discover our authentic mud houses, tree houses, and glamping
-              units. Learn organic farming, enjoy local cuisine, and coexist
-              with nature in the heart of our mountain village.
+          <div className="relative z-10 mb-12 text-center">
+           <p className="max-w-4xl mx-auto text-xl italic font-light leading-relaxed text-black/90">
+               Etili village has been honoured by the consistently superlative
+            reviews we receive from guests and visitors worldwide.
             </p>
           </div>
           <SectionHeader
-            mobileCenter
+            center
             eyebrow="What People Say"
             title="Voices of Our Community"
             description="Explore our authentic reviews across global platforms."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <div className="grid grid-cols-1 gap-8 mt-12 md:grid-cols-3">
             {reviewPlatforms.map((platform, i) => (
               <div
                 key={i}
@@ -85,7 +84,7 @@ export default function Comments() {
                 >
                   <ExternalLink className="text-white" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold text-primary mb-2">
+                <h3 className="mb-2 text-2xl font-bold text-primary">
                   {platform.name}
                 </h3>
                 <div className="flex items-center gap-1 mb-4">
@@ -96,18 +95,18 @@ export default function Comments() {
                       className="fill-accent text-accent"
                     />
                   ))}
-                  <span className="ml-2 text-primary font-bold">
+                  <span className="ml-2 font-bold text-primary">
                     {platform.score}
                   </span>
                 </div>
-                <p className="text-muted text-sm mb-10 leading-relaxed font-medium">
+                <p className="mb-10 text-sm font-medium leading-relaxed text-muted">
                   {platform.count} from verified travelers and village visitors.
                 </p>
                 <a
                   href={platform.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest hover:text-accent transition-colors border-b-2 border-accent pb-1"
+                  className="inline-flex items-center gap-2 pb-1 text-sm font-bold tracking-widest uppercase transition-colors border-b-2 text-primary hover:text-accent border-accent"
                 >
                   Read Full Reviews
                 </a>
@@ -140,12 +139,12 @@ export default function Comments() {
               ></iframe>
             </div>
 
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary rounded-full flex items-center justify-center shadow-xl z-20 border-4 border-white hidden md:flex">
-              <Play className="text-accent text-5xl animate-pulse" />
+            <div className="absolute z-20 flex items-center justify-center hidden w-32 h-32 border-4 border-white rounded-full shadow-xl -bottom-6 -right-6 bg-primary md:flex">
+              <Play className="text-5xl text-accent animate-pulse" />
             </div>
           </div>
 
-          <div className="text-center mt-20">
+          <div className="mt-20 text-center">
             <Button
               href="https://www.youtube.com/@EtiliVillage"
               target="_blank"

@@ -64,13 +64,13 @@ export default function Stay() {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-1000"
+          className="absolute inset-0 transition-transform duration-1000 bg-center bg-cover"
           style={{ backgroundImage: `url('${heroBackground}')` }}
         />
         <div className="absolute inset-0 bg-primary/40 backdrop-blur-[1px]" />
 
         <Container className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="mb-6 text-4xl font-bold leading-tight text-white md:text-6xl">
             Stay & Experience Etili
           </h1>
         </Container>
@@ -79,8 +79,8 @@ export default function Stay() {
       {/* ACCOMMODATION SECTION */}
       <section id="accommodation" className="py-24">
         <Container>
-          <div className="relative z-10 text-center mb-12">
-            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0 ">
+          <div className="relative z-10 mb-12 text-center">
+            <p className="max-w-4xl mx-auto text-xl italic font-light leading-relaxed text-black/90">
               Discover our authentic mud houses, tree houses, and glamping
               units. Learn organic farming, enjoy local cuisine, and coexist
               with nature in the heart of our mountain village.
@@ -94,9 +94,9 @@ export default function Stay() {
             description="Our rooms are simple, yet regularly rated as one of the best guest-houses in Sri Lanka, thanks to the stunning scenery, delicious food, and authentic village vibes."
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {loadingData ? (
-              <div className="col-span-full py-12 text-center text-muted">
+              <div className="py-12 text-center col-span-full text-muted">
                 Loading accommodation...
               </div>
             ) : (
@@ -109,15 +109,15 @@ export default function Stay() {
       {/* FOOD AND DRINK SECTION */}
       <section id="food" className="py-24 bg-white">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="lg:order-1 text-center lg:text-left">
+          <div className="grid items-center grid-cols-1 gap-16 lg:grid-cols-2">
+            <div className="text-center lg:order-1 lg:text-left">
               <SectionHeader
               center
                 eyebrow="Food and Drink"
                 title="The Best Food in Sri Lanka"
                 description="Guests frequently comment that ETILI serves the most authentic and delicious food they tasted in Sri Lanka."
               />
-              <div className="space-y-6 text-muted leading-relaxed text-center">
+              <div className="space-y-6 leading-relaxed text-center text-muted">
                 <p>
                   Most of our ingredients come from our own organic farm or
                   local village community. We make our own herbal tea, jams, and
@@ -128,7 +128,7 @@ export default function Stay() {
                   roti, hoppers, or Milk Rice for breakfast, and delicious
                   village-style curries for lunch and dinner.
                 </p>
-                <div className="p-6 bg-bg rounded-2xl border-l-4 border-accent italic">
+                <div className="p-6 italic border-l-4 bg-bg rounded-2xl border-accent">
                   "Guests can always chat with the chefs and customize their
                   meal choices. We also offer cooking classes at ETILI Kitchen."
                 </div>
@@ -163,9 +163,9 @@ export default function Stay() {
             description="Etili Village is a perfect spot for relaxation and rejuvenation, or an adventurous escape."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {loadingData ? (
-              <div className="col-span-full py-12 text-center text-muted">
+              <div className="py-12 text-center col-span-full text-muted">
                 Loading activities...
               </div>
             ) : (
@@ -174,7 +174,7 @@ export default function Stay() {
                 .map((exp) => <ExperienceCard key={exp.id} experience={exp} />)
             )}
           </div>
-          <div className="text-center mt-12">
+          <div className="mt-12 text-center">
             <Button to="/activities" variant="secondary">
               View All Activities
             </Button>

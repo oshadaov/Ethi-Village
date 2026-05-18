@@ -24,16 +24,16 @@ export default function Impact() {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-center bg-cover"
           style={{ backgroundImage: `url('${heroBackground}')` }}
         />
         <div className="absolute inset-0 bg-primary/50 backdrop-blur-[2px]" />
 
         <Container className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight font-serif drop-shadow-2xl">
+          <h1 className="mb-6 font-serif text-4xl font-bold leading-tight text-white md:text-6xl drop-shadow-2xl">
             Community & Environment First
           </h1>
-          {/* <p className="text-white/90 text-xl max-w-4xl mx-auto leading-relaxed italic font-light">
+          {/* <p className="max-w-4xl mx-auto text-xl italic font-light leading-relaxed text-white/90">
             Despite its scenic charm, Uva Province ranks as one of the least developed regions in Sri Lanka. Through tourism, we generate economic opportunities and promote environmental restoration.
           </p> */}
         </Container>
@@ -42,14 +42,12 @@ export default function Impact() {
       {/* Community Section */}
       <section id="community" className="py-24">
         <Container>
-          <div className="relative z-10 text-center mb-12">
-            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
-              Discover our authentic mud houses, tree houses, and glamping
-              units. Learn organic farming, enjoy local cuisine, and coexist
-              with nature in the heart of our mountain village.
-            </p>
+          <div className="relative z-10 mb-12 text-center">
+           <p className="max-w-4xl mx-auto text-xl italic font-light leading-relaxed text-black/90">
+            Despite its scenic charm, Uva Province ranks as one of the least developed regions in Sri Lanka. Through tourism, we generate economic opportunities and promote environmental restoration.
+          </p> 
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid items-center grid-cols-1 gap-16 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
               <SectionHeader
                 center
@@ -57,14 +55,14 @@ export default function Impact() {
                 title="Enhancing Local Livelihoods"
                 description="Our primary mission is to create and increase economic opportunities for the people of Etili village, through welcoming tourists and developing higher value tourism products."
               />
-              <p className="text-muted text-lg mb-8 leading-relaxed text-center ">
+              <p className="mb-8 text-lg leading-relaxed text-center text-muted ">
                 As a business, we create jobs, raise incomes and, as far as
                 possible, source our goods and services from within the local
                 community. We also support a number of initiatives to improve
                 livelihoods in the village.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 {[
                   {
                     icon: GraduationCap,
@@ -89,16 +87,16 @@ export default function Impact() {
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="bg-white p-6 rounded-3xl shadow-premium border border-border/10 group hover:border-accent transition-all"
+                    className="p-6 transition-all bg-white border rounded-3xl shadow-premium border-border/10 group hover:border-accent"
                   >
                     <item.icon
-                      className="text-accent mb-4 group-hover:scale-110 transition-transform"
+                      className="mb-4 transition-transform text-accent group-hover:scale-110"
                       size={32}
                     />
-                    <h4 className="font-bold text-primary mb-2 uppercase tracking-widest text-xs">
+                    <h4 className="mb-2 text-xs font-bold tracking-widest uppercase text-primary">
                       {item.title}
                     </h4>
-                    <p className="text-muted text-sm leading-relaxed">
+                    <p className="text-sm leading-relaxed text-muted">
                       {item.desc}
                     </p>
                   </div>
@@ -129,7 +127,7 @@ export default function Impact() {
       {/* Environment Section */}
       <section id="environment" className="py-24 bg-primary/5">
         <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid items-center grid-cols-1 gap-16 lg:grid-cols-2">
             <div className="relative">
               <div className="absolute -inset-4 bg-primary/20 rounded-[40px] blur-2xl opacity-50" />
               <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-white transform hover:-rotate-1 transition-transform duration-500">
@@ -151,7 +149,7 @@ export default function Impact() {
                 title="Safeguarding Habitats"
                 description="ETILI's fundamental goal is to safeguard and restore the environment and wildlife habitats within and surrounding the village."
               />
-              <p className="text-muted text-lg mb-8 leading-relaxed text-center">
+              <p className="mb-8 text-lg leading-relaxed text-center text-muted">
                 In various regions of Sri Lanka, deforestation, poor land
                 management, and the overuse of agro-chemicals are contributing
                 to erosion, flooding, loss of habitats, and increase of
@@ -174,19 +172,19 @@ export default function Impact() {
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="flex gap-6 p-8 bg-white rounded-3xl shadow-premium border border-border/5 group hover:shadow-premium-hover transition-all"
+                    className="flex gap-6 p-8 transition-all bg-white border rounded-3xl shadow-premium border-border/5 group hover:shadow-premium-hover"
                   >
-                    <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent transition-colors">
+                    <div className="flex items-center justify-center transition-colors w-14 h-14 rounded-2xl bg-accent/10 shrink-0 group-hover:bg-accent">
                       <item.icon
-                        className="text-accent group-hover:text-white transition-colors"
+                        className="transition-colors text-accent group-hover:text-white"
                         size={28}
                       />
                     </div>
                     <div>
-                      <h4 className="font-bold text-primary mb-2 text-xl">
+                      <h4 className="mb-2 text-xl font-bold text-primary">
                         {item.title}
                       </h4>
-                      <p className="text-muted leading-relaxed">{item.desc}</p>
+                      <p className="leading-relaxed text-muted">{item.desc}</p>
                     </div>
                   </div>
                 ))}

@@ -38,16 +38,16 @@ export default function Blog() {
         className="relative h-[50vh] flex items-center overflow-hidden"
       >
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-center bg-cover"
           style={{ backgroundImage: `url('${heroBackground}')` }}
         />
         <div className="absolute inset-0 bg-primary/40 backdrop-blur-[2px]" />
         
         <Container className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif drop-shadow-2xl">
+          <h1 className="mb-6 font-serif text-4xl font-bold text-white md:text-6xl drop-shadow-2xl">
             Etili Journals
           </h1>
-          {/* <p className="text-white/90 text-xl max-w-4xl mx-auto leading-relaxed italic font-light">
+          {/* <p className="max-w-4xl mx-auto text-xl italic font-light leading-relaxed text-white/90">
             Stories from the village, wildlife encounters, cultural heritage, and our journey towards sustainable tourism.
           </p> */}
         </Container>
@@ -55,11 +55,9 @@ export default function Blog() {
 
       <section className="py-24">
         <Container>
-          <div className="relative z-10 text-center mb-12">
-            <p className="text-black/90 text-lg md:text-xl leading-relaxed mb-0">
-              Discover our authentic mud houses, tree houses, and glamping
-              units. Learn organic farming, enjoy local cuisine, and coexist
-              with nature in the heart of our mountain village.
+          <div className="relative z-10 mb-12 text-center">
+            <p className="max-w-4xl mx-auto text-xl italic font-light leading-relaxed text-black/90">
+               Stories from the village, wildlife encounters, cultural heritage, and our journey towards sustainable tourism.
             </p>
           </div>
           <SectionHeader
@@ -71,24 +69,24 @@ export default function Blog() {
 
           {loading ? (
             <div className="py-24 text-center">
-              <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-muted font-bold tracking-widest uppercase text-xs">Fetching journals...</p>
+              <div className="w-12 h-12 mx-auto mb-4 border-4 rounded-full border-primary border-t-transparent animate-spin" />
+              <p className="text-xs font-bold tracking-widest uppercase text-muted">Fetching journals...</p>
             </div>
           ) : blogs.length === 0 ? (
             <div className="max-w-2xl mx-auto mt-20 p-16 bg-white rounded-[40px] shadow-premium border border-border/10 text-center">
-              <div className="text-6xl mb-6">🚧</div>
-              <h2 className="text-2xl font-bold text-primary mb-4">Blog is under construction</h2>
-              <p className="text-muted leading-relaxed">We are currently writing our first amazing stories. Please check back soon!</p>
+              <div className="mb-6 text-6xl">🚧</div>
+              <h2 className="mb-4 text-2xl font-bold text-primary">Blog is under construction</h2>
+              <p className="leading-relaxed text-muted">We are currently writing our first amazing stories. Please check back soon!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+            <div className="grid grid-cols-1 gap-8 mt-12 md:grid-cols-2 lg:grid-cols-3">
               {blogs.map((blog) => (
                 <article key={blog.id} className="group bg-white rounded-[32px] overflow-hidden shadow-premium hover:shadow-premium-hover transition-all duration-500 transform hover:-translate-y-2 border border-border/5">
-                  <Link to={`/blog/${blog.slug}`} className="block relative h-64 overflow-hidden">
+                  <Link to={`/blog/${blog.slug}`} className="relative block h-64 overflow-hidden">
                     <img 
                       src={blog.imageUrl || (!imagesLoading && images[blog.imageKey] ? images[blog.imageKey] : "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=600&q=80")} 
                       alt={blog.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="px-4 py-1.5 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold text-primary uppercase tracking-widest shadow-sm">
@@ -109,15 +107,15 @@ export default function Blog() {
                       </span>
                     </div>
                     
-                    <h3 className="text-2xl font-bold text-primary mb-4 leading-tight group-hover:text-accent transition-colors">
+                    <h3 className="mb-4 text-2xl font-bold leading-tight transition-colors text-primary group-hover:text-accent">
                       <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
                     </h3>
                     
-                    <p className="text-muted text-sm leading-relaxed mb-8 line-clamp-3">
+                    <p className="mb-8 text-sm leading-relaxed text-muted line-clamp-3">
                       {blog.shortDescription}
                     </p>
                     
-                    <Link to={`/blog/${blog.slug}`} className="inline-flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest group-hover:gap-4 transition-all">
+                    <Link to={`/blog/${blog.slug}`} className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-all text-primary group-hover:gap-4">
                       Read Article <ArrowRight size={16} className="text-accent" />
                     </Link>
                   </div>
